@@ -1,7 +1,12 @@
 <!--
 Sync Impact Report
-- Version change: [TEMPLATE] → 1.0.0 (initial ratification)
-- Modified principles: n/a (first concrete adoption of the template)
+- Version change: 1.0.0 → 1.1.0 (materially expanded Technical Constraints: brand color palette)
+- Modified principles: none (no principle renamed, removed, or redefined)
+- Added sections: none (added guidance within existing "Technical Constraints" section)
+- Removed sections: none
+- Deferred items: none
+
+Prior report (1.0.0, initial ratification):
 - Added sections:
   - Core Principles: I. Authentic Professional Representation
   - Core Principles: II. Bilingual Parity (NON-NEGOTIABLE)
@@ -101,6 +106,14 @@ undated content weakens credibility and creates ambiguity about currency and aut
 - No tracking or third-party embeds that compromise visitor privacy may be added without the
   owner's explicit approval, since this is a professional site representing the owner's
   judgment.
+- Brand palette ("Warm Blue and Green"), chosen by the owner to give the site a consistent
+  identity: the site's visual design MUST draw its primary, secondary, and accent colors from
+  this set — Primary Blue `#454DBF`, Secondary Blue `#90B4D4`, Secondary Green `#BFCF74`,
+  Primary Green `#88AB4D`. Neutrals (white/black/grays) MAY be used alongside the palette for
+  backgrounds, text, and structural elements where needed for legibility. Any use of these
+  colors for text or interactive elements MUST still satisfy Principle IV's contrast and
+  accessibility requirements — a palette color that fails contrast in a given context MUST be
+  paired with a neutral or adjusted rather than used as-is.
 
 ## Content & Development Workflow
 
@@ -130,4 +143,4 @@ Amendments to this constitution are made by editing this file directly (typicall
 Each amendment MUST update `LAST_AMENDED_DATE` below and record its rationale in a Sync Impact
 Report comment at the top of this file at the time of the amendment.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-22 | **Last Amended**: 2026-09-22
+**Version**: 1.1.0 | **Ratified**: 2026-09-22 | **Last Amended**: 2026-09-22

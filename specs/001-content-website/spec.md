@@ -8,6 +8,12 @@
 
 **Input**: User description: "I want to build a content based website with the following pages: Home, About, Contact, Blog, Photos, Sales, Easter Egg. All pages share a header and footer. The site has a navigation menu that collapses into a hamburger menu when it can't fit, and the two menus are never shown at once. Sales and Easter Egg must not appear in navigation or be linked from other pages, and must not be crawled/indexed — reachable only by direct URL. Placeholder tags are used for text that must be replaced manually. Home has a welcome banner, an About section (text + placeholder photo of David Cadavid, text/image sides swap between desktop and mobile), and a Contact section (friendly intro paragraph, icon links to LinkedIn/GitHub/YouTube, and a mailto 'email' button to contact@davidcadavid.com). Blog shows a paginated list of posts (title + first 2-3 lines, alternating colors, configurable page size, 'Load More' button, bread-oven loading animation when empty). Photos shows a grid of albums (cover + title) that open to a photo list, with a click-to-enlarge modal. Sales is a password-protected (front-end only) catalog of items (name, price, optional description, photo carousel with enlarge) using the same Load More pagination as Blog. Easter Egg can start empty and will later hold funny images/text."
 
+**Amendment (2026-09-22)**: Updated per constitution v1.1.0, which added a ratified brand color
+palette ("Warm Blue and Green": Primary Blue `#454DBF`, Secondary Blue `#90B4D4`, Secondary
+Green `#BFCF74`, Primary Green `#88AB4D`) to the project's Technical Constraints. Added FR-009,
+SC-008, and a supporting assumption to require this feature's visual design to draw from that
+palette; renumbered FR-009 through FR-031 to FR-010 through FR-032 accordingly.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Learn about David and get in touch (Priority: P1)
@@ -199,70 +205,76 @@ from search indexing — regardless of whether any other page exists yet.
 - **FR-008**: Consistent with the project constitution, every page in this feature MUST be
   presented in English (default) and Spanish, with a visible, working control for switching
   between them.
+- **FR-009**: The site's visual design (backgrounds, buttons, links, headers, footers, and
+  other accents) MUST use the project's ratified brand palette — Primary Blue `#454DBF`,
+  Secondary Blue `#90B4D4`, Secondary Green `#BFCF74`, Primary Green `#88AB4D` — rather than
+  arbitrary colors, with neutrals (white/black/grays) used alongside it for text and
+  backgrounds wherever a palette color would not meet accessibility contrast requirements.
 
 **Home page**
 
-- **FR-009**: The Home page MUST display a welcoming banner section with introductory text
+- **FR-010**: The Home page MUST display a welcoming banner section with introductory text
   (e.g., "Welcome to my site").
-- **FR-010**: The Home page MUST display an About section containing one or more short
+- **FR-011**: The Home page MUST display an About section containing one or more short
   paragraphs of biography text alongside a photo of David Cadavid (placeholder text and image
   acceptable).
-- **FR-011**: On desktop-width viewports, the About section MUST place the text to the left and
+- **FR-012**: On desktop-width viewports, the About section MUST place the text to the left and
   the photo to the right; on mobile-width viewports, the photo MUST appear above the text.
-- **FR-012**: The Home page MUST display a Contact section that opens with a short paragraph,
+- **FR-013**: The Home page MUST display a Contact section that opens with a short paragraph,
   written in a kind and friendly tone, inviting the visitor to get in touch.
-- **FR-013**: The Contact section MUST include icon links to LinkedIn (username
+- **FR-014**: The Contact section MUST include icon links to LinkedIn (username
   `cadaviddavid`), GitHub (username `iamdavidcadavid`), and YouTube (username
   `iamdavidcadavid`).
-- **FR-014**: The Contact section MUST include a button labeled "email" that opens the
+- **FR-015**: The Contact section MUST include a button labeled "email" that opens the
   visitor's default email application with a new message addressed to
   `contact@davidcadavid.com`.
-- **FR-015**: The site's "About" and "Contact" navigation entries MUST bring the visitor to
+- **FR-016**: The site's "About" and "Contact" navigation entries MUST bring the visitor to
   this same About/Contact content on the Home page.
 
 **Blog page**
 
-- **FR-016**: The Blog page MUST display a list of blog post entries, each showing its title
+- **FR-017**: The Blog page MUST display a list of blog post entries, each showing its title
   and the first two to three lines of its text.
-- **FR-017**: The Blog page MUST initially display up to a configurable number of posts, with a
+- **FR-018**: The Blog page MUST initially display up to a configurable number of posts, with a
   default of 5.
-- **FR-018**: While additional posts remain beyond what is currently shown, the Blog page MUST
+- **FR-019**: While additional posts remain beyond what is currently shown, the Blog page MUST
   display a "Load More" control.
-- **FR-019**: Activating "Load More" MUST append the next batch of posts, using the same
+- **FR-020**: Activating "Load More" MUST append the next batch of posts, using the same
   configured count as the initial page size.
-- **FR-020**: Once all available posts have been loaded, the "Load More" control MUST no longer
+- **FR-021**: Once all available posts have been loaded, the "Load More" control MUST no longer
   be displayed.
-- **FR-021**: When there are no blog posts to show, the Blog page MUST display a bread-oven
+- **FR-022**: When there are no blog posts to show, the Blog page MUST display a bread-oven
   themed loading animation instead of an empty list.
-- **FR-022**: Adjacent entries in the blog list MUST alternate between two distinct visual
-  treatments so consecutive posts are visually distinguishable.
+- **FR-023**: Adjacent entries in the blog list MUST alternate between two distinct visual
+  treatments, drawn from the brand palette (FR-009), so consecutive posts are visually
+  distinguishable.
 
 **Photos page**
 
-- **FR-023**: The Photos page MUST display a grid of photo albums, each showing a cover image
+- **FR-024**: The Photos page MUST display a grid of photo albums, each showing a cover image
   and the album's title.
-- **FR-024**: Selecting an album MUST display the list of photos contained within it.
-- **FR-025**: Selecting a photo within an open album MUST display that photo enlarged in a
+- **FR-025**: Selecting an album MUST display the list of photos contained within it.
+- **FR-026**: Selecting a photo within an open album MUST display that photo enlarged in a
   modal overlay.
 
 **Sales page (hidden)**
 
-- **FR-026**: The Sales page MUST require a visitor to enter a password before any item
+- **FR-027**: The Sales page MUST require a visitor to enter a password before any item
   content (names, prices, descriptions, photos) is shown.
-- **FR-027**: The password required to unlock the Sales page MUST be configurable by the site
+- **FR-028**: The password required to unlock the Sales page MUST be configurable by the site
   owner directly within the page's own source/configuration, and validated entirely in the
   browser (no server-side component).
-- **FR-028**: Each item on the Sales page MUST display a name, a price, an optional
+- **FR-029**: Each item on the Sales page MUST display a name, a price, an optional
   description, and one or more photos.
-- **FR-029**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
+- **FR-030**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
   when clicked.
-- **FR-030**: The Sales item list MUST use the same progressive loading behavior as the Blog
+- **FR-031**: The Sales item list MUST use the same progressive loading behavior as the Blog
   list: a configurable initial count, a "Load More" control that appends the same-size batch,
   and no "Load More" control once every item has been loaded.
 
 **Easter Egg page (hidden)**
 
-- **FR-031**: The Easter Egg page MUST exist as a working, directly reachable page that loads
+- **FR-032**: The Easter Egg page MUST exist as a working, directly reachable page that loads
   successfully even before any real content has been added to it.
 
 ### Key Entities
@@ -301,6 +313,9 @@ from search indexing — regardless of whether any other page exists yet.
   size in no more than 2 clicks (album, then photo).
 - **SC-007**: Every page covered by this feature renders correctly in both English and Spanish,
   with a visible control that lets a visitor switch between them from any page.
+- **SC-008**: Every page's colors (backgrounds, buttons, links, and accents) are drawn from the
+  ratified brand palette, and every text/interactive element using a palette color meets
+  standard accessibility contrast thresholds against its background.
 
 ## Assumptions
 
@@ -330,3 +345,10 @@ from search indexing — regardless of whether any other page exists yet.
   entries) — no requirement is made for large-scale catalog performance.
 - The Easter Egg page needs no functional requirements beyond existing and being reachable; its
   eventual content (images, in-jokes) is explicitly deferred to a future update.
+- The constitution's brand palette (Primary Blue `#454DBF`, Secondary Blue `#90B4D4`, Secondary
+  Green `#BFCF74`, Primary Green `#88AB4D`) defines the allowed colors, but which specific
+  color plays which role (e.g., primary button vs. link vs. alternating blog-item background)
+  is a visual-design decision left to the planning/implementation phase, provided every choice
+  stays within the palette and satisfies contrast requirements — lighter palette colors such as
+  `#BFCF74` are expected to need a neutral pairing when used for text rather than being used as
+  standalone body-text color.

@@ -35,3 +35,7 @@
 - No [NEEDS CLARIFICATION] markers were needed: every open question in the source description
   had a reasonable, low-risk default (documented in the Assumptions section of spec.md) rather
   than a scope-defining ambiguity with no safe default.
+- **2026-09-22 revalidation**: Re-checked after adding FR-009 (brand palette), SC-008, and a
+  supporting Assumption, to reflect constitution v1.1.0. All items still pass — the new
+  requirement is testable (colors drawn from a fixed, named set) and technology-agnostic in the
+  success criteria (references contrast/accessibility outcomes, not implementation).
