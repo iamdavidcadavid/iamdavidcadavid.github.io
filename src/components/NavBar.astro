@@ -5,8 +5,7 @@ const locale = Astro.currentLocale ?? 'en';
 
 const links = [
   { label: 'Home', href: getRelativeLocaleUrl(locale, '/') },
-  { label: 'About', href: `${getRelativeLocaleUrl(locale, '/')}#about` },
-  { label: 'Contact', href: `${getRelativeLocaleUrl(locale, '/')}#contact` },
+  { label: 'Contact', href: getRelativeLocaleUrl(locale, '/contact/') },
   { label: 'Blog', href: getRelativeLocaleUrl(locale, '/blog/') },
   { label: 'Photos', href: getRelativeLocaleUrl(locale, '/photos/') },
 ];
@@ -119,10 +118,11 @@ const links = [
       padding: 0.5rem 0;
     }
 
-    .navbar {
-      position: relative;
-      width: 100%;
-      justify-content: flex-end;
-    }
+    /* No .navbar position/width/justify-content override here (see
+       002-layout-nav-refresh research.md §2): .navbar keeps its natural
+       (hamburger-button) width so the button sits at the header's true left
+       edge; .nav-menu's left:0;right:0 above then resolves against the
+       ancestor .site-header (position: sticky), which spans the full header
+       width, so the opened dropdown still stretches edge to edge. */
   }
 </style>

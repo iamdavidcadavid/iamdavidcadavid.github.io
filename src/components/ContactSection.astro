@@ -1,16 +1,19 @@
 ---
-import { contactLinks, contactLinkUrl, contactEmail, type ContactPlatform } from '../config/site';
+import { contactLinks, contactLinkUrl, type ContactPlatform } from '../config/site';
+import contactPhoto from '../assets/placeholders/contact-photo.svg';
 
-const initials: Record<ContactPlatform, string> = {
+// LinkedIn's "in" text mark is left as-is — it already matches LinkedIn's own
+// real-world icon (research.md §6). GitHub/YouTube/email all get inline-SVG
+// marks instead of text-initial placeholders.
+const initials: Partial<Record<ContactPlatform, string>> = {
   linkedin: 'in',
-  github: 'gh',
-  youtube: '▶',
 };
 
 const platformLabels: Record<ContactPlatform, string> = {
   linkedin: 'LinkedIn',
   github: 'GitHub',
   youtube: 'YouTube',
+  email: 'Email',
 };
 
 const locale = Astro.currentLocale ?? 'en';
@@ -21,41 +24,98 @@ const introCopy = {
 } as const;
 
 const intro = introCopy[locale as 'en' | 'es'] ?? introCopy.en;
-// FR-017 pins this button's label to the literal word "email" in both
-// languages (not translated), same as the platform names below it.
 ---
 
-<section id="contact" class="contact">
-  <p class="intro">{intro}</p>
-  <ul class="links">
-    {
-      contactLinks.map((link) => (
-        <li>
-          <a
-            class="icon-link"
-            href={contactLinkUrl(link)}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={platformLabels[link.platform]}
-          >
-            <span class="icon" aria-hidden="true">
-              {initials[link.platform]}
-            </span>
-            <span class="platform-label">{platformLabels[link.platform]}</span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-  <a class="email-button" href={`mailto:${contactEmail}`}>email</a>
+<section class="contact">
+  <div class="contact-text">
+    <p class="intro">{intro}</p>
+    <ul class="links">
+      {
+        contactLinks.map((link) => {
+          const isExternal = link.platform !== 'email';
+          return (
+            <li>
+              <a
+                class="icon-link"
+                href={contactLinkUrl(link)}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                aria-label={platformLabels[link.platform]}
+              >
+                <span class="icon" aria-hidden="true">
+                  {link.platform === 'email' && (
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="M2 6l10 7 10-7" />
+                    </svg>
+                  )}
+                  {link.platform === 'github' && (
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z" />
+                    </svg>
+                  )}
+                  {link.platform === 'youtube' && (
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="5" width="20" height="14" rx="4" />
+                      <path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" />
+                    </svg>
+                  )}
+                  {initials[link.platform]}
+                </span>
+                <span class="platform-label">{platformLabels[link.platform]}</span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+  <div class="contact-photo">
+    <img
+      src={contactPhoto.src}
+      width={contactPhoto.width}
+      height={contactPhoto.height}
+      alt="Placeholder contact image"
+    />
+  </div>
 </section>
 
 <style>
   .contact {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2rem;
     max-width: 960px;
     margin: 0 auto;
     padding: 3rem 1.5rem;
+    align-items: center;
     text-align: center;
+  }
+
+  .contact-text {
+    flex: 1;
+  }
+
+  .contact-photo {
+    flex: 0 0 auto;
+    width: 200px;
+  }
+
+  .contact-photo img {
+    border-radius: 12px;
+  }
+
+  /* Desktop (≥768px): text left, photo right — same responsive pattern as
+     AboutSection (002-layout-nav-refresh, research.md §5). */
+  @media (min-width: 768px) {
+    .contact {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .contact-photo {
+      width: 280px;
+    }
   }
 
   .intro {
@@ -104,20 +164,5 @@ const intro = introCopy[locale as 'en' | 'es'] ?? introCopy.en;
 
   .platform-label {
     font-size: 0.85rem;
-  }
-
-  .email-button {
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    background: var(--color-primary-green);
-    color: var(--color-neutral-900);
-    text-decoration: none;
-    border-radius: 999px;
-    font-weight: 700;
-  }
-
-  .email-button:hover {
-    background: var(--color-primary-blue);
-    color: var(--color-white);
   }
 </style>

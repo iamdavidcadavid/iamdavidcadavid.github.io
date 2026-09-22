@@ -16,6 +16,14 @@ interface Props {
 
 const { title, noindex = false, hideLanguageSwitch = false } = Astro.props;
 const locale = Astro.currentLocale ?? 'en';
+
+// Footer quote (002-layout-nav-refresh FR-011) — branched by locale so it
+// doesn't ship English-only on Spanish pages (research.md §7).
+const footerQuoteCopy = {
+  en: 'All we have to decide is what to do with the time that is given us',
+  es: 'Lo único que podemos decidir es qué hacer con el tiempo que se nos ha dado',
+} as const;
+const footerQuote = footerQuoteCopy[locale as 'en' | 'es'] ?? footerQuoteCopy.en;
 ---
 
 <html lang={locale}>
@@ -27,27 +35,39 @@ const locale = Astro.currentLocale ?? 'en';
   </head>
   <body>
     <header class="site-header">
-      <NavBar />
-      {!hideLanguageSwitch && <LanguageSwitch />}
+      <div class="site-header-inner site-container">
+        <NavBar />
+        {!hideLanguageSwitch && <LanguageSwitch />}
+      </div>
     </header>
     <main>
       <slot />
     </main>
     <footer class="site-footer">
       <p>&copy; {new Date().getFullYear()} David Cadavid</p>
+      <p class="footer-quote">"{footerQuote}" — Gandalf</p>
     </footer>
   </body>
 </html>
 
 <style>
+  /* position: sticky (not the old flex/padding rule — that moved to
+     .site-header-inner below) keeps the header visible while scrolling
+     (002-layout-nav-refresh FR-003; research.md §2). z-index stays below
+     modals'/gates' z-index: 100. */
   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-neutral-200);
+  }
+
+  .site-header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: var(--color-white);
-    border-bottom: 1px solid var(--color-neutral-200);
   }
 
   .site-footer {
@@ -56,6 +76,16 @@ const locale = Astro.currentLocale ?? 'en';
     color: var(--color-neutral-700);
     background: var(--color-neutral-100);
     margin-top: 3rem;
+  }
+
+  .site-footer p {
+    margin: 0;
+  }
+
+  .footer-quote {
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-size: 0.9rem;
   }
 
   main {

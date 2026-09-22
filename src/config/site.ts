@@ -5,20 +5,22 @@ export const salesPageSize = 5;
 // JS bundle. The site owner should replace this placeholder before publishing.
 export const salesPassword = 'changeme';
 
-export type ContactPlatform = 'linkedin' | 'github' | 'youtube';
+export type ContactPlatform = 'linkedin' | 'github' | 'youtube' | 'email';
 
 export interface ContactLink {
   platform: ContactPlatform;
+  // For 'email', this holds the address itself rather than a handle.
   username: string;
 }
+
+export const contactEmail = 'contact@davidcadavid.com';
 
 export const contactLinks: ContactLink[] = [
   { platform: 'linkedin', username: 'cadaviddavid' },
   { platform: 'github', username: 'iamdavidcadavid' },
   { platform: 'youtube', username: 'iamdavidcadavid' },
+  { platform: 'email', username: contactEmail },
 ];
-
-export const contactEmail = 'contact@davidcadavid.com';
 
 export function contactLinkUrl(link: ContactLink): string {
   switch (link.platform) {
@@ -28,5 +30,7 @@ export function contactLinkUrl(link: ContactLink): string {
       return `https://github.com/${link.username}`;
     case 'youtube':
       return `https://www.youtube.com/@${link.username}`;
+    case 'email':
+      return `mailto:${link.username}`;
   }
 }

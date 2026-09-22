@@ -17,7 +17,7 @@ const copy = {
 const paragraphs = copy[locale as 'en' | 'es'] ?? copy.en;
 ---
 
-<section id="about" class="about">
+<section class="about">
   <div class="about-text">
     {paragraphs.map((p) => <p>{p}</p>)}
   </div>

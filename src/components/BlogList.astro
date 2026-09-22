@@ -106,17 +106,27 @@ const loadMoreLabel = locale === 'en' ? 'Load More' : 'Cargar más';
 </script>
 
 <style>
+  /* Two-column grid (002-layout-nav-refresh FR-012/FR-013; research.md §3) —
+     CSS Grid's default row-stretch gives every row's two items equal height
+     "for free". Collapses to one column below the site's 768px breakpoint. */
   .blog-list {
     list-style: none;
-    margin: 0;
-    padding: 0;
-    max-width: 720px;
     margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: var(--content-max-width);
+  }
+
+  @media (max-width: 767.98px) {
+    .blog-list {
+      grid-template-columns: 1fr;
+    }
   }
 
   .blog-item {
     padding: 1.5rem;
-    margin-bottom: 1rem;
     border-radius: 8px;
   }
 
