@@ -1,0 +1,33 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const locale = Astro.currentLocale ?? 'en';
+const otherLocale = locale === 'en' ? 'es' : 'en';
+
+// Strip the current locale's URL prefix (only 'es' has one) to get the
+// locale-agnostic path, then build the equivalent URL in the other language.
+let path = Astro.url.pathname;
+if (locale === 'es' && path.startsWith('/es')) {
+  path = path.slice(3) || '/';
+}
+
+const otherUrl = getRelativeLocaleUrl(otherLocale, path);
+const label = otherLocale === 'es' ? 'Español' : 'English';
+---
+
+<a class="language-switch" href={otherUrl} hreflang={otherLocale}>
+  {label}
+</a>
+
+<style>
+  .language-switch {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-primary-blue);
+    white-space: nowrap;
+  }
+
+  .language-switch:hover {
+    text-decoration: underline;
+  }
+</style>

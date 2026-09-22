@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ id }) => id.startsWith('en/'));
+  return posts.map((post) => ({
+    params: { slug: post.id.split('/').slice(1).join('/') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} — David Cadavid`} hideLanguageSwitch={post.data.translationPending}>
+  <article class="post">
+    <h1>{post.data.title}</h1>
+    {post.data.translationPending && <p class="pending-note">Not yet available in Spanish</p>}
+    <div class="post-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .post h1 {
+    color: var(--color-primary-blue);
+  }
+
+  .pending-note {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: var(--color-secondary-green);
+    color: var(--color-neutral-900);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .post-body {
+    line-height: 1.7;
+  }
+</style>

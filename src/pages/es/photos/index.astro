@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AlbumGrid from '../../../components/AlbumGrid.astro';
+
+const albums = await getCollection('albums', ({ id }) => id.startsWith('es/'));
+---
+
+<BaseLayout title="Photos — David Cadavid">
+  <h1 class="page-title">Photos</h1>
+  <AlbumGrid albums={albums} locale="es" />
+</BaseLayout>
+
+<style>
+  .page-title {
+    text-align: center;
+    padding-top: 2rem;
+  }
+</style>

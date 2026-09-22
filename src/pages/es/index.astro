@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AboutSection from '../../components/AboutSection.astro';
+import ContactSection from '../../components/ContactSection.astro';
+---
+
+<BaseLayout title="David Cadavid">
+  <section class="banner">
+    <h1>Bienvenido a mi sitio</h1>
+  </section>
+  <AboutSection />
+  <ContactSection />
+</BaseLayout>
+
+<style>
+  .banner {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: var(--color-neutral-100);
+  }
+
+  .banner h1 {
+    margin: 0;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    color: var(--color-primary-blue);
+  }
+</style>

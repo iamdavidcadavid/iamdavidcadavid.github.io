@@ -1,0 +1,65 @@
+/* Brand palette (constitution Technical Constraints — "Warm Blue and Green") */
+:root {
+  --color-primary-blue: #454dbf;
+  --color-secondary-blue: #90b4d4;
+  --color-secondary-green: #bfcf74;
+  --color-primary-green: #88ab4d;
+
+  /* Neutrals, used alongside the palette wherever a palette color alone would not
+     meet contrast requirements (constitution Principle IV / spec FR-009). */
+  --color-neutral-900: #1a1a1a;
+  --color-neutral-700: #4a4a4a;
+  --color-neutral-200: #e4e4e4;
+  --color-neutral-100: #f6f6f4;
+  --color-white: #ffffff;
+
+  --color-text: var(--color-neutral-900);
+  --color-background: var(--color-white);
+  --color-link: var(--color-primary-blue);
+  --color-accent: var(--color-primary-green);
+
+  /* Single responsive breakpoint (spec Clarifications, 2026-09-22 session). Media
+     queries below use the literal 768px value directly — CSS custom properties
+     cannot be used inside @media conditions — but any JS that needs the same
+     threshold (e.g. NavBar's hamburger toggle) MUST use 768 to match this. */
+  --breakpoint-md-px: 768;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-link);
+}
+
+button {
+  font: inherit;
+}

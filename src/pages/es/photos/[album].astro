@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PhotoLightbox from '../../../components/PhotoLightbox.astro';
+
+export async function getStaticPaths() {
+  const albums = await getCollection('albums', ({ id }) => id.startsWith('es/'));
+  return albums.map((album) => ({
+    params: { album: album.id.split('/').slice(1).join('/') },
+    props: { album },
+  }));
+}
+
+const { album } = Astro.props;
+---
+
+<BaseLayout title={`${album.data.title} — David Cadavid`}>
+  <h1 class="page-title">{album.data.title}</h1>
+  <PhotoLightbox photos={album.data.photos} locale="es" />
+</BaseLayout>
+
+<style>
+  .page-title {
+    text-align: center;
+    padding-top: 2rem;
+  }
+</style>

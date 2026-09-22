@@ -1,0 +1,366 @@
+---
+import { salesPassword, salesPageSize } from '../config/site';
+
+interface Props {
+  locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+const catalogUrl = `/sales-catalog.${locale}.json`;
+
+const copy = {
+  en: {
+    promptLabel: 'Password',
+    submit: 'Unlock',
+    error: 'Incorrect password.',
+    loadMore: 'Load More',
+  },
+  es: {
+    promptLabel: 'Contraseña',
+    submit: 'Desbloquear',
+    error: 'Contraseña incorrecta.',
+    loadMore: 'Cargar más',
+  },
+}[locale];
+---
+
+<div data-sales-gate>
+  <form class="sg-form" data-sg-form>
+    <label for="sales-password">{copy.promptLabel}</label>
+    <input id="sales-password" type="password" name="password" autocomplete="off" />
+    <button type="submit">{copy.submit}</button>
+    <p class="sg-error" data-sg-error hidden>{copy.error}</p>
+  </form>
+
+  <div class="sg-catalog" data-sg-catalog hidden>
+    <div class="sg-items" data-sg-items></div>
+    <button type="button" class="sg-load-more" data-sg-load-more hidden>{copy.loadMore}</button>
+  </div>
+
+  <div class="sg-modal" data-sg-modal hidden>
+    <button type="button" class="sg-modal-backdrop" data-sg-modal-close aria-label="Close"></button>
+    <div class="sg-modal-content">
+      <button type="button" class="sg-modal-close" data-sg-modal-close aria-label="Close">×</button>
+      <img data-sg-modal-image src="" alt="" />
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ salesPassword, salesPageSize, catalogUrl }}>
+  const root = document.querySelector('[data-sales-gate]');
+  const form = root.querySelector('[data-sg-form]');
+  const errorEl = root.querySelector('[data-sg-error]');
+  const catalogEl = root.querySelector('[data-sg-catalog]');
+  const itemsEl = root.querySelector('[data-sg-items]');
+  const loadMoreBtn = root.querySelector('[data-sg-load-more]');
+  const modal = root.querySelector('[data-sg-modal]');
+  const modalImage = root.querySelector('[data-sg-modal-image]');
+
+  const STORAGE_KEY = 'sales-unlocked';
+  let catalog = [];
+  let shown = 0;
+
+  const modalCloseButton = modal.querySelector('.sg-modal-close');
+  let lastFocused = null;
+
+  function openModal(src, alt) {
+    lastFocused = document.activeElement;
+    modalImage.src = src;
+    modalImage.alt = alt;
+    modal.hidden = false;
+    modalCloseButton?.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    if (lastFocused instanceof HTMLElement) lastFocused.focus();
+  }
+
+  modal.querySelectorAll('[data-sg-modal-close]').forEach((el) => {
+    el.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.hidden) closeModal();
+  });
+
+  function renderItem(item) {
+    const card = document.createElement('article');
+    card.className = 'sg-item';
+
+    const heading = document.createElement('h3');
+    heading.textContent = item.name;
+    card.appendChild(heading);
+
+    const price = document.createElement('p');
+    price.className = 'sg-price';
+    price.textContent = item.price;
+    card.appendChild(price);
+
+    if (item.description) {
+      const desc = document.createElement('p');
+      desc.className = 'sg-description';
+      desc.textContent = item.description;
+      card.appendChild(desc);
+    }
+
+    const carousel = document.createElement('div');
+    carousel.className = 'sg-carousel';
+
+    const track = document.createElement('div');
+    track.className = 'sg-carousel-track';
+    let current = 0;
+
+    const slideButtons = item.photos.map((photo, index) => {
+      const slideBtn = document.createElement('button');
+      slideBtn.type = 'button';
+      slideBtn.className = 'sg-carousel-slide';
+      slideBtn.style.display = index === 0 ? '' : 'none';
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.alt = photo.alt;
+      img.loading = 'lazy';
+      slideBtn.appendChild(img);
+      slideBtn.addEventListener('click', () => openModal(photo.src, photo.alt));
+      track.appendChild(slideBtn);
+      return slideBtn;
+    });
+    carousel.appendChild(track);
+
+    if (item.photos.length > 1) {
+      const controls = document.createElement('div');
+      controls.className = 'sg-carousel-controls';
+      const prev = document.createElement('button');
+      prev.type = 'button';
+      prev.textContent = '‹';
+      prev.addEventListener('click', () => {
+        slideButtons[current].style.display = 'none';
+        current = (current - 1 + slideButtons.length) % slideButtons.length;
+        slideButtons[current].style.display = '';
+      });
+      const next = document.createElement('button');
+      next.type = 'button';
+      next.textContent = '›';
+      next.addEventListener('click', () => {
+        slideButtons[current].style.display = 'none';
+        current = (current + 1) % slideButtons.length;
+        slideButtons[current].style.display = '';
+      });
+      controls.appendChild(prev);
+      controls.appendChild(next);
+      carousel.appendChild(controls);
+    }
+
+    card.appendChild(carousel);
+    return card;
+  }
+
+  function revealNext() {
+    const next = Math.min(shown + salesPageSize, catalog.length);
+    for (let i = shown; i < next; i++) {
+      itemsEl.appendChild(renderItem(catalog[i]));
+    }
+    shown = next;
+    loadMoreBtn.hidden = shown >= catalog.length;
+  }
+
+  loadMoreBtn.addEventListener('click', revealNext);
+
+  async function unlock() {
+    form.hidden = true;
+    catalogEl.hidden = false;
+    const response = await fetch(catalogUrl);
+    catalog = await response.json();
+    shown = 0;
+    itemsEl.innerHTML = '';
+    revealNext();
+  }
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = form.querySelector('input[name="password"]');
+    if (input.value === salesPassword) {
+      errorEl.hidden = true;
+      try {
+        sessionStorage.setItem(STORAGE_KEY, 'true');
+      } catch {
+        /* sessionStorage unavailable — access just won't persist across reloads */
+      }
+      unlock();
+    } else {
+      errorEl.hidden = false;
+    }
+  });
+
+  try {
+    if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+      unlock();
+    }
+  } catch {
+    /* sessionStorage unavailable — always show the password form */
+  }
+</script>
+
+<style is:global>
+  .sg-form[hidden] {
+    display: none;
+  }
+
+  .sg-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 320px;
+    margin: 3rem auto;
+    text-align: left;
+  }
+
+  .sg-form input {
+    padding: 0.5rem;
+    border: 1px solid var(--color-neutral-200);
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  .sg-form button {
+    padding: 0.6rem 1.5rem;
+    background: var(--color-primary-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .sg-error {
+    color: #b3261e;
+    margin: 0;
+  }
+
+  .sg-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+
+  .sg-item {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--color-neutral-100);
+  }
+
+  .sg-item h3 {
+    margin: 0 0 0.25rem;
+    color: var(--color-primary-blue);
+  }
+
+  .sg-price {
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+
+  .sg-description {
+    color: var(--color-neutral-700);
+  }
+
+  .sg-carousel-slide {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .sg-carousel-slide img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .sg-carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  .sg-carousel-controls button {
+    background: var(--color-primary-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  /* White text on primary-green is ~2.6:1 contrast, below WCAG AA — dark text
+     on green passes (~6.8:1). */
+  .sg-load-more {
+    display: block;
+    margin: 0 auto 2rem;
+    padding: 0.75rem 2rem;
+    background: var(--color-primary-green);
+    color: var(--color-neutral-900);
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .sg-load-more[hidden] {
+    display: none;
+  }
+
+  .sg-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  /* The [hidden] attribute alone loses to the class selector's specificity
+     above, so it would otherwise show the modal at all times. */
+  .sg-modal[hidden] {
+    display: none;
+  }
+
+  .sg-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .sg-modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .sg-modal-content img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 8px;
+  }
+
+  .sg-modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+</style>

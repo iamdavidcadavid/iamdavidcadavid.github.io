@@ -1,0 +1,69 @@
+---
+import profilePhoto from '../assets/placeholders/profile-photo.svg';
+
+const locale = Astro.currentLocale ?? 'en';
+
+const copy = {
+  en: [
+    "[PLACEHOLDER: A short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to. Replace with real copy.]",
+    '[PLACEHOLDER: A second short paragraph — experience, interests, or anything else relevant to a visitor deciding whether to reach out.]',
+  ],
+  es: [
+    '[MARCADOR DE POSICIÓN: Un párrafo breve presentando a David Cadavid — su trayectoria, a qué se dedica y por qué vale la pena contactarlo. Reemplazar con el texto real.]',
+    '[MARCADOR DE POSICIÓN: Un segundo párrafo breve — experiencia, intereses u otra información relevante para quien esté decidiendo si ponerse en contacto.]',
+  ],
+} as const;
+
+const paragraphs = copy[locale as 'en' | 'es'] ?? copy.en;
+---
+
+<section id="about" class="about">
+  <div class="about-text">
+    {paragraphs.map((p) => <p>{p}</p>)}
+  </div>
+  <div class="about-photo">
+    <img
+      src={profilePhoto.src}
+      width={profilePhoto.width}
+      height={profilePhoto.height}
+      alt="Placeholder photo of David Cadavid"
+    />
+  </div>
+</section>
+
+<style>
+  .about {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    align-items: center;
+  }
+
+  .about-text {
+    flex: 1;
+  }
+
+  .about-photo {
+    flex: 0 0 auto;
+    width: 200px;
+  }
+
+  .about-photo img {
+    border-radius: 12px;
+  }
+
+  /* Desktop (≥768px): text left, photo right (FR-014). */
+  @media (min-width: 768px) {
+    .about {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .about-photo {
+      width: 280px;
+    }
+  }
+</style>

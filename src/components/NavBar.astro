@@ -1,0 +1,128 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const locale = Astro.currentLocale ?? 'en';
+
+const links = [
+  { label: 'Home', href: getRelativeLocaleUrl(locale, '/') },
+  { label: 'About', href: `${getRelativeLocaleUrl(locale, '/')}#about` },
+  { label: 'Contact', href: `${getRelativeLocaleUrl(locale, '/')}#contact` },
+  { label: 'Blog', href: getRelativeLocaleUrl(locale, '/blog/') },
+  { label: 'Photos', href: getRelativeLocaleUrl(locale, '/photos/') },
+];
+---
+
+<nav class="navbar" data-navbar>
+  <button
+    type="button"
+    class="hamburger"
+    data-hamburger
+    aria-expanded="false"
+    aria-controls="nav-menu"
+    aria-label="Toggle navigation menu"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul id="nav-menu" class="nav-menu" data-nav-menu>
+    {
+      links.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  const navbar = document.querySelector<HTMLElement>('[data-navbar]');
+  const hamburger = navbar?.querySelector<HTMLButtonElement>('[data-hamburger]');
+  const menu = navbar?.querySelector<HTMLElement>('[data-nav-menu]');
+
+  hamburger?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('is-open');
+    hamburger.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+</script>
+
+<style>
+  .navbar {
+    display: flex;
+    align-items: center;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--color-neutral-900);
+    border-radius: 2px;
+  }
+
+  .nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-menu a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .nav-menu a:hover {
+    color: var(--color-primary-blue);
+  }
+
+  /* Below 768px: hamburger button shows; the link list is hidden until opened.
+     Exactly one of {hamburger, full menu} is ever visible (FR-005/FR-006). */
+  @media (max-width: 767.98px) {
+    .hamburger {
+      display: flex;
+    }
+
+    .nav-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-neutral-200);
+      padding: 0.5rem 1.5rem 1rem;
+    }
+
+    .nav-menu.is-open {
+      display: flex;
+    }
+
+    .nav-menu li {
+      padding: 0.5rem 0;
+    }
+
+    .navbar {
+      position: relative;
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+</style>

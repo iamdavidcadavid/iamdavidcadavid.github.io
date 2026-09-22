@@ -1,0 +1,183 @@
+---
+interface Photo {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  photos: Photo[];
+  locale: 'en' | 'es';
+}
+
+const { photos, locale } = Astro.props;
+
+const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso de revelado…';
+---
+
+{
+  photos.length === 0 ? (
+    <div class="darkroom-empty" role="status">
+      <svg
+        class="darkroom-illustration"
+        viewBox="0 0 200 140"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label={emptyMessage}
+      >
+        <rect x="30" y="30" width="140" height="90" rx="6" fill="#454dbf" />
+        <circle class="lens" cx="100" cy="75" r="34" fill="#1a1a1a" />
+        <circle class="lens-glow" cx="100" cy="75" r="20" fill="#90b4d4">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite" />
+        </circle>
+        <rect x="70" y="20" width="30" height="14" fill="#454dbf" />
+      </svg>
+      <p>{emptyMessage}</p>
+    </div>
+  ) : (
+    <>
+      <ul class="photo-list" data-photo-list>
+        {photos.map((photo, index) => (
+          <li>
+            <button type="button" class="photo-thumb" data-photo-trigger data-index={index}>
+              <img src={photo.src} alt={photo.alt} loading="lazy" />
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <div class="modal" data-modal hidden>
+        <button type="button" class="modal-backdrop" data-modal-close aria-label="Close" />
+        <div class="modal-content">
+          <button type="button" class="modal-close" data-modal-close aria-label="Close">
+            ×
+          </button>
+          <img data-modal-image src="" alt="" />
+        </div>
+      </div>
+    </>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-photo-list]').forEach((list) => {
+    const wrapper = list.parentElement;
+    const modal = wrapper?.querySelector<HTMLElement>('[data-modal]');
+    const modalImage = modal?.querySelector<HTMLImageElement>('[data-modal-image]');
+    const modalCloseButton = modal?.querySelector<HTMLButtonElement>('.modal-close');
+    const triggers = Array.from(list.querySelectorAll<HTMLButtonElement>('[data-photo-trigger]'));
+    let lastFocused: Element | null = null;
+
+    function open(index: number) {
+      const img = triggers[index]?.querySelector('img');
+      if (!img || !modal || !modalImage) return;
+      lastFocused = document.activeElement;
+      modalImage.src = img.src;
+      modalImage.alt = img.alt;
+      modal.hidden = false;
+      modalCloseButton?.focus();
+    }
+
+    function close() {
+      if (modal) modal.hidden = true;
+      if (lastFocused instanceof HTMLElement) lastFocused.focus();
+    }
+
+    triggers.forEach((trigger, index) => {
+      trigger.addEventListener('click', () => open(index));
+    });
+
+    modal?.querySelectorAll('[data-modal-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal && !modal.hidden) close();
+    });
+  });
+</script>
+
+<style>
+  .photo-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 2rem 1.5rem;
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+
+  .photo-thumb {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .photo-thumb img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  /* The [hidden] attribute alone loses to the class selector's specificity
+     above, so it would otherwise show the modal at all times. */
+  .modal[hidden] {
+    display: none;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .modal-content img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 8px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .darkroom-empty {
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .darkroom-illustration {
+    width: 200px;
+    height: auto;
+  }
+</style>

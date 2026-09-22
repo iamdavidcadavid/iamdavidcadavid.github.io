@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  albums: CollectionEntry<'albums'>[];
+  locale: 'en' | 'es';
+}
+
+const { albums, locale } = Astro.props;
+
+function slugFor(id: string): string {
+  return id.split('/').slice(1).join('/');
+}
+
+const items = albums.map((album) => ({
+  href: `${getRelativeLocaleUrl(locale, '/photos/')}${slugFor(album.id)}/`,
+  title: album.data.title,
+  cover: album.data.cover,
+}));
+---
+
+<ul class="album-grid">
+  {
+    items.map((item) => (
+      <li class="album-tile">
+        <a href={item.href}>
+          <img src={item.cover.src} alt={item.cover.alt} loading="lazy" />
+          <h3>{item.title}</h3>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 2rem 1.5rem;
+    max-width: 1100px;
+    margin-inline: auto;
+  }
+
+  .album-tile a {
+    text-decoration: none;
+    color: var(--color-text);
+    display: block;
+  }
+
+  .album-tile img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .album-tile h3 {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    color: var(--color-primary-blue);
+  }
+</style>

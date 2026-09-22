@@ -1,0 +1,64 @@
+[
+  {
+    "id": "item-1",
+    "name": "[PLACEHOLDER] Item One",
+    "price": "$25",
+    "description": "[PLACEHOLDER] A short description of item one.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-1.svg", "alt": "[PLACEHOLDER] Item One, photo 1" },
+      { "src": "/albums/placeholder-photo-2.svg", "alt": "[PLACEHOLDER] Item One, photo 2" }
+    ]
+  },
+  {
+    "id": "item-2",
+    "name": "[PLACEHOLDER] Item Two",
+    "price": "$40",
+    "photos": [
+      { "src": "/albums/placeholder-photo-2.svg", "alt": "[PLACEHOLDER] Item Two, photo 1" }
+    ]
+  },
+  {
+    "id": "item-3",
+    "name": "[PLACEHOLDER] Item Three",
+    "price": "$15",
+    "description": "[PLACEHOLDER] A short description of item three.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-3.svg", "alt": "[PLACEHOLDER] Item Three, photo 1" }
+    ]
+  },
+  {
+    "id": "item-4",
+    "name": "[PLACEHOLDER] Item Four",
+    "price": "$60",
+    "photos": [
+      { "src": "/albums/placeholder-photo-1.svg", "alt": "[PLACEHOLDER] Item Four, photo 1" },
+      { "src": "/albums/placeholder-photo-3.svg", "alt": "[PLACEHOLDER] Item Four, photo 2" }
+    ]
+  },
+  {
+    "id": "item-5",
+    "name": "[PLACEHOLDER] Item Five",
+    "price": "$10",
+    "description": "[PLACEHOLDER] A short description of item five.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-2.svg", "alt": "[PLACEHOLDER] Item Five, photo 1" }
+    ]
+  },
+  {
+    "id": "item-6",
+    "name": "[PLACEHOLDER] Item Six",
+    "price": "$80",
+    "photos": [
+      { "src": "/albums/placeholder-photo-1.svg", "alt": "[PLACEHOLDER] Item Six, photo 1" }
+    ]
+  },
+  {
+    "id": "item-7",
+    "name": "[PLACEHOLDER] Item Seven",
+    "price": "$35",
+    "description": "[PLACEHOLDER] A short description of item seven.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-3.svg", "alt": "[PLACEHOLDER] Item Seven, photo 1" }
+    ]
+  }
+]

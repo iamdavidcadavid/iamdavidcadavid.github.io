@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SalesGate from '../../components/SalesGate.astro';
+import SalesNoScript from '../../components/SalesNoScript.astro';
+---
+
+<BaseLayout title="Sales" noindex={true}>
+  <h1 class="page-title">Sales</h1>
+  <SalesNoScript locale="en" />
+  <SalesGate locale="en" />
+</BaseLayout>
+
+<style>
+  .page-title {
+    text-align: center;
+    padding-top: 2rem;
+  }
+</style>

@@ -1,0 +1,184 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { blogPageSize } from '../config/site';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  locale: 'en' | 'es';
+}
+
+const { posts, locale } = Astro.props;
+
+function slugFor(id: string): string {
+  // ids are locale-prefixed, e.g. "en/welcome-to-the-blog" -> "welcome-to-the-blog"
+  const parts = id.split('/');
+  return parts.slice(1).join('/');
+}
+
+function excerptFor(body: string | undefined, maxLines = 3): string {
+  if (!body) return '';
+  const lines = body
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0 && !l.startsWith('#'));
+  return lines.slice(0, maxLines).join(' ');
+}
+
+const sorted = [...posts].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const items = sorted.map((post) => ({
+  href: `${getRelativeLocaleUrl(locale, '/blog/')}${slugFor(post.id)}/`,
+  title: post.data.title,
+  excerpt: excerptFor(post.body),
+  translationPending: post.data.translationPending,
+}));
+
+const otherLanguageNote = locale === 'en' ? 'Not yet available in Spanish' : 'No disponible aún en inglés';
+const loadMoreLabel = locale === 'en' ? 'Load More' : 'Cargar más';
+---
+
+{
+  items.length === 0 ? (
+    <div class="oven-empty" role="status">
+      <svg
+        class="oven-illustration"
+        viewBox="0 0 200 140"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label={locale === 'en' ? 'Posts are still in the oven' : 'Las publicaciones todavía se están horneando'}
+      >
+        <rect x="20" y="20" width="160" height="100" rx="10" fill="#88ab4d" />
+        <rect x="35" y="35" width="130" height="70" rx="6" fill="#1a1a1a" opacity="0.15" />
+        <circle class="oven-glow" cx="100" cy="70" r="28" fill="#bfcf74">
+          <animate attributeName="r" values="24;30;24" dur="1.6s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="1.6s" repeatCount="indefinite" />
+        </circle>
+        <rect x="15" y="115" width="170" height="12" rx="4" fill="#454dbf" />
+      </svg>
+      <p>{locale === 'en' ? 'Posts are still in the oven…' : 'Las publicaciones todavía se están horneando…'}</p>
+    </div>
+  ) : (
+    <>
+      <ul class="blog-list" data-blog-list data-page-size={blogPageSize}>
+        {items.map((item, index) => (
+          <li class={`blog-item ${index % 2 === 0 ? 'is-even' : 'is-odd'}`} data-index={index}>
+            <a href={item.href}>
+              <h3>{item.title}</h3>
+            </a>
+            {item.translationPending && <p class="pending-note">{otherLanguageNote}</p>}
+            <p class="excerpt">{item.excerpt}</p>
+          </li>
+        ))}
+      </ul>
+      <button type="button" class="load-more" data-load-more>
+        {loadMoreLabel}
+      </button>
+    </>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-blog-list]').forEach((list) => {
+    const pageSize = Number(list.dataset.pageSize ?? '5');
+    const items = Array.from(list.querySelectorAll<HTMLElement>('.blog-item'));
+    const button = list.parentElement?.querySelector<HTMLButtonElement>('[data-load-more]');
+    let shown = 0;
+
+    function reveal() {
+      const next = Math.min(shown + pageSize, items.length);
+      for (let i = shown; i < next; i++) {
+        items[i].style.display = '';
+      }
+      shown = next;
+      if (button) {
+        button.style.display = shown >= items.length ? 'none' : '';
+      }
+    }
+
+    items.forEach((item) => {
+      item.style.display = 'none';
+    });
+    reveal();
+
+    button?.addEventListener('click', reveal);
+  });
+</script>
+
+<style>
+  .blog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .blog-item {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+
+  .blog-item.is-even {
+    background: var(--color-neutral-100);
+  }
+
+  .blog-item.is-odd {
+    background: color-mix(in srgb, var(--color-secondary-blue) 20%, white);
+  }
+
+  .blog-item h3 {
+    margin: 0 0 0.5rem;
+    color: var(--color-primary-blue);
+  }
+
+  .blog-item a {
+    text-decoration: none;
+  }
+
+  .pending-note {
+    display: inline-block;
+    margin: 0 0 0.5rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: var(--color-secondary-green);
+    color: var(--color-neutral-900);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .excerpt {
+    margin: 0;
+    color: var(--color-neutral-700);
+  }
+
+  /* White text on primary-green is ~2.6:1 contrast, below WCAG AA — dark text
+     on green passes (~6.8:1); white text on primary-blue passes (~6.9:1). */
+  .load-more {
+    display: block;
+    margin: 1.5rem auto 0;
+    padding: 0.75rem 2rem;
+    background: var(--color-primary-green);
+    color: var(--color-neutral-900);
+    border: none;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .load-more:hover {
+    background: var(--color-primary-blue);
+    color: var(--color-white);
+  }
+
+  .oven-empty {
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .oven-illustration {
+    width: 200px;
+    height: auto;
+  }
+</style>

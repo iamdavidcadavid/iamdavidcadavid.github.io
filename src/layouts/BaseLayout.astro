@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+import NavBar from '../components/NavBar.astro';
+import LanguageSwitch from '../components/LanguageSwitch.astro';
+
+interface Props {
+  title: string;
+  noindex?: boolean;
+  /**
+   * Set true on a page that has no equivalent in the other language (e.g. a
+   * blog post marked translationPending) so LanguageSwitch isn't rendered
+   * pointing at a URL that doesn't exist.
+   */
+  hideLanguageSwitch?: boolean;
+}
+
+const { title, noindex = false, hideLanguageSwitch = false } = Astro.props;
+const locale = Astro.currentLocale ?? 'en';
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+  </head>
+  <body>
+    <header class="site-header">
+      <NavBar />
+      {!hideLanguageSwitch && <LanguageSwitch />}
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>&copy; {new Date().getFullYear()} David Cadavid</p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-neutral-200);
+  }
+
+  .site-footer {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--color-neutral-700);
+    background: var(--color-neutral-100);
+    margin-top: 3rem;
+  }
+
+  main {
+    min-height: 60vh;
+  }
+</style>
