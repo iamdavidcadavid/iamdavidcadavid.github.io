@@ -8,11 +8,19 @@
 
 **Input**: User description: "I want to build a content based website with the following pages: Home, About, Contact, Blog, Photos, Sales, Easter Egg. All pages share a header and footer. The site has a navigation menu that collapses into a hamburger menu when it can't fit, and the two menus are never shown at once. Sales and Easter Egg must not appear in navigation or be linked from other pages, and must not be crawled/indexed — reachable only by direct URL. Placeholder tags are used for text that must be replaced manually. Home has a welcome banner, an About section (text + placeholder photo of David Cadavid, text/image sides swap between desktop and mobile), and a Contact section (friendly intro paragraph, icon links to LinkedIn/GitHub/YouTube, and a mailto 'email' button to contact@davidcadavid.com). Blog shows a paginated list of posts (title + first 2-3 lines, alternating colors, configurable page size, 'Load More' button, bread-oven loading animation when empty). Photos shows a grid of albums (cover + title) that open to a photo list, with a click-to-enlarge modal. Sales is a password-protected (front-end only) catalog of items (name, price, optional description, photo carousel with enlarge) using the same Load More pagination as Blog. Easter Egg can start empty and will later hold funny images/text."
 
-**Amendment (2026-09-22)**: Updated per constitution v1.1.0, which added a ratified brand color
-palette ("Warm Blue and Green": Primary Blue `#454DBF`, Secondary Blue `#90B4D4`, Secondary
-Green `#BFCF74`, Primary Green `#88AB4D`) to the project's Technical Constraints. Added FR-009,
-SC-008, and a supporting assumption to require this feature's visual design to draw from that
-palette; renumbered FR-009 through FR-031 to FR-010 through FR-032 accordingly.
+**Amendment (2026-09-22, a)**: Updated per constitution v1.1.0, which added a ratified brand
+color palette ("Warm Blue and Green": Primary Blue `#454DBF`, Secondary Blue `#90B4D4`,
+Secondary Green `#BFCF74`, Primary Green `#88AB4D`) to the project's Technical Constraints.
+Added FR-009, SC-008, and a supporting assumption to require this feature's visual design to
+draw from that palette; renumbered FR-009 through FR-031 to FR-010 through FR-032 accordingly.
+
+**Amendment (2026-09-22, b)**: During planning, confirmed that individual blog posts and
+individual photo albums each need their own dedicated, shareable page/URL (not just a list +
+excerpt/inline view). Added FR-020 (blog post page), reworded FR-028 (album page) accordingly,
+added SC-009, and updated the related acceptance scenarios, edge cases, and Key Entities;
+renumbered FR-020 through FR-035 to FR-021 through FR-036 accordingly (see `/speckit-plan`'s
+research.md §11 for the implementation approach — Astro dynamic routes generated per post/album
+slug).
 
 ## Clarifications
 
@@ -79,8 +87,8 @@ important reason for repeat visits; it is not required for the site's core "get 
 purpose to work, so it ranks after Home.
 
 **Independent Test**: Load the Blog page directly with a sample set of posts and verify the
-initial list, alternating styling, "Load More" behavior, and the empty-state animation each
-work without depending on the Home, Photos, or Sales pages.
+initial list, alternating styling, "Load More" behavior, the empty-state animation, and opening
+an individual post each work without depending on the Home, Photos, or Sales pages.
 
 **Acceptance Scenarios**:
 
@@ -99,6 +107,9 @@ work without depending on the Home, Photos, or Sales pages.
 6. **Given** there are no blog posts at all, **When** the visitor opens the Blog page,
    **Then** an animation depicting a bread oven is shown in place of the list, indicating
    posts are still "baking".
+7. **Given** a visitor clicks a post's title in the list, **When** its dedicated page loads,
+   **Then** the post's full content is displayed at its own URL, which the visitor can bookmark
+   or share directly.
 
 ---
 
@@ -117,8 +128,9 @@ album drill-down, and enlarge-on-click modal all work without any dependency on 
 
 1. **Given** one or more photo albums exist, **When** the visitor opens the Photos page,
    **Then** a grid is shown with each album's cover image and title.
-2. **Given** the visitor clicks an album, **When** the album opens, **Then** the list of
-   photos belonging to that album is displayed.
+2. **Given** the visitor clicks an album, **When** the album's dedicated page loads, **Then**
+   the list of photos belonging to that album is displayed at its own URL, which the visitor
+   can bookmark or share directly.
 3. **Given** the visitor clicks a photo inside an open album, **When** the photo is selected,
    **Then** a modal appears showing that photo at a larger size.
 4. **Given** an album currently has no photos in it, **When** the visitor opens that album,
@@ -191,13 +203,15 @@ from search indexing — regardless of whether any other page exists yet.
   configured page size (the last "Load More" click reveals fewer items than usual, and the
   control then correctly disappears)?
 - An album with no photos yet shows a "Development in process..." empty state with a
-  photo-developing animation (FR-029) rather than a blank grid or an error.
+  photo-developing animation (FR-030) rather than a blank grid or an error.
 - How does the Sales page behave if the site owner has not yet configured a password, or if the
   visitor's browser has stored a previously correct password from an earlier visit?
 - What happens if a visitor tries to access the Sales or Easter Egg page from a device/browser
   with JavaScript disabled, given the password gate is client-side only?
-- What happens when a visitor follows a shared/bookmarked link to a specific blog post, photo
-  album, or Sales item directly, rather than arriving via the page's default list view?
+- A visitor following a shared/bookmarked link straight to an individual blog post (FR-020) or
+  photo album (FR-028) URL lands directly on that post/album's dedicated page, without needing
+  to go through the Blog or Photos list first. Sales items have no individual URL of their own
+  (they only ever appear within the gated `/sales/` list), so this does not apply to them.
 - Since language is encoded in the URL (FR-010) rather than stored as visitor state, navigating
   between pages within the same language naturally stays in that language — what should happen
   if a visitor lands directly on an English URL from an external link or bookmark and then
@@ -269,57 +283,61 @@ from search indexing — regardless of whether any other page exists yet.
 
 - **FR-019**: The Blog page MUST display a list of blog post entries, each showing its title
   and the first two to three lines of its text.
-- **FR-020**: The Blog page MUST initially display up to a configurable number of posts, with a
+- **FR-020**: Selecting a post's title in the list MUST navigate to a dedicated page for that
+  post, at its own URL, displaying the post's full content.
+- **FR-021**: The Blog page MUST initially display up to a configurable number of posts, with a
   default of 5.
-- **FR-021**: While additional posts remain beyond what is currently shown, the Blog page MUST
+- **FR-022**: While additional posts remain beyond what is currently shown, the Blog page MUST
   display a "Load More" control.
-- **FR-022**: Activating "Load More" MUST append the next batch of posts, using the same
+- **FR-023**: Activating "Load More" MUST append the next batch of posts, using the same
   configured count as the initial page size.
-- **FR-023**: Once all available posts have been loaded, the "Load More" control MUST no longer
+- **FR-024**: Once all available posts have been loaded, the "Load More" control MUST no longer
   be displayed.
-- **FR-024**: When there are no blog posts to show, the Blog page MUST display a bread-oven
+- **FR-025**: When there are no blog posts to show, the Blog page MUST display a bread-oven
   themed loading animation instead of an empty list.
-- **FR-025**: Adjacent entries in the blog list MUST alternate between two distinct visual
+- **FR-026**: Adjacent entries in the blog list MUST alternate between two distinct visual
   treatments, drawn from the brand palette (FR-009), so consecutive posts are visually
   distinguishable.
 
 **Photos page**
 
-- **FR-026**: The Photos page MUST display a grid of photo albums, each showing a cover image
+- **FR-027**: The Photos page MUST display a grid of photo albums, each showing a cover image
   and the album's title.
-- **FR-027**: Selecting an album MUST display the list of photos contained within it.
-- **FR-028**: Selecting a photo within an open album MUST display that photo enlarged in a
+- **FR-028**: Selecting an album MUST navigate to a dedicated page for that album, at its own
+  URL, displaying the list of photos contained within it.
+- **FR-029**: Selecting a photo within an open album MUST display that photo enlarged in a
   modal overlay.
-- **FR-029**: If an album contains zero photos, opening it MUST show an empty-state view with
+- **FR-030**: If an album contains zero photos, opening it MUST show an empty-state view with
   the message "Development in process..." and a small animation of a photo being developed
   (darkroom-style), instead of a blank grid or an error.
 
 **Sales page (hidden)**
 
-- **FR-030**: The Sales page MUST require a visitor to enter a password before any item
+- **FR-031**: The Sales page MUST require a visitor to enter a password before any item
   content (names, prices, descriptions, photos) is shown.
-- **FR-031**: The password required to unlock the Sales page MUST be configurable by the site
+- **FR-032**: The password required to unlock the Sales page MUST be configurable by the site
   owner directly within the page's own source/configuration, and validated entirely in the
   browser (no server-side component).
-- **FR-032**: Each item on the Sales page MUST display a name, a price, an optional
+- **FR-033**: Each item on the Sales page MUST display a name, a price, an optional
   description, and one or more photos.
-- **FR-033**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
+- **FR-034**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
   when clicked.
-- **FR-034**: The Sales item list MUST use the same progressive loading behavior as the Blog
+- **FR-035**: The Sales item list MUST use the same progressive loading behavior as the Blog
   list: a configurable initial count, a "Load More" control that appends the same-size batch,
   and no "Load More" control once every item has been loaded.
 
 **Easter Egg page (hidden)**
 
-- **FR-035**: The Easter Egg page MUST exist as a working, directly reachable page that loads
+- **FR-036**: The Easter Egg page MUST exist as a working, directly reachable page that loads
   successfully even before any real content has been added to it.
 
 ### Key Entities
 
-- **Blog Post**: A single article — title, body text (from which the first 2-3 lines are shown
-  in the list), publish order/date, and English/Spanish content variants.
+- **Blog Post**: A single article — title, full body text (from which the first 2-3 lines are
+  shown in the list per FR-019), publish order/date, and English/Spanish content variants. Each
+  post is also viewable at its own dedicated URL (FR-020).
 - **Photo Album**: A named collection of photos — title, cover image, ordered list of member
-  Photos.
+  Photos. Each album is also viewable at its own dedicated URL (FR-028).
 - **Photo**: A single image belonging to a Photo Album (or attached to a Sale Item) — image
   asset and optional caption.
 - **Sale Item**: A catalog entry on the Sales page — name, price, optional description, one or
@@ -354,6 +372,9 @@ from search indexing — regardless of whether any other page exists yet.
 - **SC-008**: Every page's colors (backgrounds, buttons, links, and accents) are drawn from the
   ratified brand palette, and every text/interactive element using a palette color meets
   standard accessibility contrast thresholds against its background.
+- **SC-009**: Every blog post and every photo album has its own dedicated, shareable URL that,
+  when visited directly, displays that post's full content or that album's photos without
+  requiring the visitor to first go through the Blog or Photos list page.
 
 ## Assumptions
 

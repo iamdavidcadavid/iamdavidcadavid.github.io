@@ -45,3 +45,10 @@
   behavior on the Photos page (FR-029). All checklist items still pass; requirements are now
   more precisely testable than before (concrete pixel values and URL patterns instead of vague
   "mobile-width"/"desktop-width" language).
+- **2026-09-22 post-plan revision**: During `/speckit-plan`, confirmed with the user that
+  individual blog posts and photo albums need their own dedicated pages (spec.md's
+  "Amendment (2026-09-22, b)"). Added FR-020, reworded FR-028, added SC-009, and updated the
+  affected acceptance scenarios/edge cases/Key Entities. All checklist items still pass — the
+  new/changed requirements are testable (a page must exist at its own URL and render specific
+  content) and stay technology-agnostic in the spec itself (the Astro-specific "how" lives in
+  plan.md/research.md, not here).
