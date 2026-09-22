@@ -121,13 +121,20 @@ the page's initial HTML and merely hidden with CSS/JS, anyone using "View Source
 without ever entering the password, which fails SC-005's literal requirement even though it's
 explicitly *not* meant to be real security (per the spec's Assumptions). Fetching a separate
 JSON file post-auth satisfies SC-005 exactly while staying 100% static (no server component,
-consistent with FR-030's "no server-side component").
+consistent with FR-033's "no server-side component").
 
 **Alternatives considered**: Embedding item data in the page and hiding it with CSS until
 password entry — rejected because it fails SC-005 (data is "present in the page" via View
 Source). Base64/obfuscation-encoding the embedded data — rejected as more complex than just
 serving a separate static file, for no real security benefit either way (both are equally
 "front-end only," per the spec's own framing).
+
+**Addendum — no-JS fallback (from `/speckit-analyze` remediation, finding U1)**: because this
+entire gate is client-side JS, a visitor with JavaScript disabled would otherwise see a password
+field that does nothing with no explanation. `sales/index.astro` wraps `SalesGate` with a
+`<noscript>` block showing a plain-language message ("This page requires JavaScript") instead
+(FR-034, SC-011) — a static HTML fallback, not a JS feature, so it needs no additional
+dependency or architecture change.
 
 ## 8. Hidden-page exclusion from navigation, sitemap, and indexing
 
@@ -178,7 +185,7 @@ language-switch links — noted as a reasonable future addition, not adopted now
 ## 11. Individual blog post and photo album pages
 
 **Decision**: Confirmed with the user (post-plan) that both need dedicated, shareable pages —
-spec.md now requires this explicitly (FR-020, FR-028, SC-009). Implemented as Astro dynamic
+spec.md now requires this explicitly (FR-020, FR-029, SC-009). Implemented as Astro dynamic
 routes using `getStaticPaths()` to pre-render one static page per content-collection entry, per
 locale:
 
@@ -210,3 +217,23 @@ already produces real static pages with no extra runtime cost.
 Sale items remain the one content type with **no individual page/route** — the spec never asks
 for one, and giving items their own URLs would conflict with keeping their data out of the
 built HTML/JS until after the password check (research.md §7).
+
+**Missing-locale content, addendum (from `/speckit-analyze` remediation, findings C1/C2)**: the
+two collections need different treatment when a `<slug>` exists in one locale's collection but
+not the other, because of *how* each is discoverable:
+
+- **Blog**: posts are individually shareable (FR-020, SC-009) and their existence in one
+  language is itself information a bilingual visitor cares about. `BlogList.astro` and
+  `blog/[slug].astro` MUST check the rendered entry's `translationPending` flag and, when true,
+  render a visible note (FR-027, SC-010) — e.g. "This post isn't available in Spanish yet." This
+  is on the language that *does* exist; there is nothing to render on the language that doesn't,
+  since (per the point below) no route is generated for it either.
+- **Photos**: an album missing its locale counterpart has no generated route in that locale at
+  all (`getStaticPaths()` only iterates that locale's own `albums` collection) and is simply
+  absent from that language's grid — not linked, not 404'd-with-a-message, just not there. This
+  is intentionally simpler than the Blog treatment: unlike a shared post URL, nothing points a
+  visitor at a missing album, so there is no gap to visibly flag. Earlier drafts of
+  contracts/content-schemas.md incorrectly described a rendered "not available" state for
+  albums, which the chosen `getStaticPaths()`-per-locale architecture cannot produce without
+  extra stub-page machinery this project doesn't otherwise need (constitution Principle III) —
+  that wording has been corrected, not the architecture.

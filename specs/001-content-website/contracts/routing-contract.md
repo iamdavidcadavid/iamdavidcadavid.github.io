@@ -18,7 +18,7 @@ that `quickstart.md`'s validation scenarios check against.
 Every row exists in both languages; `LanguageSwitch.astro` on any of these pages links to the
 same row's other-language column (FR-011), via `getRelativeLocaleUrl()`. Individual post/album
 pages are "No" under nav only because they aren't top-level nav *items* (there's no menu entry
-per post) — they are otherwise ordinary public, indexable, shareable pages (FR-020, FR-028,
+per post) — they are otherwise ordinary public, indexable, shareable pages (FR-020, FR-029,
 SC-009), unlike the hidden routes below.
 
 ## Hidden routes (reachable only by direct URL)

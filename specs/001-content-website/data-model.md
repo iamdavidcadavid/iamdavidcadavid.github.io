@@ -13,7 +13,7 @@ describes the shape of one locale's entry; the other locale's entry has the same
 |---|---|---|---|
 | `title` | string | yes | Shown in the Blog list (FR-019) |
 | `pubDate` | date | yes | Publish date — required by constitution Principle VI |
-| `translationPending` | boolean | no (default `false`) | Set `true` on a post that exists in one language but not yet the other, per constitution Principle II's "visible translation-pending indicator" rule |
+| `translationPending` | boolean | no (default `false`) | Set `true` on a post that exists in one language but not yet the other. When true, both the list entry and the detail page MUST render a visible "not yet available in [other language]" note (FR-027, SC-010) — this is a rendering requirement, not just a stored flag |
 | body (Markdown content) | Markdown | yes | Full article text. The list view's "first two to three lines" (FR-019) is *computed at render time* from this body, not stored as a separate field, so the excerpt can never drift out of sync with the source text |
 
 **Identity**: filename (slug) within its locale folder — this slug is also the post's URL
@@ -34,12 +34,16 @@ contracts/routing-contract.md.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `title` | string | yes | Shown on the album's grid tile (FR-027) |
+| `title` | string | yes | Shown on the album's grid tile (FR-028) |
 | `cover` | object `{ src: string, alt: string }` | yes | Grid tile cover image; `alt` required for accessibility (constitution Principle IV) |
-| `photos` | array of Photo (see below) | yes, may be empty `[]` | Empty array triggers the "Development in process..." empty state (FR-030) |
+| `photos` | array of Photo (see below) | yes, may be empty `[]` | Empty array triggers the "Development in process..." empty state (FR-031) |
 
 **Identity**: filename (slug) within its locale folder — also the album's URL segment
 (`/photos/<slug>/`, `/es/photos/<slug>/`), generated via `getStaticPaths()` (research.md §11).
+An album that only exists in one locale's collection simply has no generated route in the other
+— it does not appear in that language's grid, and there is no synthetic "not available" page
+(research.md §11; unlike Blog Post, no `translationPending` field is needed here, since nothing
+ever links to a route that doesn't exist).
 
 **Validation rules**: `title` non-empty; `cover.alt` non-empty; `photos` defaults to `[]` if
 omitted (not an error — this is the documented empty-album case, not a data error).
@@ -68,13 +72,15 @@ HTML/JS per research.md §7). Authored directly as static JSON under `public/`:
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `name` | string | yes | FR-033 |
+| `id` | string | yes | Required by contracts/content-schemas.md's `saleItemSchema`; used only to key the carousel/DOM elements and by `validate:sales` — no cross-references depend on it |
+| `name` | string | yes | FR-035 |
 | `price` | string | yes | Stored as a display-ready string (e.g., `"$45"`) rather than a bare number, since currency/formatting is a content decision, not a computed one |
-| `description` | string | no | Optional per FR-033 |
-| `photos` | array of Photo (see above) | yes, at least 1 | FR-033 requires "one or more photos"; the carousel (FR-034) needs at least one to render |
+| `description` | string | no | Optional per FR-035 |
+| `photos` | array of Photo (see above) | yes, at least 1 | FR-035 requires "one or more photos"; the carousel (FR-036) needs at least one to render |
 
-**Identity**: array index or an explicit `id` string field, used only to key the carousel/DOM
-elements — no cross-references depend on it.
+**Identity**: the `id` field above (required, not optional — this table previously listed it as
+an alternative to array-index keying, which disagreed with contracts/content-schemas.md's
+schema; corrected during `/speckit-analyze` remediation, finding I1).
 
 **Validation rules**: `photos.length >= 1`. Because this file lives in `public/` and bypasses
 the content-collection build pipeline, it is *not* Zod-validated by Astro automatically; a
@@ -108,11 +114,11 @@ to be editable data. Sales and Easter Egg are hidden *by simply not appearing in
 ## Site Config
 
 **Storage**: `src/config/site.ts` — not in the spec's original Key Entities list, but needed to
-back FR-021 (configurable Blog page size) and FR-032/FR-035 (configurable Sales password and
+back FR-021 (configurable Blog page size) and FR-033/FR-037 (configurable Sales password and
 page size).
 
 | Field | Type | Default | Notes |
 |---|---|---|---|
 | `blogPageSize` | number | `5` | Initial + "Load More" increment (FR-021, FR-023) |
-| `salesPageSize` | number | `5` | Same pattern, applied to the Sales list (FR-035) |
-| `salesPassword` | string | *(owner-set, e.g. placeholder `"changeme"`)* | Checked entirely client-side (FR-032); **not a secret** — this file ships in the built JS bundle, consistent with the spec's explicit "front-end-only, not real security" framing |
+| `salesPageSize` | number | `5` | Same pattern, applied to the Sales list (FR-037) |
+| `salesPassword` | string | *(owner-set, e.g. placeholder `"changeme"`)* | Checked entirely client-side (FR-033); **not a secret** — this file ships in the built JS bundle, consistent with the spec's explicit "front-end-only, not real security" framing. The placeholder default is intentionally not a real password, so the page stays locked until the owner sets one (resolves an Edge Case noted in spec.md) |

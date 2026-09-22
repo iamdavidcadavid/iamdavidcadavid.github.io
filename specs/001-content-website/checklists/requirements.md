@@ -52,3 +52,11 @@
   new/changed requirements are testable (a page must exist at its own URL and render specific
   content) and stay technology-agnostic in the spec itself (the Astro-specific "how" lives in
   plan.md/research.md, not here).
+- **2026-09-22 post-analyze remediation**: `/speckit-analyze` found two constitution/coverage
+  gaps (missing translation-pending indicator; a documented-but-unbuildable "not available in
+  this language" album state) and two underspecified edge cases (no-JS Sales access; unconfigured
+  password). Remediated in spec.md's "Amendment (2026-09-22, c)": added FR-027/SC-010 (blog
+  translation-pending indicator), FR-034/SC-011 (Sales `<noscript>` fallback), resolved both
+  edge cases with concrete behavior, and added an Assumptions note scoping subjective tone/length
+  copy descriptors ("short paragraphs", "kind and friendly tone") as editorial guidance rather
+  than testable criteria — resolving the one LOW ambiguity flag. All checklist items still pass.

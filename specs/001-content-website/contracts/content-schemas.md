@@ -51,8 +51,18 @@ const saleCatalogSchema = z.array(saleItemSchema);
 
 For every `en/<slug>` content entry, an `es/<slug>` entry (same slug) SHOULD eventually exist
 per constitution Principle II. A missing counterpart is **not** a build failure (translation is
-allowed to lag), but per FR-010/Principle II it MUST be visibly flagged rather than silently
-producing a broken link or an empty page in the other language — for blog posts, via
-`translationPending: true` on whichever language exists; for albums, the missing-language page
-should render a clear "not yet available in this language" state rather than a 404, since the
-route itself (`/es/photos/`) always exists (routing is per-page, not per-entry).
+allowed to lag), but per Principle II it MUST never be a silent gap. The two collections handle
+this differently, deliberately (see research.md §11 for the full rationale):
+
+- **`blog`**: because individual posts are directly shared/bookmarked (FR-020, SC-009), the
+  language that *does* have the post MUST say so — set `translationPending: true` on that entry,
+  which both the list entry and the post's own page render as a visible "not yet available in
+  [other language]" note (FR-027, SC-010). This is a rendering requirement on the component, not
+  just a stored flag.
+- **`albums`**: an album missing its locale counterpart simply has no generated route in that
+  locale (per-locale `getStaticPaths()`, research.md §11) and does not appear in that language's
+  grid at all. There is **no** synthetic "not available in this language" page — nothing ever
+  links to a route that doesn't exist, so Principle II's "no silent gap" is satisfied by the
+  missing album never being surfaced as a broken link in the first place, rather than by an
+  explicit in-place message. (An earlier version of this document incorrectly promised such a
+  message for albums; corrected during `/speckit-analyze` remediation, finding C2.)

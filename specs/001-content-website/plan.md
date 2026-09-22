@@ -86,15 +86,22 @@ empty.
 written): all rows above still hold. The one design choice most worth re-checking against the
 constitution — keeping Sale item data out of the content-collection build pipeline, in
 `public/sales-catalog.*.json` instead — remains static (no server) and does not weaken Principle
-III; it exists specifically to make FR-032's "no server-side component" and SC-005's "not
+III; it exists specifically to make FR-033's "no server-side component" and SC-005's "not
 present in the page" both literally true at once. No new violations were introduced during
 design. Gate: **PASS**.
 
 **Post-revision re-check** (after adding individual blog post/album pages via
-`getStaticPaths()`, per FR-020/FR-028/SC-009): still fully static — `getStaticPaths()` runs at
+`getStaticPaths()`, per FR-020/FR-029/SC-009): still fully static — `getStaticPaths()` runs at
 build time, producing plain pre-rendered HTML files, so this adds pages, not a server (Principle
 III intact). Each new page also ships in both languages by construction, since it's generated
 per locale subfolder (Principle II intact). No new violations. Gate: **PASS**.
+
+**Post-analyze re-check** (after `/speckit-analyze` remediation — FR-027/SC-010 blog
+translation-pending indicator, FR-034/SC-011 Sales `<noscript>` fallback): both are static,
+build-time/markup-only additions (a conditional render on an existing field; a `<noscript>`
+block) — no server, no new dependency. Principle II is, if anything, better satisfied than
+before (a real gap is now visibly flagged instead of silently absent). No new violations. Gate:
+**PASS**.
 
 ## Project Structure
 
@@ -184,7 +191,7 @@ routing under `src/pages/` directly encodes the site's IA: English routes at the
 Spanish routes mirrored one-for-one under `src/pages/es/`, matching the `/es/`-prefix decision
 in the spec's Clarifications. `blog/[slug].astro` and `photos/[album].astro` use Astro's
 `getStaticPaths()` to pre-render one real, shareable static page per content-collection entry
-(FR-020, FR-028, SC-009), keeping the list pages (`blog/index.astro`, `photos/index.astro`)
+(FR-020, FR-029, SC-009), keeping the list pages (`blog/index.astro`, `photos/index.astro`)
 focused purely on the list/grid + pagination/empty-state behavior. Reusable UI (nav, sections,
 list/gallery widgets) lives in `src/components/` and is shared by both language trees so there
 is exactly one implementation of each behavior, not two. Content authors edit files under

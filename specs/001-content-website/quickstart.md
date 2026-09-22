@@ -62,15 +62,18 @@ At each of **375px**, **768px**, and **1440px** browser widths, on `/` and `/es/
 - [ ] With zero posts, the bread-oven loading animation shows instead of an empty list.
 - [ ] Clicking a post's title navigates to `/blog/<slug>/` (or `/es/blog/<slug>/`), showing the
       full post body. Opening that URL directly (skipping `/blog/`) also works (FR-020, SC-009).
+- [ ] The post marked `translationPending: true` (with no Spanish file) shows a visible "not yet
+      available in Spanish" note on both its English list entry and its English detail page
+      (FR-027, SC-010); it does not appear at all in the Spanish list or sitemap.
 
 ### 5. Photos (User Story 3)
 
 - [ ] Grid shows each album's cover + title.
 - [ ] Clicking an album navigates to `/photos/<slug>/` (or `/es/photos/<slug>/`), showing its
-      photo list; opening that URL directly (skipping `/photos/`) also works (FR-028, SC-009).
+      photo list; opening that URL directly (skipping `/photos/`) also works (FR-029, SC-009).
 - [ ] Clicking a photo opens an enlarged modal.
 - [ ] An album with an empty `photos: []` array shows "Development in process..." with the
-      photo-developing animation (FR-030), not a blank grid or an error.
+      photo-developing animation (FR-031), not a blank grid or an error.
 
 ### 6. Sales — hidden + gated (User Story 4)
 
@@ -83,6 +86,8 @@ At each of **375px**, **768px**, and **1440px** browser widths, on `/` and `/es/
       click.
 - [ ] Reloading the page within the same tab/session does not re-prompt for the password.
 - [ ] `Load More` behaves like the Blog list once unlocked.
+- [ ] With JavaScript disabled in the browser, `/sales/` shows the `<noscript>` "requires
+      JavaScript" message instead of an inert password field (FR-034, SC-011).
 
 ### 7. Easter Egg — hidden (User Story 5)
 

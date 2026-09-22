@@ -22,6 +22,13 @@ renumbered FR-020 through FR-035 to FR-021 through FR-036 accordingly (see `/spe
 research.md §11 for the implementation approach — Astro dynamic routes generated per post/album
 slug).
 
+**Amendment (2026-09-22, c)**: `/speckit-analyze` found two coverage gaps against constitution
+Principle II/IV and two underspecified edge cases; remediated here. Added FR-027 + SC-010 (a
+blog post missing its other-language counterpart must visibly say so, not just silently not
+exist) and FR-034 + SC-011 (a `<noscript>` fallback on the Sales page). Added an Assumptions
+note scoping subjective tone/length copy descriptors as editorial guidance, not testable
+criteria. Renumbered FR-027 through FR-036 to FR-028 through FR-038 accordingly.
+
 ## Clarifications
 
 ### Session 2026-09-22
@@ -203,13 +210,21 @@ from search indexing — regardless of whether any other page exists yet.
   configured page size (the last "Load More" click reveals fewer items than usual, and the
   control then correctly disappears)?
 - An album with no photos yet shows a "Development in process..." empty state with a
-  photo-developing animation (FR-030) rather than a blank grid or an error.
-- How does the Sales page behave if the site owner has not yet configured a password, or if the
-  visitor's browser has stored a previously correct password from an earlier visit?
-- What happens if a visitor tries to access the Sales or Easter Egg page from a device/browser
-  with JavaScript disabled, given the password gate is client-side only?
+  photo-developing animation (FR-031) rather than a blank grid or an error.
+- A blog post published in only one language shows a visible "not yet available in [other
+  language]" note on the language it does exist in (FR-027, SC-010) — it is never silently
+  missing, and (per the site's per-locale content structure) it simply does not appear at all in
+  the other language's list or grid, since no page is generated for it there.
+- If the site owner has not yet set a real Sales password, the placeholder default value
+  (data-model.md's Site Config) never matches anything a visitor could reasonably guess, so the
+  page stays locked by default rather than open. A visitor's browser remembering a previously
+  correct password only lasts for that tab's session (`sessionStorage`), so a stale password is
+  never remembered across browser restarts or new tabs.
+- A visitor with JavaScript disabled sees an explanatory `<noscript>` message on the Sales page
+  instead of a non-functional password field (FR-034, SC-011); the Easter Egg page has no
+  interactive behavior, so JavaScript being disabled does not affect it.
 - A visitor following a shared/bookmarked link straight to an individual blog post (FR-020) or
-  photo album (FR-028) URL lands directly on that post/album's dedicated page, without needing
+  photo album (FR-029) URL lands directly on that post/album's dedicated page, without needing
   to go through the Blog or Photos list first. Sales items have no individual URL of their own
   (they only ever appear within the gated `/sales/` list), so this does not apply to them.
 - Since language is encoded in the URL (FR-010) rather than stored as visitor state, navigating
@@ -298,46 +313,53 @@ from search indexing — regardless of whether any other page exists yet.
 - **FR-026**: Adjacent entries in the blog list MUST alternate between two distinct visual
   treatments, drawn from the brand palette (FR-009), so consecutive posts are visually
   distinguishable.
+- **FR-027**: A blog post that does not yet have a counterpart in the other language MUST be
+  marked `translationPending`, and both its list entry and its dedicated page MUST show a
+  visible note that it is not yet available in the other language (constitution Principle II).
 
 **Photos page**
 
-- **FR-027**: The Photos page MUST display a grid of photo albums, each showing a cover image
+- **FR-028**: The Photos page MUST display a grid of photo albums, each showing a cover image
   and the album's title.
-- **FR-028**: Selecting an album MUST navigate to a dedicated page for that album, at its own
+- **FR-029**: Selecting an album MUST navigate to a dedicated page for that album, at its own
   URL, displaying the list of photos contained within it.
-- **FR-029**: Selecting a photo within an open album MUST display that photo enlarged in a
+- **FR-030**: Selecting a photo within an open album MUST display that photo enlarged in a
   modal overlay.
-- **FR-030**: If an album contains zero photos, opening it MUST show an empty-state view with
+- **FR-031**: If an album contains zero photos, opening it MUST show an empty-state view with
   the message "Development in process..." and a small animation of a photo being developed
   (darkroom-style), instead of a blank grid or an error.
 
 **Sales page (hidden)**
 
-- **FR-031**: The Sales page MUST require a visitor to enter a password before any item
+- **FR-032**: The Sales page MUST require a visitor to enter a password before any item
   content (names, prices, descriptions, photos) is shown.
-- **FR-032**: The password required to unlock the Sales page MUST be configurable by the site
+- **FR-033**: The password required to unlock the Sales page MUST be configurable by the site
   owner directly within the page's own source/configuration, and validated entirely in the
   browser (no server-side component).
-- **FR-033**: Each item on the Sales page MUST display a name, a price, an optional
+- **FR-034**: If JavaScript is disabled or unavailable, the Sales page MUST show a visible
+  message explaining that the catalog requires JavaScript, instead of a password field that
+  silently does nothing.
+- **FR-035**: Each item on the Sales page MUST display a name, a price, an optional
   description, and one or more photos.
-- **FR-034**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
+- **FR-036**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
   when clicked.
-- **FR-035**: The Sales item list MUST use the same progressive loading behavior as the Blog
+- **FR-037**: The Sales item list MUST use the same progressive loading behavior as the Blog
   list: a configurable initial count, a "Load More" control that appends the same-size batch,
   and no "Load More" control once every item has been loaded.
 
 **Easter Egg page (hidden)**
 
-- **FR-036**: The Easter Egg page MUST exist as a working, directly reachable page that loads
+- **FR-038**: The Easter Egg page MUST exist as a working, directly reachable page that loads
   successfully even before any real content has been added to it.
 
 ### Key Entities
 
 - **Blog Post**: A single article — title, full body text (from which the first 2-3 lines are
   shown in the list per FR-019), publish order/date, and English/Spanish content variants. Each
-  post is also viewable at its own dedicated URL (FR-020).
+  post is also viewable at its own dedicated URL (FR-020). A post published in only one
+  language is marked `translationPending` and visibly flagged as such (FR-027).
 - **Photo Album**: A named collection of photos — title, cover image, ordered list of member
-  Photos. Each album is also viewable at its own dedicated URL (FR-028).
+  Photos. Each album is also viewable at its own dedicated URL (FR-029).
 - **Photo**: A single image belonging to a Photo Album (or attached to a Sale Item) — image
   asset and optional caption.
 - **Sale Item**: A catalog entry on the Sales page — name, price, optional description, one or
@@ -375,6 +397,11 @@ from search indexing — regardless of whether any other page exists yet.
 - **SC-009**: Every blog post and every photo album has its own dedicated, shareable URL that,
   when visited directly, displays that post's full content or that album's photos without
   requiring the visitor to first go through the Blog or Photos list page.
+- **SC-010**: A blog post that exists in only one language visibly tells a visitor reading the
+  existing language that it is not yet available in the other one — no post is ever silently
+  missing without explanation.
+- **SC-011**: A visitor with JavaScript disabled who opens the Sales page sees an explanatory
+  message rather than a password field that produces no visible response when used.
 
 ## Assumptions
 
@@ -411,3 +438,9 @@ from search indexing — regardless of whether any other page exists yet.
   stays within the palette and satisfies contrast requirements — lighter palette colors such as
   `#BFCF74` are expected to need a neutral pairing when used for text rather than being used as
   standalone body-text color.
+- Descriptors of written copy — "short paragraphs" (FR-013), a "kind and friendly tone"
+  (FR-015) — are editorial/tone guidance for whoever writes the final replacement copy, not
+  technical acceptance criteria; they are intentionally not quantified (no word count, no
+  sentiment score) and are left to the site owner's judgment. This spec's testable requirements
+  are the structural/behavioral ones (that these sections exist, contain the required elements,
+  and behave as specified), not the literary quality of the text that eventually fills them.
