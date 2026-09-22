@@ -14,6 +14,24 @@ Green `#BFCF74`, Primary Green `#88AB4D`) to the project's Technical Constraints
 SC-008, and a supporting assumption to require this feature's visual design to draw from that
 palette; renumbered FR-009 through FR-031 to FR-010 through FR-032 accordingly.
 
+## Clarifications
+
+### Session 2026-09-22
+
+- Q: What exact viewport-width breakpoint should separate "mobile" from "desktop" layout
+  behavior for the About section swap (FR-012) and the navigation-to-hamburger switch
+  (FR-005/FR-006)? → A: Single breakpoint at 768px — viewports narrower than 768px use the
+  mobile layout (stacked About, hamburger nav); viewports 768px and wider use the desktop
+  layout (side-by-side About, full nav). Verify at 375px, 768px, and 1440px.
+- Q: Given the site has no server-side code, how should the English/Spanish language switch
+  work in terms of the URLs visitors see and share? → A: Separate URL per language (e.g., an
+  `/es/` path prefix for Spanish, with English unprefixed as the default); the language switch
+  links directly to the equivalent URL in the other language.
+- Q: When a Photos album currently has zero photos in it, what should the visitor see if they
+  open it? → A: An empty-state view showing the message "Development in process..." alongside
+  a small animation of a photo being developed (darkroom-style), rather than a blank grid or an
+  error.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Learn about David and get in touch (Priority: P1)
@@ -103,6 +121,9 @@ album drill-down, and enlarge-on-click modal all work without any dependency on 
    photos belonging to that album is displayed.
 3. **Given** the visitor clicks a photo inside an open album, **When** the photo is selected,
    **Then** a modal appears showing that photo at a larger size.
+4. **Given** an album currently has no photos in it, **When** the visitor opens that album,
+   **Then** an empty-state view is shown with the message "Development in process..." and a
+   small animation of a photo being developed, instead of a blank grid or an error.
 
 ---
 
@@ -163,21 +184,25 @@ from search indexing — regardless of whether any other page exists yet.
 
 ### Edge Cases
 
-- What happens when the browser window is resized across the point where the full navigation
-  menu would no longer fit — does the switch to the hamburger menu happen without ever briefly
-  showing both, or neither, menu?
+- What happens when the browser window is resized across the 768px breakpoint — does the switch
+  between the full navigation menu and the hamburger menu happen without ever briefly showing
+  both, or neither, menu?
 - How does the Blog page behave when the number of remaining posts is smaller than the
   configured page size (the last "Load More" click reveals fewer items than usual, and the
   control then correctly disappears)?
-- How does the Photos page behave if an album has no photos in it yet?
+- An album with no photos yet shows a "Development in process..." empty state with a
+  photo-developing animation (FR-029) rather than a blank grid or an error.
 - How does the Sales page behave if the site owner has not yet configured a password, or if the
   visitor's browser has stored a previously correct password from an earlier visit?
 - What happens if a visitor tries to access the Sales or Easter Egg page from a device/browser
   with JavaScript disabled, given the password gate is client-side only?
 - What happens when a visitor follows a shared/bookmarked link to a specific blog post, photo
   album, or Sales item directly, rather than arriving via the page's default list view?
-- How is a language preference (English/Spanish, per the project constitution) retained when a
-  visitor navigates between Home, Blog, Photos, and the hidden pages?
+- Since language is encoded in the URL (FR-010) rather than stored as visitor state, navigating
+  between pages within the same language naturally stays in that language — what should happen
+  if a visitor lands directly on an English URL from an external link or bookmark and then
+  navigates around; does the site need to remember a prior language choice at all, or is
+  per-URL language sufficient?
 
 ## Requirements *(mandatory)*
 
@@ -195,10 +220,11 @@ from search indexing — regardless of whether any other page exists yet.
 - **FR-004**: The Sales and Easter Egg pages MUST be excluded from search engine crawling and
   indexing (e.g., via no-index directives) and MUST be excluded from any sitemap the site
   publishes.
-- **FR-005**: When the viewport is too narrow to display the full navigation menu, the site
-  MUST show a hamburger-style menu control that provides the same links instead.
+- **FR-005**: At viewport widths below 768px, the site MUST show a hamburger-style menu
+  control that provides the same links as the full navigation menu, in place of it.
 - **FR-006**: The full navigation menu and the hamburger menu MUST NOT both be visible at the
-  same time; exactly one of the two MUST be shown at any given viewport width.
+  same time; the hamburger menu MUST be shown below 768px and the full menu MUST be shown at
+  768px and above, with exactly one of the two visible at any given viewport width.
 - **FR-007**: All body copy that is not yet final MUST be represented using clearly marked
   placeholder text (and a placeholder image where a photo is required) so it can be found and
   replaced later.
@@ -210,71 +236,82 @@ from search indexing — regardless of whether any other page exists yet.
   Secondary Blue `#90B4D4`, Secondary Green `#BFCF74`, Primary Green `#88AB4D` — rather than
   arbitrary colors, with neutrals (white/black/grays) used alongside it for text and
   backgrounds wherever a palette color would not meet accessibility contrast requirements.
+- **FR-010**: Each page MUST be published at its own static URL per language — English
+  unprefixed (default) and Spanish under a distinct `/es/` path prefix (or equivalent
+  per-language path segment) — so each language's content is independently reachable,
+  linkable, and crawlable without any server-side logic. This applies to the Sales and Easter
+  Egg pages as well: both MUST exist in both language URL variants while remaining excluded
+  from navigation and indexing per FR-003/FR-004 in each language.
+- **FR-011**: The language-switch control MUST link directly to the equivalent URL of the
+  current page in the other language (not merely to that language's Home page).
 
 **Home page**
 
-- **FR-010**: The Home page MUST display a welcoming banner section with introductory text
+- **FR-012**: The Home page MUST display a welcoming banner section with introductory text
   (e.g., "Welcome to my site").
-- **FR-011**: The Home page MUST display an About section containing one or more short
+- **FR-013**: The Home page MUST display an About section containing one or more short
   paragraphs of biography text alongside a photo of David Cadavid (placeholder text and image
   acceptable).
-- **FR-012**: On desktop-width viewports, the About section MUST place the text to the left and
-  the photo to the right; on mobile-width viewports, the photo MUST appear above the text.
-- **FR-013**: The Home page MUST display a Contact section that opens with a short paragraph,
+- **FR-014**: At viewport widths of 768px and above, the About section MUST place the text to
+  the left and the photo to the right; below 768px, the photo MUST appear above the text.
+- **FR-015**: The Home page MUST display a Contact section that opens with a short paragraph,
   written in a kind and friendly tone, inviting the visitor to get in touch.
-- **FR-014**: The Contact section MUST include icon links to LinkedIn (username
+- **FR-016**: The Contact section MUST include icon links to LinkedIn (username
   `cadaviddavid`), GitHub (username `iamdavidcadavid`), and YouTube (username
   `iamdavidcadavid`).
-- **FR-015**: The Contact section MUST include a button labeled "email" that opens the
+- **FR-017**: The Contact section MUST include a button labeled "email" that opens the
   visitor's default email application with a new message addressed to
   `contact@davidcadavid.com`.
-- **FR-016**: The site's "About" and "Contact" navigation entries MUST bring the visitor to
+- **FR-018**: The site's "About" and "Contact" navigation entries MUST bring the visitor to
   this same About/Contact content on the Home page.
 
 **Blog page**
 
-- **FR-017**: The Blog page MUST display a list of blog post entries, each showing its title
+- **FR-019**: The Blog page MUST display a list of blog post entries, each showing its title
   and the first two to three lines of its text.
-- **FR-018**: The Blog page MUST initially display up to a configurable number of posts, with a
+- **FR-020**: The Blog page MUST initially display up to a configurable number of posts, with a
   default of 5.
-- **FR-019**: While additional posts remain beyond what is currently shown, the Blog page MUST
+- **FR-021**: While additional posts remain beyond what is currently shown, the Blog page MUST
   display a "Load More" control.
-- **FR-020**: Activating "Load More" MUST append the next batch of posts, using the same
+- **FR-022**: Activating "Load More" MUST append the next batch of posts, using the same
   configured count as the initial page size.
-- **FR-021**: Once all available posts have been loaded, the "Load More" control MUST no longer
+- **FR-023**: Once all available posts have been loaded, the "Load More" control MUST no longer
   be displayed.
-- **FR-022**: When there are no blog posts to show, the Blog page MUST display a bread-oven
+- **FR-024**: When there are no blog posts to show, the Blog page MUST display a bread-oven
   themed loading animation instead of an empty list.
-- **FR-023**: Adjacent entries in the blog list MUST alternate between two distinct visual
+- **FR-025**: Adjacent entries in the blog list MUST alternate between two distinct visual
   treatments, drawn from the brand palette (FR-009), so consecutive posts are visually
   distinguishable.
 
 **Photos page**
 
-- **FR-024**: The Photos page MUST display a grid of photo albums, each showing a cover image
+- **FR-026**: The Photos page MUST display a grid of photo albums, each showing a cover image
   and the album's title.
-- **FR-025**: Selecting an album MUST display the list of photos contained within it.
-- **FR-026**: Selecting a photo within an open album MUST display that photo enlarged in a
+- **FR-027**: Selecting an album MUST display the list of photos contained within it.
+- **FR-028**: Selecting a photo within an open album MUST display that photo enlarged in a
   modal overlay.
+- **FR-029**: If an album contains zero photos, opening it MUST show an empty-state view with
+  the message "Development in process..." and a small animation of a photo being developed
+  (darkroom-style), instead of a blank grid or an error.
 
 **Sales page (hidden)**
 
-- **FR-027**: The Sales page MUST require a visitor to enter a password before any item
+- **FR-030**: The Sales page MUST require a visitor to enter a password before any item
   content (names, prices, descriptions, photos) is shown.
-- **FR-028**: The password required to unlock the Sales page MUST be configurable by the site
+- **FR-031**: The password required to unlock the Sales page MUST be configurable by the site
   owner directly within the page's own source/configuration, and validated entirely in the
   browser (no server-side component).
-- **FR-029**: Each item on the Sales page MUST display a name, a price, an optional
+- **FR-032**: Each item on the Sales page MUST display a name, a price, an optional
   description, and one or more photos.
-- **FR-030**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
+- **FR-033**: Item photos on the Sales page MUST be presented in a carousel and MUST enlarge
   when clicked.
-- **FR-031**: The Sales item list MUST use the same progressive loading behavior as the Blog
+- **FR-034**: The Sales item list MUST use the same progressive loading behavior as the Blog
   list: a configurable initial count, a "Load More" control that appends the same-size batch,
   and no "Load More" control once every item has been loaded.
 
 **Easter Egg page (hidden)**
 
-- **FR-032**: The Easter Egg page MUST exist as a working, directly reachable page that loads
+- **FR-035**: The Easter Egg page MUST exist as a working, directly reachable page that loads
   successfully even before any real content has been added to it.
 
 ### Key Entities
@@ -299,8 +336,8 @@ from search indexing — regardless of whether any other page exists yet.
 - **SC-001**: A first-time visitor can find at least one way to contact the site owner within
   10 seconds of the Home page finishing loading, without scrolling past the Contact section.
 - **SC-002**: At every viewport width, exactly one navigation style (full menu or hamburger) is
-  visible — automated or manual checks across representative breakpoints find zero cases of
-  both or neither appearing.
+  visible — checks at 375px, 768px, and 1440px (and the immediate boundary around 768px) find
+  zero cases of both or neither appearing.
 - **SC-003**: A visitor can read through an entire blog archive of any size using only the
   "Load More" control, with each click adding the same configured number of posts and no
   errors or broken states along the way.
@@ -311,8 +348,9 @@ from search indexing — regardless of whether any other page exists yet.
   present in the page prior to a visitor supplying the correct password.
 - **SC-006**: A visitor can go from the Photos grid to viewing any individual photo at enlarged
   size in no more than 2 clicks (album, then photo).
-- **SC-007**: Every page covered by this feature renders correctly in both English and Spanish,
-  with a visible control that lets a visitor switch between them from any page.
+- **SC-007**: Every page covered by this feature is reachable at its own English URL and its
+  own Spanish URL, renders correctly in both, and the visible language-switch control on either
+  version always leads to the equivalent page in the other language.
 - **SC-008**: Every page's colors (backgrounds, buttons, links, and accents) are drawn from the
   ratified brand palette, and every text/interactive element using a palette color meets
   standard accessibility contrast thresholds against its background.
@@ -339,8 +377,8 @@ from search indexing — regardless of whether any other page exists yet.
   or an obviously-fake sample photo) that a later manual pass can find and replace; this spec
   does not prescribe the exact placeholder format.
 - Per the already-ratified project constitution, all pages in this feature must ultimately ship
-  in both English and Spanish; the specific translated copy is out of scope here and will use
-  placeholders the same way single-language content does.
+  in both English and Spanish, at separate per-language URLs (FR-010); the specific translated
+  copy is out of scope here and will use placeholders the same way single-language content does.
 - The Blog, Photos, and Sales catalogs are personal-site scale (dozens, not many thousands, of
   entries) — no requirement is made for large-scale catalog performance.
 - The Easter Egg page needs no functional requirements beyond existing and being reachable; its

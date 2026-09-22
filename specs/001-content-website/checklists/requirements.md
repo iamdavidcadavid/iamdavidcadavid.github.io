@@ -39,3 +39,9 @@
   supporting Assumption, to reflect constitution v1.1.0. All items still pass — the new
   requirement is testable (colors drawn from a fixed, named set) and technology-agnostic in the
   success criteria (references contrast/accessibility outcomes, not implementation).
+- **2026-09-22 clarification pass**: Ran `/speckit-clarify`, resolving 3 questions — the
+  mobile/desktop breakpoint (768px, now in FR-005/FR-006/FR-014/SC-002), the per-language URL
+  structure given the static/no-server constraint (FR-010/FR-011, SC-007), and the empty-album
+  behavior on the Photos page (FR-029). All checklist items still pass; requirements are now
+  more precisely testable than before (concrete pixel values and URL patterns instead of vague
+  "mobile-width"/"desktop-width" language).
