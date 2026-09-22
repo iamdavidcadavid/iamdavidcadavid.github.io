@@ -60,3 +60,9 @@
   edge cases with concrete behavior, and added an Assumptions note scoping subjective tone/length
   copy descriptors ("short paragraphs", "kind and friendly tone") as editorial guidance rather
   than testable criteria — resolving the one LOW ambiguity flag. All checklist items still pass.
+- **2026-09-22 second `/speckit-analyze` pass**: found two self-introduced tasks.md regressions
+  from the prior remediation (stale task IDs in the "Parallel Opportunities" list; an
+  underspecified file path for the new no-JS fallback component) — fixed directly. Also resolved
+  the last remaining open-question Edge Case (language-preference persistence) with its already-
+  implied answer (per-URL language is sufficient; no state to remember). All checklist items
+  still pass; no open ambiguities or unresolved edge cases remain in spec.md.

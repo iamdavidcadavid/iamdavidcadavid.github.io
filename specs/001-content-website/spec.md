@@ -227,11 +227,11 @@ from search indexing — regardless of whether any other page exists yet.
   photo album (FR-029) URL lands directly on that post/album's dedicated page, without needing
   to go through the Blog or Photos list first. Sales items have no individual URL of their own
   (they only ever appear within the gated `/sales/` list), so this does not apply to them.
-- Since language is encoded in the URL (FR-010) rather than stored as visitor state, navigating
-  between pages within the same language naturally stays in that language — what should happen
-  if a visitor lands directly on an English URL from an external link or bookmark and then
-  navigates around; does the site need to remember a prior language choice at all, or is
-  per-URL language sufficient?
+- Since language is encoded in the URL (FR-010) rather than stored as visitor state, a visitor
+  landing directly on an English URL from an external link or bookmark simply stays in English
+  as they navigate, because every internal link (nav, language switch, in-page links) is
+  generated for the page's own locale. Per-URL language is sufficient on its own; the site does
+  not need to separately remember a prior language choice.
 
 ## Requirements *(mandatory)*
 

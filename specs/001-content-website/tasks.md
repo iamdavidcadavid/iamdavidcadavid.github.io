@@ -245,14 +245,13 @@ Independent Test for User Story 4).
       item name/price/description/photo is rendered or present in the page before a correct
       password (SC-005); remembers a correct entry in `sessionStorage` for the rest of that tab's
       session — depends on T034, T008.
-- [ ] T036 [P] [US4] Create a shared `<noscript>` fallback markup (either inline in T037/T038 or
-      as a small partial) rendering a plain-language message ("This page requires JavaScript") to
-      pair with `<SalesGate />`, so a visitor with JavaScript disabled sees an explanation
-      instead of an inert password field (FR-034, SC-011; research.md §7 addendum).
+- [ ] T036 [P] [US4] Create `src/components/SalesNoScript.astro`: a `<noscript>` fallback
+      rendering a plain-language message ("This page requires JavaScript") to pair with
+      `<SalesGate />`, so a visitor with JavaScript disabled sees an explanation instead of an
+      inert password field (FR-034, SC-011; research.md §7 addendum).
 - [ ] T037 [US4] Create `src/pages/sales/index.astro`: English Sales page — `BaseLayout` with
-      `noindex` set + `SalesGate` + the `<noscript>` fallback from T036; this file MUST NOT be
-      referenced from `NavBar.astro` or any other component (FR-003) — depends on T035, T036,
-      T010.
+      `noindex` set + `SalesGate` + `SalesNoScript` (T036); this file MUST NOT be referenced from
+      `NavBar.astro` or any other component (FR-003) — depends on T035, T036, T010.
 - [ ] T038 [US4] Create `src/pages/es/sales/index.astro`: Spanish equivalent, same
       not-referenced-anywhere constraint — depends on T035, T036, T010.
 
@@ -342,9 +341,10 @@ independently functional.
 - Once Foundational is done, all 5 user story phases can be staffed in parallel.
 - Within US2: T017, T018, T019 together; then T020/T021/T022/T023 (each a different file).
 - Within US3: T024, T025, T026, T027 together; then T028/T029/T030/T031.
-- Within US4: T032, T033, T034 together.
-- Within US5: T038, T039 together.
-- Polish: T040, T041, T042 together.
+- Within US4: T032, T033, T034, T036 together (T035 depends on T034/T008; T037/T038 depend on
+  T035/T036).
+- Within US5: T039, T040 together.
+- Polish: T041, T042, T043 together.
 
 ---
 

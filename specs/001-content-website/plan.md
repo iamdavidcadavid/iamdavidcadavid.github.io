@@ -150,6 +150,7 @@ src/
 │   ├── AlbumGrid.astro       # Photos index: cover + title grid, links to each [album] page
 │   ├── PhotoLightbox.astro   # Photo list + enlarge modal, empty-album state; used by [album].astro
 │   ├── SalesGate.astro       # Client-side password check + post-auth fetch of catalog JSON
+│   ├── SalesNoScript.astro   # <noscript> fallback shown when JS is disabled (FR-034)
 │   └── Carousel.astro        # Shared by Sales item photos
 ├── pages/
 │   ├── index.astro           # English Home (banner + About + Contact)
