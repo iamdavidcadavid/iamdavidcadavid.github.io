@@ -42,6 +42,11 @@ const copy = {
     <div class="sg-modal-content">
       <button type="button" class="sg-modal-close" data-sg-modal-close aria-label="Close">×</button>
       <img data-sg-modal-image src="" alt="" />
+      <div class="sg-modal-nav-row">
+        <button type="button" class="sg-modal-nav" data-sg-modal-prev aria-label="Previous photo" hidden>‹</button>
+        <p class="sg-modal-caption" data-sg-modal-caption></p>
+        <button type="button" class="sg-modal-nav" data-sg-modal-next aria-label="Next photo" hidden>›</button>
+      </div>
     </div>
   </div>
 </div>
@@ -55,6 +60,9 @@ const copy = {
   const loadMoreBtn = root.querySelector('[data-sg-load-more]');
   const modal = root.querySelector('[data-sg-modal]');
   const modalImage = root.querySelector('[data-sg-modal-image]');
+  const modalCaption = root.querySelector('[data-sg-modal-caption]');
+  const modalPrevButton = root.querySelector('[data-sg-modal-prev]');
+  const modalNextButton = root.querySelector('[data-sg-modal-next]');
 
   const STORAGE_KEY = 'sales-unlocked';
   let catalog = [];
@@ -62,11 +70,26 @@ const copy = {
 
   const modalCloseButton = modal.querySelector('.sg-modal-close');
   let lastFocused = null;
+  let currentPhotos = [];
+  let currentIndex = 0;
 
-  function openModal(src, alt) {
+  function showAt(index) {
+    const wrapped = ((index % currentPhotos.length) + currentPhotos.length) % currentPhotos.length;
+    const photo = currentPhotos[wrapped];
+    if (!photo) return;
+    modalImage.src = photo.src;
+    modalImage.alt = photo.alt;
+    currentIndex = wrapped;
+    if (modalCaption) modalCaption.textContent = photo.alt;
+  }
+
+  function openModal(photos, index) {
     lastFocused = document.activeElement;
-    modalImage.src = src;
-    modalImage.alt = alt;
+    currentPhotos = photos;
+    showAt(index);
+    const hasMultiple = photos.length > 1;
+    if (modalPrevButton) modalPrevButton.hidden = !hasMultiple;
+    if (modalNextButton) modalNextButton.hidden = !hasMultiple;
     modal.hidden = false;
     modalCloseButton?.focus();
   }
@@ -80,8 +103,18 @@ const copy = {
     el.addEventListener('click', closeModal);
   });
 
+  modalPrevButton?.addEventListener('click', () => showAt(currentIndex - 1));
+  modalNextButton?.addEventListener('click', () => showAt(currentIndex + 1));
+
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !modal.hidden) closeModal();
+    if (modal.hidden) return;
+    if (event.key === 'Escape') {
+      closeModal();
+    } else if (currentPhotos.length > 1 && event.key === 'ArrowLeft') {
+      showAt(currentIndex - 1);
+    } else if (currentPhotos.length > 1 && event.key === 'ArrowRight') {
+      showAt(currentIndex + 1);
+    }
   });
 
   function renderItem(item) {
@@ -121,7 +154,7 @@ const copy = {
       img.alt = photo.alt;
       img.loading = 'lazy';
       slideBtn.appendChild(img);
-      slideBtn.addEventListener('click', () => openModal(photo.src, photo.alt));
+      slideBtn.addEventListener('click', () => openModal(item.photos, index));
       track.appendChild(slideBtn);
       return slideBtn;
     });
@@ -350,6 +383,36 @@ const copy = {
     max-width: 90vw;
     max-height: 85vh;
     border-radius: 8px;
+  }
+
+  .sg-modal-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .sg-modal-nav {
+    flex-shrink: 0;
+    background: var(--color-primary-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .sg-modal-nav[hidden] {
+    display: none;
+  }
+
+  .sg-modal-caption {
+    margin: 0;
+    color: var(--color-white);
+    text-align: center;
   }
 
   .sg-modal-close {

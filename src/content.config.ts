@@ -18,6 +18,11 @@ const albumSchema = z.object({
   photos: z.array(photoSchema).default([]),
 });
 
+const nowSchema = z.object({
+  date: z.coerce.date(),
+  title: z.string().min(1),
+});
+
 // Both collections are rooted one level above the locale split
 // (src/content/blog/{en,es}/*.md, src/content/albums/{en,es}/*.yaml), so each
 // entry's `id` is prefixed with its locale (e.g. "en/my-post", "es/my-post").
@@ -32,4 +37,9 @@ const albums = defineCollection({
   schema: albumSchema,
 });
 
-export const collections = { blog, albums };
+const now = defineCollection({
+  loader: glob({ base: './src/content/now', pattern: '**/*.md' }),
+  schema: nowSchema,
+});
+
+export const collections = { blog, albums, now };

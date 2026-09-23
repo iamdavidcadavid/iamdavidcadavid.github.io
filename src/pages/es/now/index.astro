@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const entries = await getCollection('now', ({ id }) => id.startsWith('es/'));
+const sorted = [...entries].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const [latest, ...prior] = sorted;
+
+const { Content: LatestContent } = await render(latest);
+const priorRendered = await Promise.all(
+  prior.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
+);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+---
+
+<BaseLayout title="Ahora — David Cadavid">
+  <h1 class="page-title">Ahora</h1>
+
+  <section class="now-latest">
+    <p class="now-date">{formatDate(latest.data.date)}</p>
+    <h2>{latest.data.title}</h2>
+    <div class="now-body">
+      <LatestContent />
+    </div>
+  </section>
+
+  {
+    priorRendered.length > 0 && (
+      <div class="now-history">
+        {priorRendered.map(({ entry, Content }) => (
+          <details>
+            <summary>
+              {formatDate(entry.data.date)} — {entry.data.title}
+            </summary>
+            <div class="now-body">
+              <Content />
+            </div>
+          </details>
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .page-title {
+    text-align: center;
+    padding-top: 2rem;
+  }
+
+  .now-latest,
+  .now-history {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  .now-date {
+    color: var(--color-neutral-700);
+    margin: 0 0 0.25rem;
+  }
+
+  .now-latest h2 {
+    color: var(--color-primary-blue);
+    margin: 0 0 1rem;
+  }
+
+  .now-body {
+    line-height: 1.7;
+  }
+
+  .now-history details {
+    border-top: 1px solid var(--color-neutral-200);
+    padding: 1rem 0;
+  }
+
+  .now-history summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .now-history .now-body {
+    margin-top: 1rem;
+  }
+</style>

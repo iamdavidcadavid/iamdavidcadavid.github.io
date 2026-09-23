@@ -5,6 +5,7 @@ const locale = Astro.currentLocale ?? 'en';
 
 const links = [
   { label: 'Home', href: getRelativeLocaleUrl(locale, '/') },
+  { label: 'Now', href: getRelativeLocaleUrl(locale, '/now/') },
   { label: 'Contact', href: getRelativeLocaleUrl(locale, '/contact/') },
   { label: 'Blog', href: getRelativeLocaleUrl(locale, '/blog/') },
   { label: 'Photos', href: getRelativeLocaleUrl(locale, '/photos/') },
