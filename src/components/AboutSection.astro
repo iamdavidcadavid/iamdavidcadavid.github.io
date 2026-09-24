@@ -1,8 +1,7 @@
 ---
-import profilePhoto from '../assets/placeholders/profile-photo.svg';
+import { t } from '../i18n/ui';
 
 const locale = Astro.currentLocale ?? 'en';
-
 const copy = {
   en: [
     "[PLACEHOLDER: A short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to. Replace with real copy.]",
@@ -17,53 +16,45 @@ const copy = {
 const paragraphs = copy[locale as 'en' | 'es'] ?? copy.en;
 ---
 
-<section class="about">
-  <div class="about-text">
-    {paragraphs.map((p) => <p>{p}</p>)}
-  </div>
-  <div class="about-photo">
-    <img
-      src={profilePhoto.src}
-      width={profilePhoto.width}
-      height={profilePhoto.height}
-      alt="Placeholder photo of David Cadavid"
-    />
-  </div>
+<section class="about card">
+  <h2>{t(locale, 'home.about.title')}</h2>
+  {paragraphs.map((p) => <p>{p}</p>)}
 </section>
 
 <style>
   .about {
     display: flex;
-    flex-direction: column-reverse;
-    gap: 2rem;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
-    align-items: center;
+    flex-direction: column;
+    gap: 14px;
+    padding: 32px 36px;
   }
 
-  .about-text {
-    flex: 1;
+  h2 {
+    margin: 0;
+    font-size: 26px;
   }
 
-  .about-photo {
-    flex: 0 0 auto;
-    width: 200px;
+  p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--body);
+    text-wrap: pretty;
   }
 
-  .about-photo img {
-    border-radius: 12px;
-  }
-
-  /* Desktop (≥768px): text left, photo right (FR-014). */
-  @media (min-width: 768px) {
+  @media (max-width: 767.98px) {
     .about {
-      flex-direction: row;
-      align-items: flex-start;
+      gap: 12px;
+      padding: 24px;
     }
 
-    .about-photo {
-      width: 280px;
+    h2 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.65;
     }
   }
 </style>

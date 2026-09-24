@@ -1,16 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactSection from '../../components/ContactSection.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import { t } from '../../i18n/ui';
 ---
 
 <BaseLayout title="Contact — David Cadavid">
-  <h1 class="page-title">Contact</h1>
-  <ContactSection />
+  <ContactSection>
+    <PageTitle text={t('en', 'nav.contact')} />
+  </ContactSection>
 </BaseLayout>
-
-<style>
-  .page-title {
-    text-align: center;
-    padding-top: 2rem;
-  }
-</style>

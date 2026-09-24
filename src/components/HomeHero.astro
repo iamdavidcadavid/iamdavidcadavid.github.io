@@ -1,0 +1,206 @@
+---
+import { Image } from 'astro:assets';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import AboutSection from './AboutSection.astro';
+import david from '../assets/david.png';
+import { t, type UIKey } from '../i18n/ui';
+
+const locale = Astro.currentLocale ?? 'en';
+
+const chips: { key: UIKey; dot: string }[] = [
+  { key: 'home.chip.engineer', dot: 'var(--blue)' },
+  { key: 'home.chip.mentor', dot: 'var(--chip-mentor)' },
+  { key: 'home.chip.speaker', dot: 'var(--chip-speaker)' },
+  { key: 'home.chip.voice', dot: 'var(--chip-voice)' },
+];
+---
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="anim-slide-left">
+      <h1>{t(locale, 'home.title')}<span class="dot">.</span></h1>
+      <p class="subline">{t(locale, 'home.subline')}</p>
+    </div>
+    <ul class="chips anim-slide-left delay-1">
+      {
+        chips.map((chip) => (
+          <li class="chip">
+            <span class="chip-dot" style={`background: ${chip.dot}`} aria-hidden="true" />
+            {t(locale, chip.key)}
+          </li>
+        ))
+      }
+    </ul>
+    <div class="anim-slide-left delay-2">
+      <AboutSection />
+    </div>
+  </div>
+
+  <div class="hero-media">
+    <div class="photo-frame anim-slide-right delay-3">
+      <Image
+        src={david}
+        alt={t(locale, 'home.photo.alt')}
+        widths={[540, 1080]}
+        sizes="(min-width: 768px) 540px, 100vw"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="ctas anim-rise delay-4">
+      <a class="btn btn-blue" href={getRelativeLocaleUrl(locale, '/contact/')}>{t(locale, 'home.cta.hello')}</a>
+      <a class="btn btn-surface" href={getRelativeLocaleUrl(locale, '/now/')}>{t(locale, 'home.cta.now')}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(540px, 45%));
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+    padding-top: clamp(0px, 1.2vw, 16px);
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(46px, 6.25vw, 80px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+
+  .dot {
+    color: var(--blue);
+  }
+
+  .subline {
+    margin: 28px 0 0;
+    max-width: 520px;
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  .chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .hero-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .photo-frame {
+    width: 100%;
+    padding: 10px;
+    border-radius: 34px;
+    background: var(--blue);
+    box-shadow: var(--shadow-photo);
+  }
+
+  .photo-frame :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    border-radius: 24px;
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  @media (max-width: 767.98px) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 22px;
+      padding-top: 0;
+    }
+
+    .hero-text {
+      gap: 22px;
+    }
+
+    .subline {
+      margin-top: 18px;
+      font-size: 17px;
+    }
+
+    .chips {
+      gap: 8px;
+    }
+
+    .chip {
+      gap: 7px;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+    }
+
+    .hero-media {
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .photo-frame {
+      margin-top: 6px;
+      padding: 7px;
+      border-radius: 26px;
+    }
+
+    .photo-frame :global(img) {
+      border-radius: 20px;
+    }
+
+    .ctas {
+      flex-direction: column;
+      margin-top: 6px;
+      gap: 10px;
+    }
+
+    .ctas .btn {
+      height: 52px;
+      font-size: 16px;
+    }
+  }
+</style>

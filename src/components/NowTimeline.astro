@@ -1,0 +1,207 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { t } from '../i18n/ui';
+import { formatDate } from '../lib/format';
+
+interface Props {
+  entries: CollectionEntry<'now'>[];
+  locale: 'en' | 'es';
+}
+
+const { entries, locale } = Astro.props;
+const [latest, ...prior] = [...entries].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const LatestContent = latest ? (await render(latest)).Content : null;
+const priorRendered = await Promise.all(
+  prior.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+---
+
+<div class="now">
+  <slot />
+
+  {
+    latest && LatestContent && (
+      <section class="latest card anim-rise delay-1">
+        <span class="date-chip">
+          <span class="chip-dot" aria-hidden="true" />
+          {formatDate(latest.data.date, locale, 'long')}
+        </span>
+        <h2>{latest.data.title}</h2>
+        <div class="body">
+          <LatestContent />
+        </div>
+      </section>
+    )
+  }
+
+  {
+    priorRendered.length > 0 && (
+      <div class="history anim-rise delay-2">
+        <h3 class="history-label">{t(locale, 'now.earlier')}</h3>
+        <div class="rows">
+          {priorRendered.map(({ entry, Content }) => (
+            <details>
+              <summary>
+                <span class="summary-text">
+                  <span class="row-date">{formatDate(entry.data.date, locale, 'long')}</span>
+                  <span class="row-title">{entry.data.title}</span>
+                </span>
+                <span class="sign" aria-hidden="true" />
+              </summary>
+              <div class="body row-body">
+                <Content />
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .now {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .latest {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(24px, 3.2vw, 41px);
+  }
+
+  .date-chip {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--blue-soft);
+    color: var(--blue-ink);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(26px, 2.6vw, 34px);
+    line-height: 1.2;
+  }
+
+  .body {
+    font-size: clamp(16px, 1.4vw, 18px);
+    line-height: 1.75;
+    color: var(--body);
+  }
+
+  .body :global(p) {
+    margin: 0 0 16px;
+    text-wrap: pretty;
+  }
+
+  .body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .history {
+    margin-top: clamp(32px, 4vw, 51px);
+  }
+
+  .history-label {
+    margin: 0 0 6px;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .rows {
+    border-bottom: 1px solid var(--line);
+  }
+
+  details {
+    border-top: 1px solid var(--line);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 0;
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+
+  .summary-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 16px;
+  }
+
+  .row-date {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .row-title {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 20px;
+  }
+
+  .sign {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--blue-ink);
+    font-size: 18px;
+  }
+
+  .sign::before {
+    content: '+';
+  }
+
+  details[open] .sign::before {
+    content: '−';
+  }
+
+  .row-body {
+    padding: 0 0 22px;
+    font-size: 16px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    details[open] .row-body {
+      animation: fade 0.25s ease-out;
+    }
+  }
+</style>

@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import PhotoLightbox from './PhotoLightbox.astro';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+const albums = await getCollection('albums', ({ id }) => id.startsWith(`${locale}/`));
+
+// Every album photo in this locale (covers excluded). The first three render at build
+// time, so visitors without JS still see photos; the script swaps in a random pick.
+const pool = albums.flatMap((album) => album.data.photos.map((photo) => ({ src: photo.src, alt: photo.alt })));
+---
+
+<article class="home-card card photos-card">
+  <div class="card-head">
+    <h3>{t(locale, 'home.photos.title')}</h3>
+    <a class="more" href={getRelativeLocaleUrl(locale, '/photos/')}>{t(locale, 'home.photos.more')}</a>
+  </div>
+  {
+    pool.length === 0 ? (
+      <p class="empty">{t(locale, 'home.photos.empty')}</p>
+    ) : (
+      <div class="tiles-wrap" data-photo-pool={JSON.stringify(pool)}>
+        <PhotoLightbox photos={pool.slice(0, 3)} layout="tiles" locale={locale} />
+      </div>
+    )
+  }
+</article>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-photo-pool]').forEach((wrap) => {
+    let pool: { src: string; alt: string }[] = [];
+    try {
+      pool = JSON.parse(wrap.dataset.photoPool ?? '[]');
+    } catch {
+      return;
+    }
+    const tiles = Array.from(wrap.querySelectorAll<HTMLButtonElement>('[data-photo-trigger]'));
+    if (pool.length <= tiles.length) return;
+
+    // Fisher–Yates shuffle of a copy, then rewrite the existing tile images in place:
+    // the photo viewer holds references to these <img> elements, so it follows along.
+    const picks = [...pool];
+    for (let i = picks.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [picks[i], picks[j]] = [picks[j], picks[i]];
+    }
+    tiles.forEach((tile, index) => {
+      const img = tile.querySelector('img');
+      const photo = picks[index];
+      if (!img || !photo) return;
+      img.src = photo.src;
+      img.alt = photo.alt;
+      tile.setAttribute('aria-label', photo.alt);
+    });
+  });
+</script>
+
+<style>
+  .home-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 28px 32px;
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .more {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--blue-ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .more:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .tiles-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tiles-wrap :global(.photo-list) {
+    flex: 1;
+  }
+
+  .empty {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  @media (max-width: 767.98px) {
+    .home-card {
+      gap: 14px;
+      padding: 22px 24px 24px;
+    }
+
+    h3 {
+      font-size: 21px;
+    }
+  }
+</style>

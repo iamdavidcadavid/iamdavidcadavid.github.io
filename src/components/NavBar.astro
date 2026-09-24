@@ -1,129 +1,234 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import LanguageSwitch from './LanguageSwitch.astro';
+import { t, type UIKey } from '../i18n/ui';
 
+interface Props {
+  hideLanguageSwitch?: boolean;
+}
+
+const { hideLanguageSwitch = false } = Astro.props;
 const locale = Astro.currentLocale ?? 'en';
 
-const links = [
-  { label: 'Home', href: getRelativeLocaleUrl(locale, '/') },
-  { label: 'Now', href: getRelativeLocaleUrl(locale, '/now/') },
-  { label: 'Contact', href: getRelativeLocaleUrl(locale, '/contact/') },
-  { label: 'Blog', href: getRelativeLocaleUrl(locale, '/blog/') },
-  { label: 'Photos', href: getRelativeLocaleUrl(locale, '/photos/') },
+const sections: { segment: string; key: UIKey; path: string }[] = [
+  { segment: '', key: 'nav.home', path: '/' },
+  { segment: 'now', key: 'nav.now', path: '/now/' },
+  { segment: 'contact', key: 'nav.contact', path: '/contact/' },
+  { segment: 'blog', key: 'nav.blog', path: '/blog/' },
+  { segment: 'photos', key: 'nav.photos', path: '/photos/' },
 ];
+
+// Locale-agnostic first path segment decides the active item; pages outside the nav
+// (sales, easter-egg, 404) match nothing (routing-contract.md).
+let path = Astro.url.pathname;
+if (path === '/es' || path.startsWith('/es/')) path = path.slice(3);
+const firstSegment = path.split('/').filter(Boolean)[0] ?? '';
+
+const links = sections.map((section) => ({
+  label: t(locale, section.key),
+  href: getRelativeLocaleUrl(locale, section.path),
+  active: section.segment === firstSegment,
+}));
 ---
 
-<nav class="navbar" data-navbar>
-  <button
-    type="button"
-    class="hamburger"
-    data-hamburger
-    aria-expanded="false"
-    aria-controls="nav-menu"
-    aria-label="Toggle navigation menu"
-  >
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <ul id="nav-menu" class="nav-menu" data-nav-menu>
-    {
-      links.map((link) => (
-        <li>
-          <a href={link.href}>{link.label}</a>
-        </li>
-      ))
-    }
-  </ul>
-</nav>
+<div class="navbar">
+  <nav class="desktop-nav">
+    <ul>
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} aria-current={link.active ? 'page' : undefined}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <details class="mobile-menu" data-mobile-menu>
+    <summary aria-label={t(locale, 'nav.menuToggle')}>
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </summary>
+    <nav class="menu-card">
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} aria-current={link.active ? 'page' : undefined}>
+                {link.label}
+                <span class="dot" aria-hidden="true" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      {
+        !hideLanguageSwitch && (
+          <div class="menu-lang">
+            <LanguageSwitch large />
+          </div>
+        )
+      }
+    </nav>
+  </details>
+</div>
 
 <script>
-  const navbar = document.querySelector<HTMLElement>('[data-navbar]');
-  const hamburger = navbar?.querySelector<HTMLButtonElement>('[data-hamburger]');
-  const menu = navbar?.querySelector<HTMLElement>('[data-nav-menu]');
+  // Enhancements only: the <details> menu already opens and closes without JS.
+  const menu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu]');
+  const summary = menu?.querySelector('summary');
 
-  hamburger?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('is-open');
-    hamburger.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.open) {
+      menu.open = false;
+      summary?.focus();
+    }
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.open = false;
+    });
   });
 </script>
 
 <style>
-  .navbar {
-    display: flex;
-    align-items: center;
-  }
-
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 28px;
-    height: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .hamburger span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background: var(--color-neutral-900);
-    border-radius: 2px;
-  }
-
-  .nav-menu {
-    display: flex;
-    gap: 1.5rem;
+  ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .nav-menu a {
+  a {
     text-decoration: none;
-    color: var(--color-text);
-    font-weight: 600;
   }
 
-  .nav-menu a:hover {
-    color: var(--color-primary-blue);
+  /* Desktop: centred pill */
+  .desktop-nav ul {
+    display: flex;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: var(--shadow-pill);
+    font-size: 15px;
   }
 
-  /* Below 768px: hamburger button shows; the link list is hidden until opened.
-     Exactly one of {hamburger, full menu} is ever visible (FR-005/FR-006). */
+  .desktop-nav a {
+    display: block;
+    padding: 10px 18px;
+    border-radius: 999px;
+    color: var(--ink);
+  }
+
+  .desktop-nav a:hover {
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+
+  .desktop-nav a[aria-current='page'] {
+    background: var(--blue);
+    color: var(--on-blue);
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
   @media (max-width: 767.98px) {
-    .hamburger {
-      display: flex;
+    .navbar {
+      order: 3;
     }
 
-    .nav-menu {
+    .desktop-nav {
       display: none;
-      flex-direction: column;
-      gap: 0;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: var(--color-white);
-      border-bottom: 1px solid var(--color-neutral-200);
-      padding: 0.5rem 1.5rem 1rem;
     }
 
-    .nav-menu.is-open {
+    .mobile-menu {
+      display: block;
+    }
+
+    summary {
       display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      list-style: none;
+      border-radius: 50%;
     }
 
-    .nav-menu li {
-      padding: 0.5rem 0;
+    summary::-webkit-details-marker {
+      display: none;
     }
 
-    /* No .navbar position/width/justify-content override here (see
-       002-layout-nav-refresh research.md §2): .navbar keeps its natural
-       (hamburger-button) width so the button sits at the header's true left
-       edge; .nav-menu's left:0;right:0 above then resolves against the
-       ancestor .site-header (position: sticky), which spans the full header
-       width, so the opened dropdown still stretches edge to edge. */
+    summary:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    .bars {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .bars span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--ink);
+    }
+
+    /* Positioned against the sticky .site-header, so it spans the header's full width
+       and stays attached while scrolling. */
+    .menu-card {
+      position: absolute;
+      top: 68px;
+      left: 12px;
+      right: 12px;
+      z-index: 50;
+      padding: 8px 20px 20px;
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: var(--shadow-menu);
+    }
+
+    .menu-card a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-serif), Georgia, serif;
+      font-size: 24px;
+      color: var(--ink);
+    }
+
+    .menu-card a[aria-current='page'] {
+      color: var(--blue-ink);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .menu-card a[aria-current='page'] .dot {
+      background: var(--blue);
+    }
+
+    .menu-lang {
+      padding-top: 18px;
+    }
+  }
+
+  @media (max-width: 767.98px) and (prefers-reduced-motion: no-preference) {
+    .mobile-menu[open] .menu-card {
+      animation: fade 0.2s ease-out;
+    }
   }
 </style>

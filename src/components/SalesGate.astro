@@ -1,5 +1,6 @@
 ---
 import { salesPassword, salesPageSize } from '../config/site';
+import { t } from '../i18n/ui';
 
 interface Props {
   locale: 'en' | 'es';
@@ -7,13 +8,14 @@ interface Props {
 
 const { locale } = Astro.props;
 const catalogUrl = `/sales-catalog.${locale}.json`;
+const viewerLabels = { prev: t(locale, 'viewer.prev'), next: t(locale, 'viewer.next') };
 
 const copy = {
   en: {
     promptLabel: 'Password',
     submit: 'Unlock',
     error: 'Incorrect password.',
-    loadMore: 'Load More',
+    loadMore: 'Load more',
   },
   es: {
     promptLabel: 'Contraseña',
@@ -25,33 +27,34 @@ const copy = {
 ---
 
 <div data-sales-gate>
-  <form class="sg-form" data-sg-form>
+  <form class="sg-form card anim-rise delay-1" data-sg-form novalidate>
+    <span class="sg-lock" aria-hidden="true"><span class="sg-lock-body"></span></span>
     <label for="sales-password">{copy.promptLabel}</label>
-    <input id="sales-password" type="password" name="password" autocomplete="off" />
-    <button type="submit">{copy.submit}</button>
-    <p class="sg-error" data-sg-error hidden>{copy.error}</p>
+    <input id="sales-password" type="password" name="password" autocomplete="off" aria-describedby="sales-password-error" />
+    <p class="sg-error" id="sales-password-error" role="alert" data-sg-error hidden>{copy.error}</p>
+    <button type="submit" class="btn btn-blue">{copy.submit}</button>
   </form>
 
   <div class="sg-catalog" data-sg-catalog hidden>
     <div class="sg-items" data-sg-items></div>
-    <button type="button" class="sg-load-more" data-sg-load-more hidden>{copy.loadMore}</button>
+    <button type="button" class="btn btn-blue sg-load-more" data-sg-load-more hidden>{copy.loadMore}</button>
   </div>
 
   <div class="sg-modal" data-sg-modal hidden>
-    <button type="button" class="sg-modal-backdrop" data-sg-modal-close aria-label="Close"></button>
+    <button type="button" class="sg-modal-backdrop" data-sg-modal-close aria-label={t(locale, 'viewer.close')}></button>
     <div class="sg-modal-content">
-      <button type="button" class="sg-modal-close" data-sg-modal-close aria-label="Close">×</button>
+      <button type="button" class="sg-modal-close" data-sg-modal-close aria-label={t(locale, 'viewer.close')}>×</button>
       <img data-sg-modal-image src="" alt="" />
       <div class="sg-modal-nav-row">
-        <button type="button" class="sg-modal-nav" data-sg-modal-prev aria-label="Previous photo" hidden>‹</button>
+        <button type="button" class="sg-modal-nav" data-sg-modal-prev aria-label={viewerLabels.prev} hidden>‹</button>
         <p class="sg-modal-caption" data-sg-modal-caption></p>
-        <button type="button" class="sg-modal-nav" data-sg-modal-next aria-label="Next photo" hidden>›</button>
+        <button type="button" class="sg-modal-nav" data-sg-modal-next aria-label={viewerLabels.next} hidden>›</button>
       </div>
     </div>
   </div>
 </div>
 
-<script define:vars={{ salesPassword, salesPageSize, catalogUrl }}>
+<script define:vars={{ salesPassword, salesPageSize, catalogUrl, viewerLabels }}>
   const root = document.querySelector('[data-sales-gate]');
   const form = root.querySelector('[data-sg-form]');
   const errorEl = root.querySelector('[data-sg-error]');
@@ -121,22 +124,6 @@ const copy = {
     const card = document.createElement('article');
     card.className = 'sg-item';
 
-    const heading = document.createElement('h3');
-    heading.textContent = item.name;
-    card.appendChild(heading);
-
-    const price = document.createElement('p');
-    price.className = 'sg-price';
-    price.textContent = item.price;
-    card.appendChild(price);
-
-    if (item.description) {
-      const desc = document.createElement('p');
-      desc.className = 'sg-description';
-      desc.textContent = item.description;
-      card.appendChild(desc);
-    }
-
     const carousel = document.createElement('div');
     carousel.className = 'sg-carousel';
 
@@ -163,28 +150,66 @@ const copy = {
     if (item.photos.length > 1) {
       const controls = document.createElement('div');
       controls.className = 'sg-carousel-controls';
+
+      const dotsEl = document.createElement('span');
+      dotsEl.className = 'sg-dots';
+      dotsEl.setAttribute('aria-hidden', 'true');
+      const dots = item.photos.map((_, index) => {
+        const dot = document.createElement('span');
+        dot.className = index === 0 ? 'sg-dot is-active' : 'sg-dot';
+        dotsEl.appendChild(dot);
+        return dot;
+      });
+
+      const show = (next) => {
+        slideButtons[current].style.display = 'none';
+        dots[current].classList.remove('is-active');
+        current = next;
+        slideButtons[current].style.display = '';
+        dots[current].classList.add('is-active');
+      };
+
       const prev = document.createElement('button');
       prev.type = 'button';
       prev.textContent = '‹';
-      prev.addEventListener('click', () => {
-        slideButtons[current].style.display = 'none';
-        current = (current - 1 + slideButtons.length) % slideButtons.length;
-        slideButtons[current].style.display = '';
-      });
+      prev.setAttribute('aria-label', viewerLabels.prev);
+      prev.addEventListener('click', () => show((current - 1 + slideButtons.length) % slideButtons.length));
       const next = document.createElement('button');
       next.type = 'button';
       next.textContent = '›';
-      next.addEventListener('click', () => {
-        slideButtons[current].style.display = 'none';
-        current = (current + 1) % slideButtons.length;
-        slideButtons[current].style.display = '';
-      });
+      next.setAttribute('aria-label', viewerLabels.next);
+      next.addEventListener('click', () => show((current + 1) % slideButtons.length));
+
       controls.appendChild(prev);
+      controls.appendChild(dotsEl);
       controls.appendChild(next);
       carousel.appendChild(controls);
     }
 
     card.appendChild(carousel);
+
+    const info = document.createElement('div');
+    info.className = 'sg-info';
+
+    const titleRow = document.createElement('div');
+    titleRow.className = 'sg-title-row';
+    const heading = document.createElement('h3');
+    heading.textContent = item.name;
+    titleRow.appendChild(heading);
+    const price = document.createElement('span');
+    price.className = 'sg-price';
+    price.textContent = item.price;
+    titleRow.appendChild(price);
+    info.appendChild(titleRow);
+
+    if (item.description) {
+      const desc = document.createElement('p');
+      desc.className = 'sg-description';
+      desc.textContent = item.description;
+      info.appendChild(desc);
+    }
+
+    card.appendChild(info);
     return card;
   }
 
@@ -212,6 +237,8 @@ const copy = {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const input = form.querySelector('input[name="password"]');
+    input.classList.remove('is-invalid');
+    input.removeAttribute('aria-invalid');
     if (input.value === salesPassword) {
       errorEl.hidden = true;
       try {
@@ -222,6 +249,8 @@ const copy = {
       unlock();
     } else {
       errorEl.hidden = false;
+      input.classList.add('is-invalid');
+      input.setAttribute('aria-invalid', 'true');
     }
   });
 
@@ -235,120 +264,212 @@ const copy = {
 </script>
 
 <style is:global>
-  .sg-form[hidden] {
+  /* is:global because catalog cards are created by the script above, so scoped
+     styles would not reach them. Every selector is prefixed with sg-. */
+  .sg-form[hidden],
+  .sg-catalog[hidden],
+  .sg-load-more[hidden],
+  .sg-modal[hidden],
+  .sg-modal-nav[hidden] {
     display: none;
   }
 
   .sg-form {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    max-width: 320px;
-    margin: 3rem auto;
+    gap: 14px;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: clamp(24px, 2.6vw, 33px);
     text-align: left;
   }
 
-  .sg-form input {
-    padding: 0.5rem;
-    border: 1px solid var(--color-neutral-200);
-    border-radius: 6px;
-    font-size: 1rem;
+  .sg-lock {
+    align-self: center;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: var(--blue-soft);
   }
 
-  .sg-form button {
-    padding: 0.6rem 1.5rem;
-    background: var(--color-primary-blue);
-    color: var(--color-white);
-    border: none;
-    border-radius: 999px;
-    font-weight: 700;
-    cursor: pointer;
+  .sg-lock-body {
+    position: relative;
+    width: 22px;
+    height: 17px;
+    margin-top: 8px;
+    border-radius: 5px;
+    background: var(--blue-ink);
+  }
+
+  .sg-lock-body::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: -11px;
+    width: 16px;
+    height: 14px;
+    border: 3px solid var(--blue-ink);
+    border-bottom: 0;
+    border-radius: 9px 9px 0 0;
+    box-sizing: border-box;
+  }
+
+  .sg-form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .sg-form input {
+    height: 52px;
+    padding: 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px var(--font-sans), system-ui, sans-serif;
+    outline: none;
+  }
+
+  .sg-form input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-soft);
+  }
+
+  .sg-form input.is-invalid {
+    border-color: var(--danger-border);
   }
 
   .sg-error {
-    color: #b3261e;
     margin: 0;
+    font-size: 14px;
+    color: var(--danger);
+  }
+
+  .sg-form .btn {
+    height: 52px;
+    margin-top: 4px;
+    font-size: 16px;
   }
 
   .sg-items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: 20px;
   }
 
   .sg-item {
-    padding: 1rem;
-    border-radius: 8px;
-    background: var(--color-neutral-100);
-  }
-
-  .sg-item h3 {
-    margin: 0 0 0.25rem;
-    color: var(--color-primary-blue);
-  }
-
-  .sg-price {
-    font-weight: 700;
-    margin: 0 0 0.5rem;
-  }
-
-  .sg-description {
-    color: var(--color-neutral-700);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 28px;
+    background: var(--surface);
   }
 
   .sg-carousel-slide {
+    display: block;
+    width: 100%;
     padding: 0;
     border: none;
+    border-radius: 20px;
+    overflow: hidden;
     background: none;
-    cursor: pointer;
-    width: 100%;
+    cursor: zoom-in;
   }
 
   .sg-carousel-slide img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    border-radius: 6px;
   }
 
   .sg-carousel-controls {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin-top: 0.5rem;
+    margin-top: 12px;
+    padding: 0 4px;
   }
 
   .sg-carousel-controls button {
-    background: var(--color-primary-blue);
-    color: var(--color-white);
+    width: 36px;
+    height: 36px;
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 1.25rem;
+    background: var(--blue);
+    color: var(--on-blue);
+    font-size: 18px;
+    line-height: 1;
     cursor: pointer;
   }
 
-  /* White text on primary-green is ~2.6:1 contrast, below WCAG AA — dark text
-     on green passes (~6.8:1). */
+  .sg-carousel-controls button:hover {
+    background: var(--blue-hover);
+  }
+
+  .sg-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .sg-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+
+  .sg-dot.is-active {
+    background: var(--blue);
+  }
+
+  .sg-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 2px 10px 10px;
+  }
+
+  .sg-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .sg-item h3 {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.25;
+  }
+
+  .sg-price {
+    flex: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--blue-ink);
+  }
+
+  .sg-description {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
   .sg-load-more {
-    display: block;
-    margin: 0 auto 2rem;
-    padding: 0.75rem 2rem;
-    background: var(--color-primary-green);
-    color: var(--color-neutral-900);
-    border: none;
-    border-radius: 999px;
-    font-weight: 700;
-    cursor: pointer;
+    display: flex;
+    width: fit-content;
+    margin: 28px auto 0;
+    padding: 15px 30px;
   }
 
-  .sg-load-more[hidden] {
-    display: none;
-  }
-
+  /* Viewer: same look as PhotoLightbox (FR-023). */
   .sg-modal {
     position: fixed;
     inset: 0;
@@ -358,16 +479,10 @@ const copy = {
     z-index: 100;
   }
 
-  /* The [hidden] attribute alone loses to the class selector's specificity
-     above, so it would otherwise show the modal at all times. */
-  .sg-modal[hidden] {
-    display: none;
-  }
-
   .sg-modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: var(--backdrop);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -375,55 +490,83 @@ const copy = {
 
   .sg-modal-content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
     max-width: 90vw;
-    max-height: 90vh;
   }
 
   .sg-modal-content img {
-    max-width: 90vw;
-    max-height: 85vh;
-    border-radius: 8px;
+    max-width: min(760px, 86vw);
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: 14px;
   }
 
   .sg-modal-nav-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 0.75rem;
+    gap: 14px;
+    padding: 0 8px;
   }
 
   .sg-modal-nav {
-    flex-shrink: 0;
-    background: var(--color-primary-blue);
-    color: var(--color-white);
+    flex: none;
+    width: 44px;
+    height: 44px;
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 1.25rem;
+    background: var(--blue);
+    color: var(--on-blue);
+    font-size: 20px;
+    line-height: 1;
     cursor: pointer;
   }
 
-  .sg-modal-nav[hidden] {
-    display: none;
+  .sg-modal-nav:hover {
+    background: var(--blue-hover);
   }
 
   .sg-modal-caption {
     margin: 0;
-    color: var(--color-white);
+    font-size: 14px;
+    color: var(--on-backdrop);
     text-align: center;
   }
 
   .sg-modal-close {
     position: absolute;
-    top: -2.5rem;
+    top: -48px;
     right: 0;
-    background: none;
+    width: 44px;
+    height: 44px;
     border: none;
-    color: var(--color-white);
-    font-size: 2rem;
+    background: none;
+    color: var(--on-backdrop);
+    font-size: 32px;
     line-height: 1;
     cursor: pointer;
+  }
+
+  .sg-modal-nav:focus-visible,
+  .sg-modal-close:focus-visible {
+    outline: 2px solid var(--on-backdrop);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sg-modal:not([hidden]) {
+      animation: fade 0.25s ease-out;
+    }
+
+    .sg-carousel-slide img {
+      transition: filter 0.25s;
+    }
+
+    .sg-carousel-slide:hover img {
+      filter: brightness(1.05);
+    }
   }
 </style>

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@300..600&amp;family=Young+Serif&amp;family=Onest:ital,wght@0,300..600;1,300..600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#eceae5;font-family:system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+@keyframes dcwave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@keyframes dcfade{from{opacity:0}to{opacity:1}}
+@keyframes dcup0{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}@keyframes dcup1{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes dcside0{from{opacity:0;transform:translateX(48px)}to{opacity:1;transform:none}}@keyframes dcside1{from{opacity:0;transform:translateX(48px)}to{opacity:1;transform:none}}
+@keyframes dcleft0{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}@keyframes dcleft1{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+@keyframes dcblur0{from{opacity:0;filter:blur(14px);transform:scale(1.03)}to{opacity:1;filter:none;transform:none}}@keyframes dcblur1{from{opacity:0;filter:blur(14px);transform:scale(1.03)}to{opacity:1;filter:none;transform:none}}
+@keyframes dcwipe0{from{clip-path:inset(0 0 100% 0 round 34px)}to{clip-path:inset(0 0 0 0 round 34px)}}@keyframes dcwipe1{from{clip-path:inset(0 0 100% 0 round 34px)}to{clip-path:inset(0 0 0 0 round 34px)}}
+@keyframes dcrise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Based on <a class="dv-oid" href="#1c">1c</a>: blue-led, light/dark switch, uncropped photo, Now · Blog · Photos in one row, mobile</span></div>
+<div class="dv-opts">
+<sc-for list="{{ desktops }}" as="v" hint-placeholder-count="2">
+<div class="dv-opt" id="{{ v.key }}">
+<div class="dv-olabel"><a class="dv-oid" href="#{{ v.key }}">{{ v.key }}</a>{{ v.label }}<button type="button" onClick="{{ v.replay }}" style="border:0;background:rgba(0,0,0,.06);border-radius:5px;padding:3px 8px;font:500 11px system-ui,sans-serif;cursor:pointer">↻ Replay entrance</button></div>
+<div class="dv-card" style="width:1280px;position:relative;background:{{ v.bg }};color:{{ v.ink }};font-family:'Onest',sans-serif;border-color:{{ v.line }};transition:background .4s,color .4s">
+  <header style="padding:24px 48px;display:flex;align-items:center;justify-content:space-between">
+    <a href="#" style="font-family:'Young Serif',serif;font-size:22px;color:{{ v.ink }}">David Cadavid<span style="color:{{ v.blue }}">.</span></a>
+    <nav style="display:flex;gap:6px;padding:6px;border-radius:999px;background:{{ v.surface }};box-shadow:{{ v.shadow }};font-size:15px">
+      <a href="#" style="padding:10px 18px;border-radius:999px;background:{{ v.blue }};color:{{ v.onBlue }}">Home</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px;color:{{ v.ink }}" style-hover="background:{{ v.sand }}">Now</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px;color:{{ v.ink }}" style-hover="background:{{ v.sand }}">Contact</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px;color:{{ v.ink }}" style-hover="background:{{ v.sand }}">Blog</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px;color:{{ v.ink }}" style-hover="background:{{ v.sand }}">Photos</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:20px">
+      <div style="display:flex;gap:6px;font-size:14px;font-weight:500"><a href="#" style="color:{{ v.ink }}">EN</a><span style="color:{{ v.faint }}">/</span><a href="#" style="color:{{ v.faint }}" style-hover="color:{{ v.ink }}">ES</a></div>
+      <div style="display:flex;padding:4px;gap:2px;border-radius:999px;background:{{ v.surface }};box-shadow:{{ v.shadow }}">
+        <button type="button" onClick="{{ v.setLight }}" aria-label="Light theme" style="width:32px;height:32px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.lightBtnBg }};transition:background .3s"><span style="width:11px;height:11px;border-radius:50%;background:{{ v.lightIcon }}"></span></button>
+        <button type="button" onClick="{{ v.setDark }}" aria-label="Dark theme" style="width:32px;height:32px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.darkBtnBg }};transition:background .3s"><span style="width:13px;height:13px;border-radius:50%;box-shadow:inset -4px -2px 0 0 {{ v.darkIcon }}"></span></button>
+      </div>
+    </div>
+  </header>
+
+  <section style="padding:48px 48px 24px;display:grid;grid-template-columns:minmax(0,1fr) 540px;gap:64px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <div style="animation:{{ v.a1 }}">
+        <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:80px;line-height:1.02;letter-spacing:-.02em">Hello — I’m David<span style="color:{{ v.blue }}">.</span></h1>
+        <p style="margin:28px 0 0;font-size:20px;line-height:1.55;color:{{ v.muted }};max-width:520px;text-wrap:pretty">I build systems, help people grow, and occasionally lend my voice to a story.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;animation:{{ v.a2 }}">
+        <span style="padding:9px 16px;border-radius:999px;background:{{ v.surface }};font-size:14px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:{{ v.blue }}"></span>Systems engineer</span>
+        <span style="padding:9px 16px;border-radius:999px;background:{{ v.surface }};font-size:14px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:oklch(0.64 0.11 150)"></span>Mentor</span>
+        <span style="padding:9px 16px;border-radius:999px;background:{{ v.surface }};font-size:14px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:oklch(0.64 0.12 45)"></span>Public speaker</span>
+        <span style="padding:9px 16px;border-radius:999px;background:{{ v.surface }};font-size:14px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:oklch(0.64 0.11 330)"></span>Voice actor</span>
+      </div>
+      <div style="animation:{{ v.a3 }};background:{{ v.surface }};border-radius:28px;padding:32px 36px;display:flex;flex-direction:column;gap:14px">
+        <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:26px">A bit about me</h2>
+        <p style="margin:0;font-size:16px;line-height:1.7;color:{{ v.body }};text-wrap:pretty">[PLACEHOLDER: A short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to.]</p>
+        <p style="margin:0;font-size:16px;line-height:1.7;color:{{ v.body }};text-wrap:pretty">[PLACEHOLDER: A second short paragraph — experience, interests, or anything else relevant to a visitor deciding whether to reach out.]</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:28px">
+      <div style="width:100%;padding:10px;border-radius:34px;background:{{ v.blue }};box-shadow:0 30px 60px -30px rgba(20,18,16,.5);animation:{{ v.aPhoto }}">
+        <img src="assets/david.png" alt="David Cadavid" style="width:100%;aspect-ratio:3/2;object-fit:contain;border-radius:24px;display:block">
+      </div>
+      <div style="display:flex;justify-content:center;gap:12px;animation:{{ v.aBtns }}">
+        <a href="#" style="padding:15px 26px;border-radius:999px;background:{{ v.blue }};color:{{ v.onBlue }};font-size:15px;font-weight:500" style-hover="background:{{ v.blueHover }}">Say hello</a>
+        <a href="#" style="padding:15px 26px;border-radius:999px;background:{{ v.surface }};color:{{ v.ink }};font-size:15px;font-weight:500" style-hover="background:{{ v.sand }}">What I’m up to now</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:56px 48px 72px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch">
+    <div style="background:{{ v.surface }};color:{{ v.ink }};border-radius:28px;padding:28px 32px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:24px">Now</h3><span style="font-size:13px;color:{{ v.faint }}">Sep 15, 2026</span></div>
+      <p style="margin:0;padding-top:18px;border-top:1px solid {{ v.line }};font-size:17px;line-height:1.6;color:{{ v.body }};text-wrap:pretty">A short summary of what David is currently focused on — work, projects, or learning.</p>
+      <a href="#" style="margin-top:auto;font-size:14px;font-weight:500;color:{{ v.blueInk }}">Read more →</a>
+    </div>
+    <div style="background:{{ v.surface }};border-radius:28px;padding:28px 32px;display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:24px">Latest writing</h3><a href="#" style="font-size:14px;font-weight:500;color:{{ v.blueInk }}">All posts →</a></div>
+      <a href="#" style="display:grid;grid-template-columns:58px minmax(0,1fr) 16px;gap:12px;padding:18px 0;border-top:1px solid {{ v.line }};align-items:baseline;color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}"><span style="font-size:13px;color:{{ v.faint }}">Feb 16</span><span style="font-size:16px;line-height:1.35">A quick project update</span><span style="color:{{ v.faint }}">↗</span></a>
+      <a href="#" style="display:grid;grid-template-columns:58px minmax(0,1fr) 16px;gap:12px;padding:18px 0;border-top:1px solid {{ v.line }};align-items:baseline;color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}"><span style="font-size:13px;color:{{ v.faint }}">Feb 09</span><span style="font-size:16px;line-height:1.35;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline">An English-only post<span style="font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid {{ v.line }};color:{{ v.muted }}">EN only</span></span><span style="color:{{ v.faint }}">↗</span></a>
+      <a href="#" style="display:grid;grid-template-columns:58px minmax(0,1fr) 16px;gap:12px;padding:18px 0;border-top:1px solid {{ v.line }};align-items:baseline;color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}"><span style="font-size:13px;color:{{ v.faint }}">Feb 02</span><span style="font-size:16px;line-height:1.35">On photography</span><span style="color:{{ v.faint }}">↗</span></a>
+    </div>
+    <div style="background:{{ v.surface }};border-radius:28px;padding:28px 32px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:24px">Photos</h3><a href="#" style="font-size:14px;font-weight:500;color:{{ v.blueInk }}">See more →</a></div>
+      <div style="flex:1;min-height:210px;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:8px">
+        <sc-for list="{{ v.photos }}" as="p" hint-placeholder-count="3">
+          <button type="button" onClick="{{ p.open }}" aria-label="{{ p.alt }}" style="grid-row:{{ p.row }};border:0;padding:0;border-radius:14px;cursor:zoom-in;background:{{ p.bg }};transition:transform .25s,filter .25s" style-hover="transform:scale(1.03);filter:brightness(1.05)"></button>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:24px;text-align:center;background:{{ v.surface }};border-top:1px solid {{ v.line }};color:{{ v.muted }}">
+    <p style="margin:0;font-size:15px">© 2026 David Cadavid</p>
+    <p style="margin:8px 0 0;font-style:italic;font-size:14px">“All we have to decide is what to do with the time that is given us” — Gandalf</p>
+  </footer>
+
+  <sc-if value="{{ v.lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;animation:dcfade .25s ease-out">
+      <button type="button" onClick="{{ v.lbClose }}" aria-label="Close" style="position:absolute;inset:0;border:0;padding:0;background:rgba(12,11,10,.8);cursor:pointer"></button>
+      <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:14px">
+        <button type="button" onClick="{{ v.lbClose }}" aria-label="Close" style="position:absolute;top:-44px;right:0;border:0;background:none;color:#fff;font-size:32px;line-height:1;cursor:pointer">×</button>
+        <div style="width:{{ v.lbW }};aspect-ratio:4/3;border-radius:14px;background:{{ v.lbBg }}"></div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <button type="button" onClick="{{ v.lbPrev }}" aria-label="Previous photo" style="width:40px;height:40px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:20px;cursor:pointer">‹</button>
+          <p style="margin:0;color:#fff;font-size:14px">{{ v.lbAlt }}</p>
+          <button type="button" onClick="{{ v.lbNext }}" aria-label="Next photo" style="width:40px;height:40px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:20px;cursor:pointer">›</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div class="dv-opts" style="margin-top:36px">
+<sc-for list="{{ mobiles }}" as="v" hint-placeholder-count="3">
+<div class="dv-opt" id="{{ v.key }}">
+<div class="dv-olabel"><a class="dv-oid" href="#{{ v.key }}">{{ v.key }}</a>{{ v.label }}<button type="button" onClick="{{ v.replay }}" style="border:0;background:rgba(0,0,0,.06);border-radius:5px;padding:3px 8px;font:500 11px system-ui,sans-serif;cursor:pointer">↻ Replay</button></div>
+<div class="dv-card" style="width:390px;position:relative;background:{{ v.bg }};color:{{ v.ink }};font-family:'Onest',sans-serif;border-color:{{ v.line }};border-radius:28px;transition:background .4s,color .4s">
+  <header style="height:68px;padding:0 12px 0 20px;display:flex;align-items:center;justify-content:space-between">
+    <a href="#" style="font-family:'Young Serif',serif;font-size:19px;color:{{ v.ink }}">David Cadavid<span style="color:{{ v.blue }}">.</span></a>
+    <div style="display:flex;align-items:center;gap:4px">
+      <div style="display:flex;padding:3px;gap:2px;border-radius:999px;background:{{ v.surface }};box-shadow:{{ v.shadow }}">
+        <button type="button" onClick="{{ v.setLight }}" aria-label="Light theme" style="width:30px;height:30px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.lightBtnBg }}"><span style="width:10px;height:10px;border-radius:50%;background:{{ v.lightIcon }}"></span></button>
+        <button type="button" onClick="{{ v.setDark }}" aria-label="Dark theme" style="width:30px;height:30px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.darkBtnBg }}"><span style="width:12px;height:12px;border-radius:50%;box-shadow:inset -4px -2px 0 0 {{ v.darkIcon }}"></span></button>
+      </div>
+      <button type="button" onClick="{{ v.toggleMenu }}" aria-label="Toggle navigation menu" style="width:44px;height:44px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px">
+        <span style="width:20px;height:2px;border-radius:2px;background:{{ v.ink }}"></span>
+        <span style="width:20px;height:2px;border-radius:2px;background:{{ v.ink }}"></span>
+        <span style="width:20px;height:2px;border-radius:2px;background:{{ v.ink }}"></span>
+      </button>
+    </div>
+  </header>
+
+  <sc-if value="{{ v.menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;top:68px;left:12px;right:12px;z-index:10;background:{{ v.surface }};border-radius:24px;box-shadow:0 24px 48px -20px rgba(20,18,16,.35);padding:8px 20px 20px;animation:dcfade .2s ease-out">
+      <a href="#" style="display:flex;align-items:center;justify-content:space-between;height:56px;border-bottom:1px solid {{ v.line }};font-family:'Young Serif',serif;font-size:24px;color:{{ v.blueInk }}">Home<span style="width:8px;height:8px;border-radius:50%;background:{{ v.blue }}"></span></a>
+      <a href="#" style="display:flex;align-items:center;height:56px;border-bottom:1px solid {{ v.line }};font-family:'Young Serif',serif;font-size:24px;color:{{ v.ink }}">Now</a>
+      <a href="#" style="display:flex;align-items:center;height:56px;border-bottom:1px solid {{ v.line }};font-family:'Young Serif',serif;font-size:24px;color:{{ v.ink }}">Contact</a>
+      <a href="#" style="display:flex;align-items:center;height:56px;border-bottom:1px solid {{ v.line }};font-family:'Young Serif',serif;font-size:24px;color:{{ v.ink }}">Blog</a>
+      <a href="#" style="display:flex;align-items:center;height:56px;border-bottom:1px solid {{ v.line }};font-family:'Young Serif',serif;font-size:24px;color:{{ v.ink }}">Photos</a>
+      <div style="display:flex;gap:8px;padding-top:18px;font-size:15px;font-weight:500"><a href="#" style="color:{{ v.ink }}">EN</a><span style="color:{{ v.faint }}">/</span><a href="#" style="color:{{ v.faint }}">ES</a></div>
+    </div>
+  </sc-if>
+
+  <section style="padding:24px 20px 8px;display:flex;flex-direction:column;gap:22px">
+    <div>
+      <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:46px;line-height:1.05;letter-spacing:-.01em;animation:{{ v.a1 }}">Hello — I’m David<span style="color:{{ v.blue }}">.</span></h1>
+      <p style="margin:18px 0 0;font-size:17px;line-height:1.55;color:{{ v.muted }};text-wrap:pretty">I build systems, help people grow, and occasionally lend my voice to a story.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="padding:8px 14px;border-radius:999px;background:{{ v.surface }};font-size:13px;display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:{{ v.blue }}"></span>Systems engineer</span>
+      <span style="padding:8px 14px;border-radius:999px;background:{{ v.surface }};font-size:13px;display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.64 0.11 150)"></span>Mentor</span>
+      <span style="padding:8px 14px;border-radius:999px;background:{{ v.surface }};font-size:13px;display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.64 0.12 45)"></span>Public speaker</span>
+      <span style="padding:8px 14px;border-radius:999px;background:{{ v.surface }};font-size:13px;display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.64 0.11 330)"></span>Voice actor</span>
+    </div>
+    <div style="background:{{ v.surface }};border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px">
+      <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:22px">A bit about me</h2>
+      <p style="margin:0;font-size:15px;line-height:1.65;color:{{ v.body }}">[PLACEHOLDER: A short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to.]</p>
+      <p style="margin:0;font-size:15px;line-height:1.65;color:{{ v.body }}">[PLACEHOLDER: A second short paragraph — experience, interests, or anything else relevant to a visitor deciding whether to reach out.]</p>
+    </div>
+    <div style="margin-top:6px;padding:7px;border-radius:26px;background:{{ v.blue }};animation:{{ v.aPhoto }}">
+      <img src="assets/david.png" alt="David Cadavid" style="width:100%;aspect-ratio:3/2;object-fit:contain;border-radius:20px;display:block">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
+      <a href="#" style="height:52px;display:grid;place-items:center;border-radius:999px;background:{{ v.blue }};color:{{ v.onBlue }};font-size:16px;font-weight:500">Say hello</a>
+      <a href="#" style="height:52px;display:grid;place-items:center;border-radius:999px;background:{{ v.surface }};color:{{ v.ink }};font-size:16px;font-weight:500">What I’m up to now</a>
+    </div>
+  </section>
+
+  <section style="padding:32px 20px 40px;display:flex;flex-direction:column;gap:14px">
+    <div style="background:{{ v.surface }};color:{{ v.ink }};border-radius:24px;padding:22px 24px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:21px">Now</h3><span style="font-size:12px;color:{{ v.faint }}">Sep 15, 2026</span></div>
+      <p style="margin:0;padding-top:14px;border-top:1px solid {{ v.line }};font-size:15px;line-height:1.6;color:{{ v.body }}">A short summary of what David is currently focused on — work, projects, or learning.</p>
+      <a href="#" style="font-size:14px;font-weight:500;color:{{ v.blueInk }}">Read more →</a>
+    </div>
+    <div style="background:{{ v.surface }};border-radius:24px;padding:22px 24px 8px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:21px">Latest writing</h3><a href="#" style="font-size:14px;font-weight:500;color:{{ v.blueInk }}">All posts →</a></div>
+      <a href="#" style="display:grid;grid-template-columns:54px minmax(0,1fr) 14px;gap:10px;padding:16px 0;border-top:1px solid {{ v.line }};align-items:baseline;color:{{ v.ink }}"><span style="font-size:12px;color:{{ v.faint }}">Feb 16</span><span style="font-size:15px">A quick project update</span><span style="color:{{ v.faint }}">↗</span></a>
+      <a href="#" style="display:grid;grid-template-columns:54px minmax(0,1fr) 14px;gap:10px;padding:16px 0;border-top:1px solid {{ v.line }};align-items:baseline;color:{{ v.ink }}"><span style="font-size:12px;color:{{ v.faint }}">Feb 09</span><span style="font-size:15px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline">An English-only post<span style="font-size:11px;padding:1px 8px;border-radius:999px;border:1px solid {{ v.line }};color:{{ v.muted }}">EN only</span></span><span style="color:{{ v.faint }}">↗</span></a>
+      <a href="#" style="display:grid;grid-template-columns:54px minmax(0,1fr) 14px;gap:10px;padding:16px 0;border-top:1px solid {{ v.line }};align-items:baseline;color:{{ v.ink }}"><span style="font-size:12px;color:{{ v.faint }}">Feb 02</span><span style="font-size:15px">On photography</span><span style="color:{{ v.faint }}">↗</span></a>
+    </div>
+    <div style="background:{{ v.surface }};border-radius:24px;padding:22px 24px 24px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:21px">Photos</h3><a href="#" style="font-size:14px;font-weight:500;color:{{ v.blueInk }}">See more →</a></div>
+      <div style="height:200px;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:6px">
+        <sc-for list="{{ v.photos }}" as="p" hint-placeholder-count="3">
+          <button type="button" onClick="{{ p.open }}" aria-label="{{ p.alt }}" style="grid-row:{{ p.row }};border:0;padding:0;border-radius:12px;cursor:zoom-in;background:{{ p.bg }}"></button>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:24px 20px;text-align:center;background:{{ v.surface }};border-top:1px solid {{ v.line }};color:{{ v.muted }}">
+    <p style="margin:0;font-size:14px">© 2026 David Cadavid</p>
+    <p style="margin:8px 0 0;font-style:italic;font-size:13px;line-height:1.5">“All we have to decide is what to do with the time that is given us” — Gandalf</p>
+  </footer>
+
+  <sc-if value="{{ v.lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;animation:dcfade .25s ease-out">
+      <button type="button" onClick="{{ v.lbClose }}" aria-label="Close" style="position:absolute;inset:0;border:0;padding:0;border-radius:28px;background:rgba(12,11,10,.85);cursor:pointer"></button>
+      <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:14px">
+        <button type="button" onClick="{{ v.lbClose }}" aria-label="Close" style="position:absolute;top:-48px;right:0;width:44px;height:44px;border:0;background:none;color:#fff;font-size:32px;line-height:1;cursor:pointer">×</button>
+        <div style="width:{{ v.lbW }};aspect-ratio:4/3;border-radius:12px;background:{{ v.lbBg }}"></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:0 8px">
+          <button type="button" onClick="{{ v.lbPrev }}" aria-label="Previous photo" style="flex:none;width:44px;height:44px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:20px;cursor:pointer">‹</button>
+          <p style="margin:0;color:#fff;font-size:13px;text-align:center">{{ v.lbAlt }}</p>
+          <button type="button" onClick="{{ v.lbNext }}" aria-label="Next photo" style="flex:none;width:44px;height:44px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:20px;cursor:pointer">›</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+<p class="dv-next">Click the sun/moon to switch theme, a photo to enlarge it, ↻ to replay the entrance (style in Tweaks), ☰ on mobile. Try next: "apply <a class="dv-oid" href="#2a">2a</a> to Blog, Photos, Now and Contact" · "make the chip dots all blue" · "photo in the arch crop from <a class="dv-oid" href="#1c">1c</a> instead"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Home page — three directions (serif headlines + clean sans, neutral base, one accent each)</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Editorial · light · ink-blue accent · Newsreader + Instrument Sans</div>
+<div class="dv-card" style="width:1280px;background:#f5f4f0;color:#1b1c1f;font-family:'Instrument Sans',sans-serif">
+  <header style="padding:0 64px;border-bottom:1px solid rgba(27,28,31,.14)">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:76px">
+      <a href="#" style="font-family:'Newsreader',serif;font-size:26px;font-weight:500;letter-spacing:-.01em">David Cadavid</a>
+      <nav style="display:flex;gap:36px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase">
+        <a href="#" style="color:oklch(0.46 0.13 262);border-bottom:1px solid oklch(0.46 0.13 262);padding-bottom:3px">Home</a>
+        <a href="#" style-hover="color:oklch(0.46 0.13 262)">Now</a>
+        <a href="#" style-hover="color:oklch(0.46 0.13 262)">Contact</a>
+        <a href="#" style-hover="color:oklch(0.46 0.13 262)">Blog</a>
+        <a href="#" style-hover="color:oklch(0.46 0.13 262)">Photos</a>
+      </nav>
+      <a href="#" style="font-size:13px;font-weight:500;display:flex;gap:6px"><span>EN</span><span style="color:#8a8c92">/</span><span style="color:#8a8c92">ES</span></a>
+    </div>
+  </header>
+  <section style="padding:72px 64px 80px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:64px;align-items:end">
+    <div>
+      <p style="margin:0 0 28px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d5f66">Personal site — est. 2026</p>
+      <h1 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:132px;line-height:.92;letter-spacing:-.035em">David<br><span style="font-style:italic;font-weight:300">Cadavid</span></h1>
+      <div style="margin-top:44px;display:grid;grid-template-columns:repeat(4,auto);justify-content:start;border-top:1px solid #1b1c1f">
+        <span style="padding:14px 28px 0 0;font-size:15px">Systems engineer</span>
+        <span style="padding:14px 28px 0;font-size:15px;border-left:1px solid rgba(27,28,31,.2)">Mentor</span>
+        <span style="padding:14px 28px 0;font-size:15px;border-left:1px solid rgba(27,28,31,.2)">Public speaker</span>
+        <span style="padding:14px 0 0 28px;font-size:15px;border-left:1px solid rgba(27,28,31,.2)">Voice actor</span>
+      </div>
+    </div>
+    <figure style="margin:0">
+      <img src="assets/david.png" alt="David Cadavid" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;display:block;filter:saturate(.85)">
+      <figcaption style="margin-top:10px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5d5f66"><span>Fig. 1 — At the desk</span><span>2026</span></figcaption>
+    </figure>
+  </section>
+  <section style="padding:64px;border-top:1px solid rgba(27,28,31,.14);display:grid;grid-template-columns:220px minmax(0,1fr);gap:64px">
+    <h2 style="margin:0;font-family:'Newsreader',serif;font-style:italic;font-weight:400;font-size:28px">About</h2>
+    <div style="columns:2;column-gap:48px;font-family:'Newsreader',serif;font-size:20px;line-height:1.6;color:#2c2e33;text-wrap:pretty">
+      <p style="margin:0 0 16px"><span style="float:left;font-size:76px;line-height:.8;padding:8px 10px 0 0;color:oklch(0.46 0.13 262)">A</span> short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to. Replace with real copy.</p>
+      <p style="margin:0">A second short paragraph — experience, interests, or anything else relevant to a visitor deciding whether to reach out.</p>
+    </div>
+  </section>
+  <section style="padding:64px;border-top:1px solid rgba(27,28,31,.14)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:36px">
+      <h2 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:44px;letter-spacing:-.02em">Latest writing</h2>
+      <a href="#" style="font-size:14px;font-weight:500;color:oklch(0.46 0.13 262)">All posts →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
+      <a href="#" style="padding:0 32px 0 0;display:flex;flex-direction:column;gap:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5d5f66">01 · FEB 16, 2026</span><span style="font-family:'Newsreader',serif;font-size:28px;line-height:1.15">A quick project update</span><span style="font-size:15px;line-height:1.55;color:#5d5f66">Excerpt from the first lines of the post, up to three lines long, pulled automatically.</span></a>
+      <a href="#" style="padding:0 32px;border-left:1px solid rgba(27,28,31,.14);display:flex;flex-direction:column;gap:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5d5f66">02 · FEB 09, 2026</span><span style="font-family:'Newsreader',serif;font-size:28px;line-height:1.15">An English-only post</span><span style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:oklch(0.46 0.13 262)">Not yet in Spanish</span><span style="font-size:15px;line-height:1.55;color:#5d5f66">Excerpt from the first lines of the post, up to three lines long.</span></a>
+      <a href="#" style="padding:0 0 0 32px;border-left:1px solid rgba(27,28,31,.14);display:flex;flex-direction:column;gap:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5d5f66">03 · FEB 02, 2026</span><span style="font-family:'Newsreader',serif;font-size:28px;line-height:1.15">On photography</span><span style="font-size:15px;line-height:1.55;color:#5d5f66">Excerpt from the first lines of the post, up to three lines long, pulled automatically.</span></a>
+    </div>
+  </section>
+  <section style="padding:64px;border-top:1px solid rgba(27,28,31,.14);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px">
+    <div style="background:#1b1c1f;color:#f5f4f0;padding:40px;display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#b6b8bd"><span>Now</span><span>Updated Sep 15, 2026</span></div>
+      <p style="margin:0;font-family:'Newsreader',serif;font-size:30px;line-height:1.25;font-style:italic;font-weight:300">“A short summary of what David is currently focused on — work, projects, or learning.”</p>
+      <a href="#" style="margin-top:auto;font-size:14px;font-weight:500;color:oklch(0.80 0.09 262)">Read the Now page →</a>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px"><h2 style="margin:0;font-family:'Newsreader',serif;font-weight:400;font-size:32px">From the camera — <span style="font-style:italic">Weekend hike</span></h2><a href="#" style="font-size:14px;font-weight:500;color:oklch(0.46 0.13 262)">Photos →</a></div>
+      <div style="display:grid;grid-template-columns:2fr 1fr;grid-template-rows:150px 150px;gap:8px">
+        <div style="grid-row:span 2;background:repeating-linear-gradient(135deg,#e4e2dc 0 8px,#ecebe6 8px 16px)"></div>
+        <div style="background:repeating-linear-gradient(135deg,#e4e2dc 0 8px,#ecebe6 8px 16px)"></div>
+        <div style="background:repeating-linear-gradient(135deg,#e4e2dc 0 8px,#ecebe6 8px 16px)"></div>
+      </div>
+    </div>
+  </section>
+  <footer style="padding:72px 64px 40px;border-top:1px solid #1b1c1f;text-align:center">
+    <p style="margin:0 auto;max-width:760px;font-family:'Newsreader',serif;font-style:italic;font-weight:300;font-size:34px;line-height:1.3;text-wrap:balance">“All we have to decide is what to do with the time that is given us.”</p>
+    <p style="margin:14px 0 0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5d5f66">— Gandalf</p>
+    <div style="margin-top:56px;display:flex;justify-content:space-between;font-size:13px;color:#5d5f66"><span>© 2026 David Cadavid</span><span style="display:flex;gap:24px"><a href="#">LinkedIn</a><a href="#">GitHub</a><a href="#">YouTube</a><a href="#">Email</a></span></div>
+  </footer>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Calm minimal · dark · sage accent · Instrument Serif + Geist · voice waveform motif</div>
+<div class="dv-card" style="width:1280px;background:#131514;color:#eceeea;font-family:'Geist',sans-serif;border-color:#2a2d2b">
+  <header style="padding:28px 64px;display:flex;align-items:center;justify-content:space-between">
+    <a href="#" style="display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500"><span style="width:34px;height:34px;border-radius:50%;border:1px solid #3a3f3c;display:grid;place-items:center;font-family:'Instrument Serif',serif;font-size:17px;font-style:italic">dc</span>David Cadavid</a>
+    <nav style="display:flex;gap:4px;padding:4px;border-radius:999px;background:#1c1f1d;border:1px solid #2a2d2b;font-size:14px">
+      <a href="#" style="padding:8px 16px;border-radius:999px;background:#2a2e2b">Home</a>
+      <a href="#" style="padding:8px 16px;border-radius:999px;color:#9aa39d">Now</a>
+      <a href="#" style="padding:8px 16px;border-radius:999px;color:#9aa39d">Contact</a>
+      <a href="#" style="padding:8px 16px;border-radius:999px;color:#9aa39d">Blog</a>
+      <a href="#" style="padding:8px 16px;border-radius:999px;color:#9aa39d">Photos</a>
+    </nav>
+    <a href="#" style="font-size:14px;color:#9aa39d">Español</a>
+  </header>
+  <section style="padding:88px 64px 40px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:80px;align-items:center">
+    <div>
+      <p style="margin:0 0 32px;display:flex;align-items:center;gap:10px;font-size:14px;color:#9aa39d"><span style="width:7px;height:7px;border-radius:50%;background:oklch(0.80 0.09 155)"></span>Systems Engineer · Mentor · Public Speaker · Voice Actor</p>
+      <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:104px;line-height:.98;letter-spacing:-.02em">Hi, I’m David.<br><span style="font-style:italic;color:oklch(0.80 0.09 155)">Good systems,</span> <span style="font-style:italic;color:#9aa39d">clear voice.</span></h1>
+      <div style="margin-top:44px;display:flex;gap:12px">
+        <a href="#" style="padding:14px 24px;border-radius:999px;background:oklch(0.80 0.09 155);color:#101211;font-size:15px;font-weight:500">Get in touch</a>
+        <a href="#" style="padding:14px 24px;border-radius:999px;border:1px solid #3a3f3c;font-size:15px">Read the blog</a>
+      </div>
+    </div>
+    <div style="position:relative">
+      <img src="assets/david.png" alt="David Cadavid" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 25%;border-radius:200px 200px 24px 24px;display:block">
+      <div style="position:absolute;left:-40px;bottom:32px;padding:12px 16px;border-radius:14px;background:rgba(19,21,20,.82);border:1px solid #2a2d2b;display:flex;align-items:center;gap:12px">
+        <span style="width:30px;height:30px;border-radius:50%;background:oklch(0.80 0.09 155)"></span>
+        <div style="height:28px;width:120px">{{ waveSmall }}</div>
+      </div>
+    </div>
+  </section>
+  <div style="padding:24px 64px 72px;height:56px">{{ waveWide }}</div>
+  <section style="padding:64px 64px 72px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px;border-top:1px solid #232624">
+    <div style="grid-row:span 2;background:#1a1d1b;border:1px solid #232624;border-radius:24px;padding:32px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px"><h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:32px">Latest writing</h3><a href="#" style="font-size:14px;color:oklch(0.80 0.09 155)">All posts →</a></div>
+      <a href="#" style="display:grid;grid-template-columns:110px minmax(0,1fr) 24px;gap:16px;padding:22px 0;border-top:1px solid #2a2d2b"><span style="font-size:13px;color:#7d857f">Feb 16</span><span style="font-size:19px">A quick project update</span><span style="color:#7d857f">↗</span></a>
+      <a href="#" style="display:grid;grid-template-columns:110px minmax(0,1fr) 24px;gap:16px;padding:22px 0;border-top:1px solid #2a2d2b"><span style="font-size:13px;color:#7d857f">Feb 09</span><span style="font-size:19px">An English-only post</span><span style="color:#7d857f">↗</span></a>
+      <a href="#" style="display:grid;grid-template-columns:110px minmax(0,1fr) 24px;gap:16px;padding:22px 0;border-top:1px solid #2a2d2b"><span style="font-size:13px;color:#7d857f">Feb 02</span><span style="font-size:19px">On photography</span><span style="color:#7d857f">↗</span></a>
+    </div>
+    <div style="background:oklch(0.80 0.09 155);color:#101211;border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500"><span>Now</span><span>Sep 15, 2026</span></div>
+      <p style="margin:0;font-family:'Instrument Serif',serif;font-size:28px;line-height:1.2">A short summary of what David is currently focused on — work, projects, or learning.</p>
+    </div>
+    <div style="background:#1a1d1b;border:1px solid #232624;border-radius:24px;padding:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div style="aspect-ratio:1;border-radius:12px;background:repeating-linear-gradient(135deg,#222624 0 7px,#1c1f1d 7px 14px)"></div>
+      <div style="aspect-ratio:1;border-radius:12px;background:repeating-linear-gradient(135deg,#222624 0 7px,#1c1f1d 7px 14px)"></div>
+      <div style="aspect-ratio:1;border-radius:12px;background:repeating-linear-gradient(135deg,#222624 0 7px,#1c1f1d 7px 14px)"></div>
+    </div>
+  </section>
+  <footer style="padding:40px 64px;border-top:1px solid #232624;display:flex;justify-content:space-between;align-items:center"><p style="margin:0;font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:#b9c0bb">“All we have to decide is what to do with the time that is given us.” — Gandalf</p><span style="font-size:13px;color:#7d857f">© 2026 David Cadavid</span></footer>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Soft &amp; organic · light · terracotta accent · Young Serif + Onest</div>
+<div class="dv-card" style="width:1280px;background:#f2efe9;color:#2a2622;font-family:'Onest',sans-serif">
+  <header style="padding:24px 48px;display:flex;align-items:center;justify-content:space-between">
+    <a href="#" style="font-family:'Young Serif',serif;font-size:22px">David Cadavid<span style="color:oklch(0.60 0.12 45)">.</span></a>
+    <nav style="display:flex;gap:6px;padding:6px;border-radius:999px;background:#fbfaf7;box-shadow:0 1px 2px rgba(42,38,34,.06),0 8px 24px -12px rgba(42,38,34,.18);font-size:15px">
+      <a href="#" style="padding:10px 18px;border-radius:999px;background:#2a2622;color:#fbfaf7">Home</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px">Now</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px">Contact</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px">Blog</a>
+      <a href="#" style="padding:10px 18px;border-radius:999px">Photos</a>
+    </nav>
+    <a href="#" style="font-size:15px;padding:10px 18px;border-radius:999px;border:1px solid #d8d0c4">Español</a>
+  </header>
+  <section style="padding:56px 48px 72px;display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:72px;align-items:center">
+    <div>
+      <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:88px;line-height:1.02;letter-spacing:-.02em">Hello — I’m David<span style="color:oklch(0.60 0.12 45)">.</span></h1>
+      <p style="margin:24px 0 0;font-size:20px;line-height:1.55;color:#6b645c;max-width:520px">I build systems, help people grow, and occasionally lend my voice to a story.</p>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px">
+        <span style="padding:9px 16px;border-radius:999px;background:#fbfaf7;font-size:14px">Systems engineer</span>
+        <span style="padding:9px 16px;border-radius:999px;background:#fbfaf7;font-size:14px">Mentor</span>
+        <span style="padding:9px 16px;border-radius:999px;background:#fbfaf7;font-size:14px">Public speaker</span>
+        <span style="padding:9px 16px;border-radius:999px;background:#fbfaf7;font-size:14px">Voice actor</span>
+      </div>
+      <div style="margin-top:40px;display:flex;gap:12px">
+        <a href="#" style="padding:15px 26px;border-radius:999px;background:oklch(0.60 0.12 45);color:#fff;font-size:15px;font-weight:500">Say hello</a>
+        <a href="#" style="padding:15px 26px;border-radius:999px;background:#fbfaf7;font-size:15px;font-weight:500">What I’m up to now</a>
+      </div>
+    </div>
+    <div style="position:relative;height:520px">
+      <div style="position:absolute;right:-20px;top:10px;width:380px;height:380px;border-radius:50%;background:#e8dccd"></div>
+      <div style="position:absolute;left:10px;bottom:0;width:150px;height:150px;border-radius:50%;background:oklch(0.60 0.12 45);opacity:.85"></div>
+      <img src="assets/david.png" alt="David Cadavid" style="position:absolute;left:40px;top:0;width:360px;height:500px;object-fit:cover;object-position:50% 25%;border-radius:180px 180px 32px 32px">
+    </div>
+  </section>
+  <section style="margin:0 48px;padding:48px 56px;background:#fbfaf7;border-radius:32px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:56px">
+    <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:34px">A bit about me</h2>
+    <div style="font-size:17px;line-height:1.7;color:#4d4741;display:grid;grid-template-columns:1fr 1fr;gap:32px">
+      <p style="margin:0">[PLACEHOLDER: A short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to.]</p>
+      <p style="margin:0">[PLACEHOLDER: A second short paragraph — experience, interests, or anything else relevant to a visitor deciding whether to reach out.]</p>
+    </div>
+  </section>
+  <section style="padding:72px 48px 0">
+    <h2 style="margin:0 0 28px;font-family:'Young Serif',serif;font-weight:400;font-size:40px">Fresh from the blog</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+      <a href="#" style="background:#fbfaf7;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;color:#8a8278">Feb 16, 2026</span><span style="font-family:'Young Serif',serif;font-size:24px">A quick project update</span></a>
+      <a href="#" style="background:#e8dccd;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;color:#6b645c">Feb 09, 2026</span><span style="font-family:'Young Serif',serif;font-size:24px">An English-only post</span></a>
+      <a href="#" style="background:#fbfaf7;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;color:#8a8278">Feb 02, 2026</span><span style="font-family:'Young Serif',serif;font-size:24px">On photography</span></a>
+    </div>
+  </section>
+  <section style="padding:72px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px">
+    <div style="background:#2a2622;color:#f2efe9;border-radius:32px;padding:40px;display:flex;flex-direction:column;gap:18px">
+      <span style="font-size:13px">Now · updated Sep 15, 2026</span>
+      <p style="margin:0;font-family:'Young Serif',serif;font-size:28px;line-height:1.3">A short summary of what David is currently focused on — work, projects, or learning.</p>
+    </div>
+    <div style="background:#fbfaf7;border-radius:32px;padding:32px 40px;display:flex;flex-direction:column;gap:20px">
+      <span style="font-family:'Young Serif',serif;font-size:26px">Weekend hike</span>
+      <div style="height:180px;border-radius:12px;background:repeating-linear-gradient(135deg,#ebe5dc 0 7px,#f3efe8 7px 14px)"></div>
+    </div>
+  </section>
+  <footer style="background:#e8dccd;border-radius:40px 40px 0 0;padding:56px 48px 32px">
+    <p style="margin:0;font-family:'Young Serif',serif;font-size:32px;line-height:1.3;max-width:820px">“All we have to decide is what to do with the time that is given us.” <span style="font-family:'Onest',sans-serif;font-size:15px;color:#6b645c">— Gandalf</span></p>
+    <p style="margin:40px 0 0;font-size:14px;color:#5a534b">© 2026 David Cadavid</p>
+  </footer>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="dv-turn" id="t0">
+<div class="dv-thd"><a class="dv-tid" href="#t0">0</a><span class="dv-tname">Current site (for reference, recreated from src/)</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="0a">
+<div class="dv-olabel"><a class="dv-oid" href="#0a">0a</a>Today’s Home</div>
+<div class="dv-card" style="width:1280px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.5;color:#1a1a1a">
+  <header style="background:#fff;border-bottom:1px solid #e4e4e4">
+    <div style="max-width:1100px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between">
+      <nav style="display:flex;gap:24px;font-weight:600"><a href="#">Home</a><a href="#">Now</a><a href="#">Contact</a><a href="#">Blog</a><a href="#">Photos</a></nav>
+      <a href="#" style="font-weight:600;color:#454dbf">Español</a>
+    </div>
+  </header>
+  <section style="padding:64px 24px;text-align:center;background:#f6f6f4"><h1 style="margin:0;font-size:48px;color:#454dbf">Welcome to my site</h1></section>
+  <section style="max-width:960px;margin:0 auto;padding:48px 24px;display:flex;gap:32px;align-items:flex-start">
+    <div style="flex:1"><p>[PLACEHOLDER: A short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to. Replace with real copy.]</p><p>[PLACEHOLDER: A second short paragraph — experience, interests, or anything else relevant to a visitor deciding whether to reach out.]</p></div>
+    <img src="assets/david.png" alt="" style="width:280px;border-radius:12px;display:block">
+  </section>
+  <footer style="padding:24px;text-align:center;color:#4a4a4a;background:#f6f6f4;margin-top:48px"><p style="margin:0">© 2026 David Cadavid</p><p style="margin:8px 0 0;font-style:italic;font-size:14.4px">"All we have to decide is what to do with the time that is given us" — Gandalf</p></footer>
+</div>
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;entrance&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Slide &amp; fade&quot;,&quot;Soft blur&quot;,&quot;Photo reveal&quot;,&quot;None&quot;],&quot;default&quot;:&quot;Slide &amp; fade&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;animate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const EASE = {
+  out: t => 1 - Math.pow(1 - t, 3),
+  inOut: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  back: t => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
+};
+const cl = v => Math.max(0, Math.min(1, v));
+const pr = (T, s, e, f) => f(cl((T - s) / (e - s)));
+const lerp = (a, b, p) => a + (b - a) * p;
+const FAM = "'Young Serif', Georgia, serif";
+
+function NameAnim({ size, accent, animate }) {
+  const [T, setT] = React.useState(animate === false ? 99 : 0);
+  const [m, setM] = React.useState(null);
+  const raf = React.useRef(0), start = React.useRef(0);
+  const measure = () => {
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.font = `400 ${size}px ${FAM}`;
+    const pre = s => Array.from({ length: s.length + 1 }, (_, i) => ctx.measureText(s.slice(0, i)).width);
+    setM({ A: pre('David CaDavid'), B: pre('David Cadavid'), wD: ctx.measureText('D').width });
+  };
+  const play = () => {
+    cancelAnimationFrame(raf.current);
+    if (animate === false) { setT(99); return; }
+    start.current = performance.now();
+    const tick = now => { const t = (now - start.current) / 1000; setT(t); if (t < 5) raf.current = requestAnimationFrame(tick); };
+    raf.current = requestAnimationFrame(tick);
+  };
+  React.useEffect(() => { measure(); document.fonts && document.fonts.load(`400 ${size}px 'Young Serif'`).then(measure).catch(() => {}); }, [size]);
+  React.useEffect(() => { const id = setTimeout(play, 500); return () => { clearTimeout(id); cancelAnimationFrame(raf.current); }; }, [animate]);
+  if (!m) return React.createElement('span', null, 'David Cadavid');
+  const { A, B } = m, h = React.createElement;
+  const keys = Array.from({ length: 8 }, (_, i) => 0.15 + i * 0.11);
+  const sel = pr(T, 1.2, 1.6, EASE.inOut);
+  const selOn = T >= 1.15 ? 1 - pr(T, 1.8, 2.0, EASE.out) : 0;
+  const land = 2.35;
+  const fly = pr(T, 1.75, land, EASE.inOut);
+  const gOp = pr(T, 1.7, 1.8, EASE.out) * (1 - pr(T, land, land + 0.1, EASE.out));
+  const flipOut = pr(T, 2.5, 2.65, EASE.inOut), flipIn = pr(T, 2.65, 2.9, EASE.back), flipW = pr(T, 2.55, 2.85, EASE.inOut);
+  const X = i => lerp(A[i], B[i], flipW);
+  const pasteP = pr(T, land, land + 0.3, EASE.back);
+  const typed = keys.filter(k => T >= k).length;
+  const after = T >= land;
+  const hidden = T >= 1.15 && T < land + 0.05;
+  const caretX = after ? X(13) : A[typed];
+  const since = T - (after ? 2.9 : (typed ? keys[typed - 1] : 0));
+  const blink = since < 0.35 || Math.floor((since - 0.35) / 0.42) % 2 === 1;
+  const caretOp = hidden ? 0 : (blink ? 1 : 0) * (1 - pr(T, 3.9, 4.3, EASE.out));
+  const L = (ch, st, k) => h('span', { key: k, 'aria-hidden': true, style: { position: 'absolute', top: 0, left: 0, lineHeight: `${size}px`, whiteSpace: 'pre', ...st } }, ch);
+  const kids = [];
+  kids.push(h('span', { key: 'sel', style: { position: 'absolute', left: -3, top: size * 0.06, height: size * 0.94, width: Math.max(0, sel * A[5] + 6), background: accent, opacity: 0.2 * selOn, borderRadius: 6 } }));
+  'David Ca'.split('').forEach((ch, i) => { const p = pr(T, keys[i], keys[i] + 0.07, EASE.out); kids.push(L(ch, { left: A[i], opacity: p, transform: `translateY(${(1 - p) * size * 0.08}px)` }, 'c' + i)); });
+  'David'.split('').forEach((ch, j) => {
+    const i = 8 + j, vis = after ? 1 : 0;
+    const base = { left: X(i), opacity: vis, transformOrigin: '50% 100%', transform: `scale(${0.9 + 0.1 * pasteP})` };
+    if (j > 0) { kids.push(L(ch, base, 'p' + i)); return; }
+    kids.push(L('D', { ...base, opacity: vis * (1 - flipOut), transformOrigin: '50% 55%', transform: `perspective(500px) rotateX(${90 * flipOut}deg)` }, 'D'));
+    kids.push(L('d', { ...base, opacity: flipOut >= 1 ? 1 : 0, transformOrigin: '50% 55%', transform: `perspective(500px) rotateX(${-90 * (1 - flipIn)}deg)` }, 'd'));
+  });
+  kids.push(h('span', { key: 'g', 'aria-hidden': true, style: { position: 'absolute', left: lerp(A[0], A[8], fly) - 6, top: -size * 0.7 * Math.sin(Math.PI * fly), padding: '0 6px', lineHeight: `${size}px`, color: accent, opacity: gOp, background: 'color-mix(in oklab, ' + accent + ' 14%, transparent)', borderRadius: 8, whiteSpace: 'pre' } }, 'David'));
+  kids.push(h('span', { key: 'u', style: { position: 'absolute', left: 0, top: size * 1.04, height: Math.max(3, size * 0.05), width: B[13], background: accent, borderRadius: 3, transformOrigin: '0 50%', transform: `scaleX(${pr(T, 3.0, 3.6, EASE.inOut)})` } }));
+  kids.push(h('span', { key: 'k', style: { position: 'absolute', left: caretX + 4, top: size * 0.12, width: Math.max(3, size * 0.045), height: size * 0.86, background: accent, opacity: caretOp } }));
+  kids.push(h('span', { key: 'sr', style: { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' } }, 'David Cadavid'));
+  return h('span', { onClick: play, title: 'Replay', style: { position: 'relative', display: 'block', width: B[13] + size * 0.2, height: size * 1.18, cursor: 'pointer' } }, kids);
+}
+
+const PAL = {
+  light: { bg: '#f2efe9', surface: '#fbfaf7', sand: '#ebe5dc', ink: '#2a2622', body: '#4d4741', muted: '#6b645c', faint: '#857d74', line: '#e6e0d6',
+    blue: 'oklch(0.50 0.15 265)', blueHover: 'oklch(0.44 0.15 265)', blueInk: 'oklch(0.46 0.15 265)', onBlue: '#ffffff', onBlueTint: 'rgba(255,255,255,.16)',
+    blob: 'oklch(0.88 0.05 265)', shadow: '0 1px 2px rgba(42,38,34,.06),0 8px 24px -12px rgba(42,38,34,.18)', st: [0.86, 0.91] },
+  dark: { bg: '#171615', surface: '#221f1d', sand: '#2e2a27', ink: '#efebe5', body: '#cfc8bf', muted: '#b0a89f', faint: '#8d857c', line: '#35312d',
+    blue: 'oklch(0.74 0.12 265)', blueHover: 'oklch(0.80 0.10 265)', blueInk: 'oklch(0.78 0.11 265)', onBlue: '#11131c', onBlueTint: 'rgba(17,19,28,.12)',
+    blob: 'oklch(0.33 0.07 265)', shadow: '0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.6)', st: [0.32, 0.36] },
+};
+const POOL = [
+  { alt: '[PLACEHOLDER] Photo 1 from the weekend hike', h: 150 },
+  { alt: '[PLACEHOLDER] Photo 2 from the weekend hike', h: 95 },
+  { alt: '[PLACEHOLDER] Photo 3 from the weekend hike', h: 220 },
+  { alt: '[PLACEHOLDER] Photo from another album', h: 60 },
+  { alt: '[PLACEHOLDER] Photo from another album', h: 265 },
+  { alt: '[PLACEHOLDER] Photo from another album', h: 330 },
+];
+const shuffle = a => { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
+
+class Component extends DCLogic {
+  state = {
+    theme: { '2a': 'light', '2b': 'dark', '2c': 'light', '2d': 'dark', '2e': 'light' },
+    menu: { '2e': true },
+    lb: null,
+    picks: shuffle(POOL.map((_, i) => i)).slice(0, 3),
+  };
+  wave(n, color, gap) {
+    const animate = this.props.animate ?? true;
+    const bars = [];
+    for (let i = 0; i < n; i++) {
+      const v = 0.3 + 0.7 * Math.abs(Math.sin(i * 0.9) * Math.cos(i * 0.37));
+      bars.push(React.createElement('span', { key: i, style: { flex: 1, height: `${Math.round(v * 100)}%`, background: color, borderRadius: 2,
+        animation: animate ? `dcwave ${1.4 + (i % 5) * 0.18}s ease-in-out ${(i % 7) * -0.2}s infinite` : 'none' } }));
+    }
+    return React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap, height: '100%' } }, bars);
+  }
+  entrance(key) {
+    const style = this.props.entrance ?? 'Slide & fade';
+    const r = (((this.state.runs || {})[key]) || 0) % 2;
+    const E = 'cubic-bezier(.2,.7,.2,1)';
+    const a = (name, dur, delay) => `dc${name}${r} ${dur}s ${E} ${delay}s both`;
+    if (style === 'None') return { a1: 'none', a2: 'none', a3: 'none', aPhoto: 'none', aBtns: 'none' };
+    if (style === 'Soft blur') return { a1: a('blur', .9, 0), a2: a('blur', .9, .12), a3: a('blur', .9, .24), aPhoto: a('blur', 1.1, .1), aBtns: a('blur', .9, .45) };
+    if (style === 'Photo reveal') return { a1: a('up', .8, .45), a2: a('up', .8, .57), a3: a('up', .8, .69), aPhoto: a('wipe', 1.1, 0), aBtns: a('up', .7, .9) };
+    return { a1: a('left', .8, 0), a2: a('left', .8, .12), a3: a('left', .8, .24), aPhoto: a('side', 1, .15), aBtns: a('up', .7, .55) };
+  }
+  stripe(h, st) { return `repeating-linear-gradient(135deg, oklch(${st[0]} 0.04 ${h}) 0 9px, oklch(${st[1]} 0.04 ${h}) 9px 18px)`; }
+  frame(key, label, mobile) {
+    const mode = this.state.theme[key], P = PAL[mode], isDark = mode === 'dark';
+    const setTheme = t => this.setState(s => ({ theme: { ...s.theme, [key]: t } }));
+    const lb = this.state.lb && this.state.lb.key === key ? this.state.lb : null;
+    const n = this.state.picks.length;
+    const go = d => this.setState(s => ({ lb: { key, idx: (s.lb.idx + d + n) % n } }));
+    const cur = lb ? POOL[this.state.picks[lb.idx]] : null;
+    return {
+      key, label, ...P,
+      lightBtnBg: isDark ? 'transparent' : P.ink, lightIcon: isDark ? P.faint : P.surface,
+      darkBtnBg: isDark ? P.ink : 'transparent', darkIcon: isDark ? P.bg : P.faint,
+      setLight: () => setTheme('light'), setDark: () => setTheme('dark'),
+      ...this.entrance(key),
+      replay: () => this.setState(s => ({ runs: { ...s.runs, [key]: ((s.runs || {})[key] || 0) + 1 } })),
+      photos: this.state.picks.map((pi, i) => ({ alt: POOL[pi].alt, row: i === 0 ? 'span 2' : 'auto', bg: this.stripe(POOL[pi].h, P.st), open: () => this.setState({ lb: { key, idx: i } }) })),
+      lbOpen: !!lb, lbW: mobile ? '340px' : '760px', lbBg: cur ? this.stripe(cur.h, PAL.dark.st.map(x => x + 0.1)) : '', lbAlt: cur ? cur.alt : '',
+      lbClose: () => this.setState({ lb: null }), lbPrev: () => go(-1), lbNext: () => go(1),
+      menuOpen: !!this.state.menu[key], toggleMenu: () => this.setState(s => ({ menu: { ...s.menu, [key]: !s.menu[key] } })),
+    };
+  }
+  renderVals() {
+    return {
+      desktops: [this.frame('2a', 'Desktop · light', false), this.frame('2b', 'Desktop · dark', false)],
+      mobiles: [this.frame('2c', 'Mobile · light', true), this.frame('2d', 'Mobile · dark', true), this.frame('2e', 'Mobile · menu open', true)],
+      waveSmall: this.wave(22, 'oklch(0.80 0.09 155)', 3),
+      waveWide: this.wave(120, '#2d322f', 4),
+    };
+  }
+}
+</script>
+</body>
+</html>

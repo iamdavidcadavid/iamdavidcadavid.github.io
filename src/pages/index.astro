@@ -1,25 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AboutSection from '../components/AboutSection.astro';
+import HomeHero from '../components/HomeHero.astro';
+import HomeNowCard from '../components/HomeNowCard.astro';
+import HomeWritingCard from '../components/HomeWritingCard.astro';
+import HomePhotosCard from '../components/HomePhotosCard.astro';
 ---
 
 <BaseLayout title="David Cadavid">
-  <section class="banner">
-    <h1>Welcome to my site</h1>
+  <HomeHero />
+  <section class="home-cards anim-rise delay-4">
+    <HomeNowCard locale="en" />
+    <HomeWritingCard locale="en" />
+    <HomePhotosCard locale="en" />
   </section>
-  <AboutSection />
 </BaseLayout>
 
 <style>
-  .banner {
-    padding: 4rem 1.5rem;
-    text-align: center;
-    background: var(--color-neutral-100);
+  .home-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+    padding-top: 56px;
   }
 
-  .banner h1 {
-    margin: 0;
-    font-size: clamp(1.75rem, 4vw, 3rem);
-    color: var(--color-primary-blue);
+
+  @media (max-width: 767.98px) {
+    .home-cards {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+      padding-top: 32px;
+    }
   }
 </style>

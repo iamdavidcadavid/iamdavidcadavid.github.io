@@ -1,0 +1,117 @@
+---
+import { t } from '../i18n/ui';
+
+const locale = Astro.currentLocale ?? 'en';
+---
+
+<div class="theme-toggle" data-theme-toggle hidden>
+  <button type="button" class="theme-btn" data-value="light" aria-label={t(locale, 'theme.light')} aria-pressed="false">
+    <span class="sun" aria-hidden="true"></span>
+  </button>
+  <button type="button" class="theme-btn" data-value="dark" aria-label={t(locale, 'theme.dark')} aria-pressed="false">
+    <span class="moon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const toggle = document.querySelector<HTMLElement>('[data-theme-toggle]');
+  const buttons = Array.from(toggle?.querySelectorAll<HTMLButtonElement>('.theme-btn') ?? []);
+  const deviceDark = matchMedia('(prefers-color-scheme: dark)');
+
+  function effectiveTheme(): string {
+    return root.dataset.theme ?? (deviceDark.matches ? 'dark' : 'light');
+  }
+
+  function sync() {
+    const current = effectiveTheme();
+    for (const button of buttons) {
+      button.setAttribute('aria-pressed', String(button.dataset.value === current));
+    }
+  }
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      const value = button.dataset.value;
+      if (value !== 'light' && value !== 'dark') return;
+      root.dataset.theme = value;
+      try {
+        localStorage.setItem('theme', value);
+      } catch {
+        /* storage blocked: the choice applies to this page only */
+      }
+      sync();
+    });
+  }
+
+  deviceDark.addEventListener('change', sync);
+
+  if (toggle) {
+    toggle.hidden = false;
+    sync();
+  }
+</script>
+
+<style>
+  .theme-toggle {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: var(--shadow-pill);
+  }
+
+  .theme-toggle[hidden] {
+    display: none;
+  }
+
+  .theme-btn {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--faint);
+    cursor: pointer;
+    /* No background transition: see the note on .btn in global.css. */
+  }
+
+  .theme-btn[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--surface);
+  }
+
+  .theme-btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+
+  .sun {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .moon {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    box-shadow: inset -4px -2px 0 0 currentColor;
+  }
+
+  @media (max-width: 767.98px) {
+    .theme-toggle {
+      padding: 3px;
+    }
+
+    .theme-btn {
+      width: 30px;
+      height: 30px;
+    }
+  }
+</style>

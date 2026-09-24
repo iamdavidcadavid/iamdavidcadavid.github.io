@@ -4,6 +4,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+
 const message =
   locale === 'en'
     ? 'This page requires JavaScript to be enabled in your browser.'
@@ -11,17 +12,46 @@ const message =
 ---
 
 <noscript>
-  <p class="sg-noscript">{message}</p>
+  <style is:inline>
+    .sg-form {
+      display: none !important;
+    }
+  </style>
+  <div class="sg-noscript card">
+    <span class="sg-noscript-icon" aria-hidden="true">!</span>
+    <p>{message}</p>
+  </div>
 </noscript>
 
 <style is:global>
   .sg-noscript {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
     max-width: 480px;
-    margin: 3rem auto;
-    padding: 1rem 1.5rem;
+    margin: 0 auto;
+    padding: clamp(28px, 3vw, 38px);
     text-align: center;
-    background: var(--color-neutral-100);
-    border-radius: 8px;
-    color: var(--color-neutral-900);
+  }
+
+  .sg-noscript-icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blue-soft);
+    color: var(--blue-ink);
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 24px;
+  }
+
+  .sg-noscript p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--body);
+    text-wrap: pretty;
   }
 </style>

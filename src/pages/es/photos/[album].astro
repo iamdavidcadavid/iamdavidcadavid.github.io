@@ -1,7 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageTitle from '../../../components/PageTitle.astro';
 import PhotoLightbox from '../../../components/PhotoLightbox.astro';
+import { t, plural } from '../../../i18n/ui';
 
 export async function getStaticPaths() {
   const albums = await getCollection('albums', ({ id }) => id.startsWith('es/'));
@@ -11,17 +14,17 @@ export async function getStaticPaths() {
   }));
 }
 
+const locale = 'es';
 const { album } = Astro.props;
+const count = album.data.photos.length;
 ---
 
 <BaseLayout title={`${album.data.title} — David Cadavid`}>
-  <h1 class="page-title">{album.data.title}</h1>
-  <PhotoLightbox photos={album.data.photos} locale="es" />
+  <PageTitle
+    text={album.data.title}
+    size="md"
+    meta={count > 0 ? plural(locale, 'photos.count', count) : undefined}
+    back={{ href: getRelativeLocaleUrl(locale, '/photos/'), label: t(locale, 'photos.back') }}
+  />
+  <PhotoLightbox photos={album.data.photos} locale={locale} />
 </BaseLayout>
-
-<style>
-  .page-title {
-    text-align: center;
-    padding-top: 2rem;
-  }
-</style>

@@ -2,18 +2,13 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AlbumGrid from '../../components/AlbumGrid.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import { t, plural } from '../../i18n/ui';
 
 const albums = await getCollection('albums', ({ id }) => id.startsWith('en/'));
 ---
 
 <BaseLayout title="Photos — David Cadavid">
-  <h1 class="page-title">Photos</h1>
+  <PageTitle text={t('en', 'nav.photos')} meta={plural('en', 'photos.albums', albums.length)} />
   <AlbumGrid albums={albums} locale="en" />
 </BaseLayout>
-
-<style>
-  .page-title {
-    text-align: center;
-    padding-top: 2rem;
-  }
-</style>

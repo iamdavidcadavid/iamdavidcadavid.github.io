@@ -2,6 +2,8 @@
 import type { CollectionEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { blogPageSize } from '../config/site';
+import { excerptFor, formatDate } from '../lib/format';
+import { t } from '../i18n/ui';
 
 interface Props {
   posts: CollectionEntry<'blog'>[];
@@ -16,14 +18,6 @@ function slugFor(id: string): string {
   return parts.slice(1).join('/');
 }
 
-function excerptFor(body: string | undefined, maxLines = 3): string {
-  if (!body) return '';
-  const lines = body
-    .split('\n')
-    .map((l) => l.trim())
-    .filter((l) => l.length > 0 && !l.startsWith('#'));
-  return lines.slice(0, maxLines).join(' ');
-}
 
 const sorted = [...posts].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -31,47 +25,50 @@ const items = sorted.map((post) => ({
   href: `${getRelativeLocaleUrl(locale, '/blog/')}${slugFor(post.id)}/`,
   title: post.data.title,
   excerpt: excerptFor(post.body),
+  date: formatDate(post.data.pubDate, locale, 'long'),
   translationPending: post.data.translationPending,
 }));
 
 const otherLanguageNote = locale === 'en' ? 'Not yet available in Spanish' : 'No disponible aún en inglés';
-const loadMoreLabel = locale === 'en' ? 'Load More' : 'Cargar más';
+const loadMoreLabel = locale === 'en' ? 'Load more' : 'Cargar más';
 ---
 
 {
   items.length === 0 ? (
-    <div class="oven-empty" role="status">
-      <svg
-        class="oven-illustration"
-        viewBox="0 0 200 140"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-label={locale === 'en' ? 'Posts are still in the oven' : 'Las publicaciones todavía se están horneando'}
-      >
-        <rect x="20" y="20" width="160" height="100" rx="10" fill="#88ab4d" />
-        <rect x="35" y="35" width="130" height="70" rx="6" fill="#1a1a1a" opacity="0.15" />
-        <circle class="oven-glow" cx="100" cy="70" r="28" fill="#bfcf74">
-          <animate attributeName="r" values="24;30;24" dur="1.6s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.6;1;0.6" dur="1.6s" repeatCount="indefinite" />
-        </circle>
-        <rect x="15" y="115" width="170" height="12" rx="4" fill="#454dbf" />
-      </svg>
-      <p>{locale === 'en' ? 'Posts are still in the oven…' : 'Las publicaciones todavía se están horneando…'}</p>
+    <div class="empty-state card anim-rise delay-1" role="status">
+      <div class="oven" aria-hidden="true">
+        <span class="oven-body" />
+        <span class="oven-knob knob-1" />
+        <span class="oven-knob knob-2" />
+        <span class="oven-window">
+          <span class="oven-glow" />
+        </span>
+        <span class="oven-base" />
+      </div>
+      <p class="empty-message">{t(locale, 'blog.empty')}</p>
     </div>
   ) : (
     <>
-      <ul class="blog-list" data-blog-list data-page-size={blogPageSize}>
+      <ul class="blog-list card anim-rise delay-1" data-blog-list data-page-size={blogPageSize}>
         {items.map((item, index) => (
-          <li class={`blog-item ${index % 2 === 0 ? 'is-even' : 'is-odd'}`} data-index={index}>
-            <a href={item.href}>
-              <h3>{item.title}</h3>
+          <li class="blog-item" data-index={index}>
+            <a class="row" href={item.href}>
+              <span class="date">{item.date}</span>
+              <span class="main">
+                <span class="title-line">
+                  <span class="title">{item.title}</span>
+                  <span class="arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </span>
+                {item.translationPending && <span class="pending-note">{otherLanguageNote}</span>}
+                <span class="excerpt">{item.excerpt}</span>
+              </span>
             </a>
-            {item.translationPending && <p class="pending-note">{otherLanguageNote}</p>}
-            <p class="excerpt">{item.excerpt}</p>
           </li>
         ))}
       </ul>
-      <button type="button" class="load-more" data-load-more>
+      <button type="button" class="btn btn-blue load-more" data-load-more>
         {loadMoreLabel}
       </button>
     </>
@@ -106,89 +103,170 @@ const loadMoreLabel = locale === 'en' ? 'Load More' : 'Cargar más';
 </script>
 
 <style>
-  /* Two-column grid (002-layout-nav-refresh FR-012/FR-013; research.md §3) —
-     CSS Grid's default row-stretch gives every row's two items equal height
-     "for free". Collapses to one column below the site's 768px breakpoint. */
   .blog-list {
     list-style: none;
-    margin: 0 auto;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    max-width: var(--content-max-width);
+    margin: 0;
+    padding: clamp(8px, 1vw, 13px) clamp(22px, 3vw, 38px);
   }
 
-  @media (max-width: 767.98px) {
-    .blog-list {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .blog-item {
-    padding: 1.5rem;
-    border-radius: 8px;
-  }
-
-  .blog-item.is-even {
-    background: var(--color-neutral-100);
-  }
-
-  .blog-item.is-odd {
-    background: color-mix(in srgb, var(--color-secondary-blue) 20%, white);
-  }
-
-  .blog-item h3 {
-    margin: 0 0 0.5rem;
-    color: var(--color-primary-blue);
-  }
-
-  .blog-item a {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 32px;
+    padding: clamp(20px, 2.2vw, 28px) 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
     text-decoration: none;
   }
 
+  .blog-item:first-child .row {
+    border-top: 0;
+  }
+
+  .row:hover {
+    color: var(--blue-ink);
+  }
+
+  .date {
+    flex: 0 0 150px;
+    padding-top: 6px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .main {
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .title-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .title {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.25;
+  }
+
+  .arrow {
+    color: var(--faint);
+  }
+
   .pending-note {
-    display: inline-block;
-    margin: 0 0 0.5rem;
-    padding: 0.15rem 0.6rem;
+    align-self: flex-start;
+    padding: 2px 10px;
+    border: 1px solid var(--line);
     border-radius: 999px;
-    background: var(--color-secondary-green);
-    color: var(--color-neutral-900);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 12px;
+    color: var(--muted);
   }
 
   .excerpt {
-    margin: 0;
-    color: var(--color-neutral-700);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
   }
 
-  /* White text on primary-green is ~2.6:1 contrast, below WCAG AA — dark text
-     on green passes (~6.8:1); white text on primary-blue passes (~6.9:1). */
   .load-more {
-    display: block;
-    margin: 1.5rem auto 0;
-    padding: 0.75rem 2rem;
-    background: var(--color-primary-green);
-    color: var(--color-neutral-900);
-    border: none;
-    border-radius: 999px;
-    font-weight: 700;
-    cursor: pointer;
+    display: flex;
+    width: fit-content;
+    margin: 28px auto 0;
+    padding: 15px 30px;
   }
 
-  .load-more:hover {
-    background: var(--color-primary-blue);
-    color: var(--color-white);
-  }
-
-  .oven-empty {
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: clamp(44px, 6vw, 77px) 24px;
     text-align: center;
-    padding: 3rem 1.5rem;
   }
 
-  .oven-illustration {
+  .empty-message {
+    margin: 0;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: clamp(22px, 2.2vw, 28px);
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .oven {
+    position: relative;
     width: 200px;
-    height: auto;
+    height: 150px;
+  }
+
+  .oven > span {
+    position: absolute;
+    display: block;
+  }
+
+  .oven-body {
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 136px;
+    border-radius: 24px;
+    background: var(--blue);
+  }
+
+  .oven-knob {
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--on-blue);
+    opacity: 0.7;
+  }
+
+  .knob-1 {
+    right: 24px;
+  }
+
+  .knob-2 {
+    right: 42px;
+  }
+
+  .oven-window {
+    left: 22px;
+    top: 38px;
+    display: grid !important;
+    place-items: center;
+    width: 156px;
+    height: 78px;
+    border-radius: 14px;
+    background: var(--shade);
+  }
+
+  .oven-glow {
+    display: block;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--glow);
+    box-shadow: 0 0 28px 6px var(--glow);
+  }
+
+  .oven-base {
+    left: -8px;
+    bottom: 0;
+    width: 216px;
+    height: 12px;
+    border-radius: 6px;
+    background: var(--ink);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .oven-glow {
+      animation: glow 1.6s ease-in-out infinite;
+    }
   }
 </style>

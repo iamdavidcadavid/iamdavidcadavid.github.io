@@ -1,35 +1,70 @@
-/* Brand palette (constitution Technical Constraints — "Warm Blue and Green") */
+/* Design tokens (constitution: every color on the site comes from this set; values from
+   design/README.md). Each color is defined once as light-dark(<light>, <dark>): with no
+   data-theme the page follows the device via color-scheme, and data-theme="light|dark"
+   (set by BaseLayout's inline script / ThemeToggle) pins it. */
 :root {
-  --color-primary-blue: #454dbf;
-  --color-secondary-blue: #90b4d4;
-  --color-secondary-green: #bfcf74;
-  --color-primary-green: #88ab4d;
+  color-scheme: light dark;
 
-  /* Neutrals, used alongside the palette wherever a palette color alone would not
-     meet contrast requirements (constitution Principle IV / spec FR-009). */
-  --color-neutral-900: #1a1a1a;
-  --color-neutral-700: #4a4a4a;
-  --color-neutral-200: #e4e4e4;
-  --color-neutral-100: #f6f6f4;
-  --color-white: #ffffff;
+  --bg: light-dark(#f2efe9, #171615);
+  --surface: light-dark(#fbfaf7, #221f1d);
+  --sand: light-dark(#ebe5dc, #2e2a27);
+  --ink: light-dark(#2a2622, #efebe5);
+  --body: light-dark(#4d4741, #cfc8bf);
+  --muted: light-dark(#6b645c, #b0a89f);
+  /* Non-text decoration only (arrows, the EN / ES slash, inactive theme icon): as text it
+     fails WCAG AA on --bg/--surface in the light theme (3.5:1). Use --muted for text. */
+  --faint: light-dark(#857d74, #8d857c);
+  --line: light-dark(#e6e0d6, #35312d);
+  --blue: light-dark(oklch(0.5 0.15 265), oklch(0.74 0.12 265));
+  --blue-hover: light-dark(oklch(0.44 0.15 265), oklch(0.8 0.1 265));
+  --blue-ink: light-dark(oklch(0.46 0.15 265), oklch(0.78 0.11 265));
+  --blue-soft: light-dark(oklch(0.94 0.03 265), oklch(0.3 0.06 265));
+  --on-blue: light-dark(#ffffff, #11131c);
+  --danger: light-dark(oklch(0.52 0.18 25), oklch(0.76 0.13 25));
+  --danger-border: light-dark(oklch(0.55 0.18 25), oklch(0.72 0.14 25));
 
-  --color-text: var(--color-neutral-900);
-  --color-background: var(--color-white);
-  --color-link: var(--color-primary-blue);
-  --color-accent: var(--color-primary-green);
+  /* Role-chip dots (Home). "Systems engineer" uses --blue. */
+  --chip-mentor: oklch(0.64 0.11 150);
+  --chip-speaker: oklch(0.64 0.12 45);
+  --chip-voice: oklch(0.64 0.11 330);
 
-  /* Single responsive breakpoint (spec Clarifications, 2026-09-22 session). Media
-     queries below use the literal 768px value directly — CSS custom properties
-     cannot be used inside @media conditions — but any JS that needs the same
-     threshold (e.g. NavBar's hamburger toggle) MUST use 768 to match this. */
+  /* Photo viewer */
+  --backdrop: rgba(12, 11, 10, 0.85);
+  --on-backdrop: #ffffff;
+
+  /* Illustrations (empty states) */
+  --glow: light-dark(oklch(0.88 0.13 85), oklch(0.86 0.12 80));
+  --lens: light-dark(#2a2622, #0f0e0d);
+  --shade: rgba(0, 0, 0, 0.28);
+  --lens-ring: rgba(255, 255, 255, 0.18);
+
+  /* Shadows */
+  --shadow-soft: light-dark(rgba(42, 38, 34, 0.06), rgba(0, 0, 0, 0.3));
+  --shadow-deep: light-dark(rgba(42, 38, 34, 0.18), rgba(0, 0, 0, 0.6));
+  --shadow-pill: 0 1px 2px var(--shadow-soft), 0 8px 24px -12px var(--shadow-deep);
+  --shadow-photo: 0 30px 60px -30px rgba(20, 18, 16, 0.5);
+  --shadow-menu: 0 24px 48px -20px rgba(20, 18, 16, 0.35);
+  --shadow-egg: 0 24px 40px -24px rgba(20, 18, 16, 0.45);
+
+  /* Layout. Media queries below use the literal 768px (custom properties can't be used
+     in @media); any JS needing the same threshold MUST use 768. */
   --breakpoint-md-px: 768;
+  --content-max-width: 1280px;
+  --gutter: 48px;
+}
 
-  /* Shared content width (002-layout-nav-refresh, research.md §1) — matches the
-     widest existing per-page content container (Photos' AlbumGrid). Used by the
-     header (nav/hamburger left, language right) and the Blog grid. */
-  --content-max-width: 1100px;
-
+:root[data-theme='light'] {
   color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --gutter: 20px;
+  }
 }
 
 *,
@@ -45,15 +80,20 @@ body {
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-text);
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-  line-height: 1.5;
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  color: var(--ink);
 }
 
 img {
@@ -62,16 +102,196 @@ img {
 }
 
 a {
-  color: var(--color-link);
+  color: var(--blue-ink);
 }
 
 button {
   font: inherit;
 }
 
-/* Shared content-width container (002-layout-nav-refresh, research.md §1). */
+/* Shared content-width container: header, footer and page content. */
 .site-container {
   max-width: var(--content-max-width);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cards and buttons (design/README.md → radii, spacing) */
+.card {
+  background: var(--surface);
+  border-radius: 28px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 26px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  /* No background transition: Chromium keeps a transitioned light-dark() color on its
+     old theme value after color-scheme changes, leaving light buttons in dark mode. */
+}
+
+.btn-blue {
+  background: var(--blue);
+  color: var(--on-blue);
+}
+
+.btn-blue:hover {
+  background: var(--blue-hover);
+  color: var(--on-blue);
+}
+
+.btn-surface {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.btn-surface:hover {
+  background: var(--sand);
+  color: var(--ink);
+}
+
+.back-link {
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue-ink);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 767.98px) {
+  .card {
+    border-radius: 24px;
+  }
+}
+
+/* Motion (FR-007): everything that moves lives inside this query, so visitors who ask
+   for reduced motion see every element in its final state. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes slide-left {
+    from {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      opacity: 0;
+      transform: translateX(48px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes wobble {
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.9);
+    }
+  }
+
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: scale(0.82);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .anim-slide-left {
+    animation: slide-left 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .anim-slide-right {
+    animation: slide-right 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .anim-rise {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .delay-1 {
+    animation-delay: 0.12s;
+  }
+
+  .delay-2 {
+    animation-delay: 0.24s;
+  }
+
+  .delay-3 {
+    animation-delay: 0.15s;
+  }
+
+  .delay-4 {
+    animation-delay: 0.55s;
+  }
 }

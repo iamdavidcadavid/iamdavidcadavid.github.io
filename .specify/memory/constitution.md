@@ -1,26 +1,3 @@
-<!--
-Sync Impact Report
-- Version change: 1.0.0 → 1.1.0 (materially expanded Technical Constraints: brand color palette)
-- Modified principles: none (no principle renamed, removed, or redefined)
-- Added sections: none (added guidance within existing "Technical Constraints" section)
-- Removed sections: none
-- Deferred items: none
-
-Prior report (1.0.0, initial ratification):
-- Added sections:
-  - Core Principles: I. Authentic Professional Representation
-  - Core Principles: II. Bilingual Parity (NON-NEGOTIABLE)
-  - Core Principles: III. Static-Site Simplicity
-  - Core Principles: IV. Accessible & Responsive by Default
-  - Core Principles: V. Reliable Contact & Hiring Pathways
-  - Core Principles: VI. Blog Content Integrity
-  - Technical Constraints
-  - Content & Development Workflow
-  - Governance
-- Removed sections: none (all template placeholders replaced)
-- Deferred items: none — ratification date confirmed as 2026-09-22.
--->
-
 # iamdavidcadavid.github.io Constitution
 
 ## Core Principles
@@ -51,11 +28,11 @@ the site's audience and purpose, not an enhancement to add later.
 
 ### III. Static-Site Simplicity
 The site is deployed as static content via GitHub Pages (see `.github/workflows/static.yml`,
-which uploads the repository root directly). Implementation choices MUST preserve this
-deployment model: no server-side runtime, database, or backend service may be introduced unless
-the owner explicitly decides to change the hosting model. If a build step or static site
-generator is introduced, it MUST output plain static files compatible with GitHub Pages
-deployment. Prefer the simplest solution (plain HTML/CSS/JS, or a lightweight static site
+which builds the site and uploads the build output in `dist/`). Implementation choices MUST
+preserve this deployment model: no server-side runtime, database, or backend service may be
+introduced unless the owner explicitly decides to change the hosting model. If a build step or
+static site generator is introduced, it MUST output plain static files compatible with GitHub
+Pages deployment. Prefer the simplest solution (plain HTML/CSS/JS, or a lightweight static site
 generator) that satisfies the other principles — do not add frameworks, build tooling, or
 abstractions the site does not need.
 
@@ -96,7 +73,7 @@ undated content weakens credibility and creates ambiguity about currency and aut
 ## Technical Constraints
 
 - Hosting/deployment: GitHub Pages, deployed from the `main` branch per
-  `.github/workflows/static.yml` and `.github/workflows/default.yml`. Any change to the
+  `.github/workflows/static.yml`. Any change to the
   deployment model MUST be an explicit, deliberate decision, not an incidental side effect of
   adding a feature.
 - Internationalization: language content MUST be structured so English and Spanish versions of
@@ -106,14 +83,15 @@ undated content weakens credibility and creates ambiguity about currency and aut
 - No tracking or third-party embeds that compromise visitor privacy may be added without the
   owner's explicit approval, since this is a professional site representing the owner's
   judgment.
-- Brand palette ("Warm Blue and Green"), chosen by the owner to give the site a consistent
-  identity: the site's visual design MUST draw its primary, secondary, and accent colors from
-  this set — Primary Blue `#454DBF`, Secondary Blue `#90B4D4`, Secondary Green `#BFCF74`,
-  Primary Green `#88AB4D`. Neutrals (white/black/grays) MAY be used alongside the palette for
-  backgrounds, text, and structural elements where needed for legibility. Any use of these
-  colors for text or interactive elements MUST still satisfy Principle IV's contrast and
-  accessibility requirements — a palette color that fails contrast in a given context MUST be
-  paired with a neutral or adjusted rather than used as-is.
+- Design tokens: the site's visual design MUST draw every color from a single set of design
+  tokens, defined as CSS custom properties in `src/styles/global.css` (the working source of
+  truth) and documented in the design reference (currently `design/README.md`). Components
+  MUST NOT use ad-hoc color values outside that token set. Any token used for text or
+  interactive elements MUST satisfy Principle IV's contrast requirements in every supported
+  theme; a token that fails contrast in a given context MUST be paired with another token or
+  adjusted, not used as-is. Feature specs and plans reference tokens by name rather than
+  restating color values. Changing the brand palette (adding, removing, or re-valuing tokens)
+  is an explicit owner decision, not an incidental side effect of a feature.
 
 ## Content & Development Workflow
 
@@ -143,4 +121,4 @@ Amendments to this constitution are made by editing this file directly (typicall
 Each amendment MUST update `LAST_AMENDED_DATE` below and record its rationale in a Sync Impact
 Report comment at the top of this file at the time of the amendment.
 
-**Version**: 1.1.0 | **Ratified**: 2026-09-22 | **Last Amended**: 2026-09-22
+**Version**: 1.2.1 | **Ratified**: 2026-09-22 | **Last Amended**: 2026-09-24
