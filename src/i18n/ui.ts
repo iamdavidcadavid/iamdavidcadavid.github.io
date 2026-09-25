@@ -10,11 +10,10 @@ const en = {
   'nav.blog': 'Blog',
   'nav.photos': 'Photos',
   'nav.menuToggle': 'Toggle navigation menu',
-  'theme.light': 'Light theme',
   'theme.dark': 'Dark theme',
   'lang.label': 'Language',
 
-  'home.title': 'Hello — I’m David',
+  'home.title': 'Hello — I am David',
   'home.subline': 'I build systems, help people grow, and occasionally lend my voice to a story.',
   'home.chip.engineer': 'Systems engineer',
   'home.chip.mentor': 'Mentor',
@@ -22,7 +21,7 @@ const en = {
   'home.chip.voice': 'Voice actor',
   'home.about.title': 'A bit about me',
   'home.cta.hello': 'Say hello',
-  'home.cta.now': 'What I’m up to now',
+  'home.cta.now': 'What I am up to now',
   'home.photo.alt': 'David Cadavid',
   'home.now.title': 'Now',
   'home.now.more': 'Read more →',
@@ -51,6 +50,7 @@ const en = {
   'viewer.close': 'Close',
   'viewer.prev': 'Previous photo',
   'viewer.next': 'Next photo',
+  'viewer.position': 'Photo {i} of {n}',
 } as const;
 
 export type UIKey = keyof typeof en;
@@ -62,7 +62,6 @@ const es: Record<UIKey, string> = {
   'nav.blog': 'Blog',
   'nav.photos': 'Fotos',
   'nav.menuToggle': 'Abrir o cerrar el menú',
-  'theme.light': 'Tema claro',
   'theme.dark': 'Tema oscuro',
   'lang.label': 'Idioma',
 
@@ -104,6 +103,7 @@ const es: Record<UIKey, string> = {
   'viewer.close': 'Cerrar',
   'viewer.prev': 'Foto anterior',
   'viewer.next': 'Foto siguiente',
+  'viewer.position': 'Foto {i} de {n}',
 };
 
 export const ui: Record<Locale, Record<UIKey, string>> = { en, es };

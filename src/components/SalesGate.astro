@@ -8,7 +8,11 @@ interface Props {
 
 const { locale } = Astro.props;
 const catalogUrl = `/sales-catalog.${locale}.json`;
-const viewerLabels = { prev: t(locale, 'viewer.prev'), next: t(locale, 'viewer.next') };
+const viewerLabels = {
+  prev: t(locale, 'viewer.prev'),
+  next: t(locale, 'viewer.next'),
+  position: t(locale, 'viewer.position'),
+};
 
 const copy = {
   en: {
@@ -44,12 +48,9 @@ const copy = {
     <button type="button" class="sg-modal-backdrop" data-sg-modal-close aria-label={t(locale, 'viewer.close')}></button>
     <div class="sg-modal-content">
       <button type="button" class="sg-modal-close" data-sg-modal-close aria-label={t(locale, 'viewer.close')}>×</button>
+      <button type="button" class="sg-modal-nav" data-sg-modal-prev aria-label={viewerLabels.prev} hidden>‹</button>
       <img data-sg-modal-image src="" alt="" />
-      <div class="sg-modal-nav-row">
-        <button type="button" class="sg-modal-nav" data-sg-modal-prev aria-label={viewerLabels.prev} hidden>‹</button>
-        <p class="sg-modal-caption" data-sg-modal-caption></p>
-        <button type="button" class="sg-modal-nav" data-sg-modal-next aria-label={viewerLabels.next} hidden>›</button>
-      </div>
+      <button type="button" class="sg-modal-nav" data-sg-modal-next aria-label={viewerLabels.next} hidden>›</button>
     </div>
   </div>
 </div>
@@ -63,7 +64,6 @@ const copy = {
   const loadMoreBtn = root.querySelector('[data-sg-load-more]');
   const modal = root.querySelector('[data-sg-modal]');
   const modalImage = root.querySelector('[data-sg-modal-image]');
-  const modalCaption = root.querySelector('[data-sg-modal-caption]');
   const modalPrevButton = root.querySelector('[data-sg-modal-prev]');
   const modalNextButton = root.querySelector('[data-sg-modal-next]');
 
@@ -83,7 +83,6 @@ const copy = {
     modalImage.src = photo.src;
     modalImage.alt = photo.alt;
     currentIndex = wrapped;
-    if (modalCaption) modalCaption.textContent = photo.alt;
   }
 
   function openModal(photos, index) {
@@ -148,42 +147,32 @@ const copy = {
     carousel.appendChild(track);
 
     if (item.photos.length > 1) {
-      const controls = document.createElement('div');
-      controls.className = 'sg-carousel-controls';
-
-      const dotsEl = document.createElement('span');
-      dotsEl.className = 'sg-dots';
-      dotsEl.setAttribute('aria-hidden', 'true');
-      const dots = item.photos.map((_, index) => {
-        const dot = document.createElement('span');
-        dot.className = index === 0 ? 'sg-dot is-active' : 'sg-dot';
-        dotsEl.appendChild(dot);
-        return dot;
-      });
+      // Without dots, the visible photo announces its position to screen readers.
+      const label = (index) =>
+        `${item.photos[index].alt} — ${viewerLabels.position.replace('{i}', String(index + 1)).replace('{n}', String(slideButtons.length))}`;
+      slideButtons.forEach((slideBtn, index) => slideBtn.setAttribute('aria-label', label(index)));
 
       const show = (next) => {
         slideButtons[current].style.display = 'none';
-        dots[current].classList.remove('is-active');
         current = next;
         slideButtons[current].style.display = '';
-        dots[current].classList.add('is-active');
       };
 
       const prev = document.createElement('button');
       prev.type = 'button';
+      prev.className = 'sg-carousel-arrow sg-carousel-prev';
       prev.textContent = '‹';
       prev.setAttribute('aria-label', viewerLabels.prev);
       prev.addEventListener('click', () => show((current - 1 + slideButtons.length) % slideButtons.length));
       const next = document.createElement('button');
       next.type = 'button';
+      next.className = 'sg-carousel-arrow sg-carousel-next';
       next.textContent = '›';
       next.setAttribute('aria-label', viewerLabels.next);
       next.addEventListener('click', () => show((current + 1) % slideButtons.length));
 
-      controls.appendChild(prev);
-      controls.appendChild(dotsEl);
-      controls.appendChild(next);
-      carousel.appendChild(controls);
+      carousel.appendChild(prev);
+      carousel.appendChild(next);
     }
 
     card.appendChild(carousel);
@@ -388,15 +377,16 @@ const copy = {
     object-fit: cover;
   }
 
-  .sg-carousel-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 12px;
-    padding: 0 4px;
+  /* Arrows overlay the card photo's edges; the photo keeps a fixed 4:3 frame, so top: 50%
+     centres them on it. */
+  .sg-carousel {
+    position: relative;
   }
 
-  .sg-carousel-controls button {
+  .sg-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
     width: 36px;
     height: 36px;
     border: none;
@@ -406,26 +396,27 @@ const copy = {
     font-size: 18px;
     line-height: 1;
     cursor: pointer;
+    transform: translateY(-50%);
   }
 
-  .sg-carousel-controls button:hover {
+  .sg-carousel-prev {
+    left: 10px;
+  }
+
+  .sg-carousel-next {
+    right: 10px;
+  }
+
+  .sg-carousel-arrow:hover {
     background: var(--blue-hover);
   }
 
-  .sg-dots {
-    display: flex;
-    gap: 6px;
-  }
-
-  .sg-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--line);
-  }
-
-  .sg-dot.is-active {
-    background: var(--blue);
+  /* Two rings so the focus indicator shows over light and dark photos alike. */
+  .sg-carousel-arrow:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--on-blue),
+      0 0 0 4px var(--blue);
   }
 
   .sg-info {
@@ -488,28 +479,20 @@ const copy = {
     cursor: pointer;
   }
 
+  /* Same one-row layout as PhotoLightbox: arrows stay on the photo's vertical middle. */
   .sg-modal-content {
     position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 14px;
-    max-width: 90vw;
   }
 
   .sg-modal-content img {
-    max-width: min(760px, 86vw);
+    min-width: 0;
+    max-width: min(760px, calc(100vw - 2 * (44px + 14px) - 32px));
     max-height: 72vh;
     object-fit: contain;
     border-radius: 14px;
-  }
-
-  .sg-modal-nav-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    padding: 0 8px;
   }
 
   .sg-modal-nav {
@@ -527,13 +510,6 @@ const copy = {
 
   .sg-modal-nav:hover {
     background: var(--blue-hover);
-  }
-
-  .sg-modal-caption {
-    margin: 0;
-    font-size: 14px;
-    color: var(--on-backdrop);
-    text-align: center;
   }
 
   .sg-modal-close {
@@ -554,6 +530,16 @@ const copy = {
   .sg-modal-close:focus-visible {
     outline: 2px solid var(--on-backdrop);
     outline-offset: 2px;
+  }
+
+  @media (max-width: 767.98px) {
+    .sg-modal-content {
+      gap: 10px;
+    }
+
+    .sg-modal-content img {
+      max-width: min(760px, calc(100vw - 2 * (44px + 10px) - 24px));
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {

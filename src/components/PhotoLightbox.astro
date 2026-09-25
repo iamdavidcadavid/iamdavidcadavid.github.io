@@ -9,11 +9,9 @@ interface Photo {
 interface Props {
   photos: Photo[];
   locale: 'en' | 'es';
-  /** `tiles` is the Home Photos card: a 2fr/1fr mosaic with no text over the photos. */
-  layout?: 'grid' | 'tiles';
 }
 
-const { photos, locale, layout = 'grid' } = Astro.props;
+const { photos, locale } = Astro.props;
 
 const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso de revelado…';
 ---
@@ -33,16 +31,10 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
     </div>
   ) : (
     <>
-      <ul class:list={['photo-list', { tiles: layout === 'tiles', 'anim-rise delay-1': layout === 'grid' }]} data-photo-list>
+      <ul class="photo-list anim-rise delay-1" data-photo-list>
         {photos.map((photo, index) => (
           <li>
-            <button
-              type="button"
-              class="photo-thumb"
-              data-photo-trigger
-              data-index={index}
-              aria-label={layout === 'tiles' ? photo.alt : undefined}
-            >
+            <button type="button" class="photo-thumb" data-photo-trigger data-index={index}>
               <img src={photo.src} alt={photo.alt} loading="lazy" />
             </button>
           </li>
@@ -55,20 +47,17 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
           <button type="button" class="modal-close" data-modal-close aria-label={t(locale, 'viewer.close')}>
             ×
           </button>
+          {photos.length > 1 && (
+            <button type="button" class="modal-nav" data-modal-prev aria-label={t(locale, 'viewer.prev')}>
+              ‹
+            </button>
+          )}
           <img data-modal-image src="" alt="" />
-          <div class="modal-nav-row">
-            {photos.length > 1 && (
-              <button type="button" class="modal-nav" data-modal-prev aria-label={t(locale, 'viewer.prev')}>
-                ‹
-              </button>
-            )}
-            <p class="modal-caption" data-modal-caption></p>
-            {photos.length > 1 && (
-              <button type="button" class="modal-nav" data-modal-next aria-label={t(locale, 'viewer.next')}>
-                ›
-              </button>
-            )}
-          </div>
+          {photos.length > 1 && (
+            <button type="button" class="modal-nav" data-modal-next aria-label={t(locale, 'viewer.next')}>
+              ›
+            </button>
+          )}
         </div>
       </div>
     </>
@@ -80,7 +69,6 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
     const wrapper = list.parentElement;
     const modal = wrapper?.querySelector<HTMLElement>('[data-modal]');
     const modalImage = modal?.querySelector<HTMLImageElement>('[data-modal-image]');
-    const modalCaption = modal?.querySelector<HTMLElement>('[data-modal-caption]');
     const modalCloseButton = modal?.querySelector<HTMLButtonElement>('.modal-close');
     const modalPrevButton = modal?.querySelector<HTMLButtonElement>('[data-modal-prev]');
     const modalNextButton = modal?.querySelector<HTMLButtonElement>('[data-modal-next]');
@@ -96,7 +84,6 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
       modalImage.src = img.src;
       modalImage.alt = img.alt;
       currentIndex = wrapped;
-      if (modalCaption) modalCaption.textContent = img.alt;
     }
 
     function open(index: number) {
@@ -169,67 +156,14 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .photo-list:not(.tiles) .photo-thumb img {
+    .photo-thumb img {
       transition:
         transform 0.25s,
         filter 0.25s;
     }
 
-    .photo-list:not(.tiles) .photo-thumb:hover img {
+    .photo-thumb:hover img {
       transform: scale(1.02);
-      filter: brightness(1.05);
-    }
-  }
-
-  /* Home Photos card mosaic (layout="tiles") */
-  .photo-list.tiles {
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 8px;
-    height: 100%;
-    min-height: 210px;
-    max-width: none;
-    padding: 0;
-  }
-
-  .photo-list.tiles li:first-child {
-    grid-row: span 2;
-  }
-
-  .photo-list.tiles .photo-thumb {
-    height: 100%;
-    overflow: hidden;
-    border-radius: 14px;
-    cursor: zoom-in;
-  }
-
-  .photo-list.tiles .photo-thumb img {
-    height: 100%;
-    aspect-ratio: auto;
-    border-radius: 14px;
-  }
-
-  @media (max-width: 767.98px) {
-    .photo-list.tiles {
-      gap: 6px;
-      min-height: 200px;
-    }
-
-    .photo-list.tiles .photo-thumb,
-    .photo-list.tiles .photo-thumb img {
-      border-radius: 12px;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .photo-list.tiles .photo-thumb img {
-      transition:
-        transform 0.25s,
-        filter 0.25s;
-    }
-
-    .photo-list.tiles .photo-thumb:hover img {
-      transform: scale(1.03);
       filter: brightness(1.05);
     }
   }
@@ -258,28 +192,21 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
     cursor: pointer;
   }
 
+  /* One row: previous arrow, photo, next arrow. The photo is the tallest item, so
+     align-items: center keeps both arrows on its vertical middle at any photo size. */
   .modal-content {
     position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 14px;
-    max-width: 90vw;
   }
 
   .modal-content img {
-    max-width: min(760px, 86vw);
+    min-width: 0;
+    max-width: min(760px, calc(100vw - 2 * (44px + 14px) - 32px));
     max-height: 72vh;
     object-fit: contain;
     border-radius: 14px;
-  }
-
-  .modal-nav-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    padding: 0 8px;
   }
 
   .modal-nav {
@@ -297,13 +224,6 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
 
   .modal-nav:hover {
     background: var(--blue-hover);
-  }
-
-  .modal-caption {
-    margin: 0;
-    font-size: 14px;
-    color: var(--on-backdrop);
-    text-align: center;
   }
 
   .modal-close {
@@ -324,6 +244,16 @@ const emptyMessage = locale === 'en' ? 'Development in process…' : 'En proceso
   .modal-close:focus-visible {
     outline: 2px solid var(--on-backdrop);
     outline-offset: 2px;
+  }
+
+  @media (max-width: 767.98px) {
+    .modal-content {
+      gap: 10px;
+    }
+
+    .modal-content img {
+      max-width: min(760px, calc(100vw - 2 * (44px + 10px) - 24px));
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {

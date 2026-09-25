@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import PhotoLightbox from './PhotoLightbox.astro';
 import { t } from '../i18n/ui';
 
 interface Props {
@@ -25,8 +24,10 @@ const pool = albums.flatMap((album) => album.data.photos.map((photo) => ({ src: 
     pool.length === 0 ? (
       <p class="empty">{t(locale, 'home.photos.empty')}</p>
     ) : (
-      <div class="tiles-wrap" data-photo-pool={JSON.stringify(pool)}>
-        <PhotoLightbox photos={pool.slice(0, 3)} layout="tiles" locale={locale} />
+      <div class="tiles" data-photo-pool={JSON.stringify(pool)}>
+        {pool.slice(0, 3).map((photo) => (
+          <img src={photo.src} alt={photo.alt} loading="lazy" />
+        ))}
       </div>
     )
   }
@@ -40,23 +41,20 @@ const pool = albums.flatMap((album) => album.data.photos.map((photo) => ({ src: 
     } catch {
       return;
     }
-    const tiles = Array.from(wrap.querySelectorAll<HTMLButtonElement>('[data-photo-trigger]'));
+    const tiles = Array.from(wrap.querySelectorAll<HTMLImageElement>('img'));
     if (pool.length <= tiles.length) return;
 
-    // Fisher–Yates shuffle of a copy, then rewrite the existing tile images in place:
-    // the photo viewer holds references to these <img> elements, so it follows along.
+    // Fisher–Yates shuffle of a copy, then rewrite the existing tile images in place.
     const picks = [...pool];
     for (let i = picks.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [picks[i], picks[j]] = [picks[j], picks[i]];
     }
-    tiles.forEach((tile, index) => {
-      const img = tile.querySelector('img');
+    tiles.forEach((img, index) => {
       const photo = picks[index];
-      if (!img || !photo) return;
+      if (!photo) return;
       img.src = photo.src;
       img.alt = photo.alt;
-      tile.setAttribute('aria-label', photo.alt);
     });
   });
 </script>
@@ -94,14 +92,27 @@ const pool = albums.flatMap((album) => album.data.photos.map((photo) => ({ src: 
     text-underline-offset: 3px;
   }
 
-  .tiles-wrap {
+  /* Plain photo mosaic: the first photo spans both rows. The photos are decorative
+     previews, not controls, so they get no pointer, hover zoom or viewer. */
+  .tiles {
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    min-height: 210px;
   }
 
-  .tiles-wrap :global(.photo-list) {
-    flex: 1;
+  .tiles img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    cursor: default;
+  }
+
+  .tiles img:first-child {
+    grid-row: span 2;
   }
 
   .empty {
@@ -117,6 +128,15 @@ const pool = albums.flatMap((album) => album.data.photos.map((photo) => ({ src: 
 
     h3 {
       font-size: 21px;
+    }
+
+    .tiles {
+      gap: 6px;
+      min-height: 200px;
+    }
+
+    .tiles img {
+      border-radius: 12px;
     }
   }
 </style>

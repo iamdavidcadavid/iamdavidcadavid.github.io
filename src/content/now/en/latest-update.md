@@ -1,5 +1,5 @@
 ---
-title: "[PLACEHOLDER] What I'm up to now"
+title: "[PLACEHOLDER] What I am up to now"
 date: 2026-09-15
 ---
 

@@ -69,8 +69,8 @@ const footerQuote = footerQuoteCopy[locale as 'en' | 'es'] ?? footerQuoteCopy.en
       <slot />
     </main>
     <footer class="site-footer">
-      <p class="copyright">&copy; {new Date().getFullYear()} David Cadavid</p>
       <p class="footer-quote">“{footerQuote}” — Gandalf</p>
+      <p class="copyright">&copy; {new Date().getFullYear()} David Cadavid</p>
     </footer>
   </body>
 </html>
@@ -131,12 +131,13 @@ const footerQuote = footerQuoteCopy[locale as 'en' | 'es'] ?? footerQuoteCopy.en
     margin: 0;
   }
 
-  .copyright {
+  /* Scoped so it outranks `.site-footer p` without !important. */
+  .site-footer .copyright {
+    margin-top: 8px;
     font-size: 15px;
   }
 
   .footer-quote {
-    margin-top: 8px !important;
     font-style: italic;
     font-size: 14px;
     line-height: 1.5;

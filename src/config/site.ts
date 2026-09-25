@@ -16,7 +16,7 @@ export interface ContactLink {
 export const contactEmail = 'contact@davidcadavid.com';
 
 export const contactLinks: ContactLink[] = [
-  { platform: 'linkedin', username: 'cadaviddavid' },
+  { platform: 'linkedin', username: 'iamdavidcadavid' },
   { platform: 'github', username: 'iamdavidcadavid' },
   { platform: 'youtube', username: 'iamdavidcadavid' },
   { platform: 'email', username: contactEmail },

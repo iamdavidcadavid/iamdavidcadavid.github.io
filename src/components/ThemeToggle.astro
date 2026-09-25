@@ -4,19 +4,23 @@ import { t } from '../i18n/ui';
 const locale = Astro.currentLocale ?? 'en';
 ---
 
-<div class="theme-toggle" data-theme-toggle hidden>
-  <button type="button" class="theme-btn" data-value="light" aria-label={t(locale, 'theme.light')} aria-pressed="false">
-    <span class="sun" aria-hidden="true"></span>
-  </button>
-  <button type="button" class="theme-btn" data-value="dark" aria-label={t(locale, 'theme.dark')} aria-pressed="false">
-    <span class="moon" aria-hidden="true"></span>
-  </button>
-</div>
+<!-- One on/off switch ("Dark theme"): a click anywhere on it flips to the other theme. -->
+<button
+  type="button"
+  class="theme-toggle"
+  role="switch"
+  aria-checked="false"
+  aria-label={t(locale, 'theme.dark')}
+  data-theme-toggle
+  hidden
+>
+  <span class="icon icon-light" aria-hidden="true"><span class="sun"></span></span>
+  <span class="icon icon-dark" aria-hidden="true"><span class="moon"></span></span>
+</button>
 
 <script>
   const root = document.documentElement;
-  const toggle = document.querySelector<HTMLElement>('[data-theme-toggle]');
-  const buttons = Array.from(toggle?.querySelectorAll<HTMLButtonElement>('.theme-btn') ?? []);
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
   const deviceDark = matchMedia('(prefers-color-scheme: dark)');
 
   function effectiveTheme(): string {
@@ -24,25 +28,19 @@ const locale = Astro.currentLocale ?? 'en';
   }
 
   function sync() {
-    const current = effectiveTheme();
-    for (const button of buttons) {
-      button.setAttribute('aria-pressed', String(button.dataset.value === current));
-    }
+    toggle?.setAttribute('aria-checked', String(effectiveTheme() === 'dark'));
   }
 
-  for (const button of buttons) {
-    button.addEventListener('click', () => {
-      const value = button.dataset.value;
-      if (value !== 'light' && value !== 'dark') return;
-      root.dataset.theme = value;
-      try {
-        localStorage.setItem('theme', value);
-      } catch {
-        /* storage blocked: the choice applies to this page only */
-      }
-      sync();
-    });
-  }
+  toggle?.addEventListener('click', () => {
+    const value = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = value;
+    try {
+      localStorage.setItem('theme', value);
+    } catch {
+      /* storage blocked: the choice applies to this page only */
+    }
+    sync();
+  });
 
   deviceDark.addEventListener('change', sync);
 
@@ -57,37 +55,37 @@ const locale = Astro.currentLocale ?? 'en';
     display: flex;
     gap: 2px;
     padding: 4px;
+    border: 0;
     border-radius: 999px;
     background: var(--surface);
     box-shadow: var(--shadow-pill);
+    cursor: pointer;
   }
 
   .theme-toggle[hidden] {
     display: none;
   }
 
-  .theme-btn {
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+
+  .icon {
     display: grid;
     place-items: center;
     width: 32px;
     height: 32px;
-    padding: 0;
-    border: 0;
     border-radius: 50%;
-    background: transparent;
     color: var(--faint);
-    cursor: pointer;
     /* No background transition: see the note on .btn in global.css. */
   }
 
-  .theme-btn[aria-pressed='true'] {
+  /* The highlighted circle shows the current theme. */
+  .theme-toggle[aria-checked='false'] .icon-light,
+  .theme-toggle[aria-checked='true'] .icon-dark {
     background: var(--ink);
     color: var(--surface);
-  }
-
-  .theme-btn:focus-visible {
-    outline: 2px solid var(--blue);
-    outline-offset: 2px;
   }
 
   .sun {
@@ -109,7 +107,7 @@ const locale = Astro.currentLocale ?? 'en';
       padding: 3px;
     }
 
-    .theme-btn {
+    .icon {
       width: 30px;
       height: 30px;
     }
