@@ -135,6 +135,17 @@ const links = sections.map((section) => ({
     display: none;
   }
 
+  /* Compact desktop range (see the Layout note in global.css): tighter pill so the header fits. */
+  @media (min-width: 768px) and (max-width: 959.98px) {
+    .desktop-nav ul {
+      gap: 4px;
+    }
+
+    .desktop-nav a {
+      padding: 10px 10px;
+    }
+  }
+
   @media (max-width: 767.98px) {
     .navbar {
       order: 3;

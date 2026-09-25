@@ -1,0 +1,22 @@
+{
+  "_about": "Header geometry BEFORE feature 006 (T001), measured 2026-09-25 on the feature-005 build in Chromium with a 15px classic scrollbar. Boxes are [left, right, width] in CSS px. Used by T005.",
+  "geometry": {
+    "en": {
+      "1280": { "gutter": "48px", "overflow": 0, "wordmark": [48, 214.4, 166.4], "navbar": [427.5, 854.2, 426.7], "links": [[433.5, 510.2, 76.7], [516.2, 584.9, 68.7], [590.9, 683.3, 92.5], [689.3, 756.5, 67.1], [762.5, 848.2, 85.8]], "actions": [1067.3, 1217, 149.7], "toggle": [1143, 1217, 74] },
+      "960": { "gutter": "48px", "overflow": 0, "wordmark": [48, 214.4, 166.4], "navbar": [267.5, 694.2, 426.7], "links": [[273.5, 350.2, 76.7], [356.2, 424.9, 68.7], [430.9, 523.3, 92.5], [529.3, 596.5, 67.1], [602.5, 688.2, 85.8]], "actions": [747.3, 897, 149.7], "toggle": [823, 897, 74] },
+      "390": { "gutter": "20px", "overflow": 0, "wordmark": [20, 163.7, 143.7], "menuButton": [334, 378, 44], "toggle": [262, 330, 68] }
+    },
+    "es": {
+      "1280": { "gutter": "48px", "overflow": 0, "wordmark": [48, 214.4, 166.4], "navbar": [425.2, 856.5, 431.3], "links": [[431.2, 503.8, 72.6], [509.8, 587.5, 77.8], [593.5, 695.3, 101.8], [701.3, 768.4, 67.1], [774.4, 850.5, 76]], "actions": [1067.3, 1217, 149.7], "toggle": [1143, 1217, 74] },
+      "960": { "gutter": "48px", "overflow": 0, "wordmark": [48, 214.4, 166.4], "navbar": [265.2, 696.5, 431.3], "links": [[271.2, 343.8, 72.6], [349.8, 427.5, 77.8], [433.5, 535.3, 101.8], [541.3, 608.4, 67.1], [614.4, 690.5, 76]], "actions": [747.3, 897, 149.7], "toggle": [823, 897, 74] },
+      "390": { "gutter": "20px", "overflow": 0, "wordmark": [20, 163.7, 143.7], "menuButton": [334, 378, 44], "toggle": [262, 330, 68] }
+    }
+  },
+  "horizontalOverflowPx": {
+    "en": { "768": 70, "800": 38, "850": 0, "900": 0, "959": 0 },
+    "es": { "768": 74, "800": 42, "850": 0, "900": 0 }
+  },
+  "notes": [
+    "At 850px the page does not scroll, but the header row runs into its right padding: the actions end at 822.9 of a 835px-wide row, leaving a 12px right margin instead of 48px. Real sideways scroll ends at about 838px; the lopsided right margin lasts until about 886px (EN) / 890px (ES). Both fall inside the 768-959.98px compact range."
+  ]
+}

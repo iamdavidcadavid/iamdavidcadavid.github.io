@@ -47,7 +47,9 @@
   --shadow-egg: 0 24px 40px -24px rgba(20, 18, 16, 0.45);
 
   /* Layout. Media queries below use the literal 768px (custom properties can't be used
-     in @media); any JS needing the same threshold MUST use 768. */
+     in @media); any JS needing the same threshold MUST use 768. 960px is a spacing-only
+     threshold, not a layout breakpoint: from 768px up to 959.98px the desktop header keeps
+     its layout with tighter spacing so it fits (feature 006). */
   --breakpoint-md-px: 768;
   --content-max-width: 1280px;
   --gutter: 48px;
@@ -64,6 +66,13 @@
 @media (max-width: 767.98px) {
   :root {
     --gutter: 20px;
+  }
+}
+
+/* Compact desktop range: narrower page margins so the one-row header fits. */
+@media (min-width: 768px) and (max-width: 959.98px) {
+  :root {
+    --gutter: 24px;
   }
 }
 
