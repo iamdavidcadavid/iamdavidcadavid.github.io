@@ -3,7 +3,7 @@ export const salesPageSize = 5;
 
 // Front-end-only gate (see spec.md Assumptions) — not a secret, ships in the built
 // JS bundle. The site owner should replace this placeholder before publishing.
-export const salesPassword = 'changeme';
+export const salesPassword = 'ventascadavid';
 
 export type ContactPlatform = 'linkedin' | 'github' | 'youtube' | 'email';
 
