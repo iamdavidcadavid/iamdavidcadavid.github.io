@@ -1,0 +1,11 @@
+title: "[PLACEHOLDER] Weekend hike"
+cover:
+  src: "/albums/placeholder-cover.svg"
+  alt: "Placeholder cover image for the Weekend hike album"
+photos:
+  - src: "/albums/placeholder-photo-1.svg"
+    alt: "[PLACEHOLDER] Photo 1 from the weekend hike"
+  - src: "/albums/placeholder-photo-2.svg"
+    alt: "[PLACEHOLDER] Photo 2 from the weekend hike"
+  - src: "/albums/placeholder-photo-3.svg"
+    alt: "[PLACEHOLDER] Photo 3 from the weekend hike"

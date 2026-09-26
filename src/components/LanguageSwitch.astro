@@ -1,0 +1,82 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t } from '../i18n/ui';
+
+interface Props {
+  /** The mobile menu uses a slightly larger size (design: 15px). */
+  large?: boolean;
+}
+
+const { large = false } = Astro.props;
+const locale = Astro.currentLocale ?? 'en';
+const otherLocale = locale === 'en' ? 'es' : 'en';
+
+// Strip the current locale's URL prefix (only 'es' has one) to get the
+// locale-agnostic path, then build the equivalent URL in the other language.
+let path = Astro.url.pathname;
+if (locale === 'es' && path.startsWith('/es')) {
+  path = path.slice(3) || '/';
+}
+
+const otherUrl = getRelativeLocaleUrl(otherLocale, path);
+const items = (['en', 'es'] as const).map((code) => ({
+  code,
+  label: code.toUpperCase(),
+  current: code === locale,
+}));
+---
+
+<div class:list={["language-switch", { large }]} role="group" aria-label={t(locale, 'lang.label')}>
+  {
+    items.map((item, index) => (
+      <>
+        {index > 0 && (
+          <span class="slash" aria-hidden="true">
+            /
+          </span>
+        )}
+        {item.current ? (
+          <span class="current" aria-current="true">
+            {item.label}
+          </span>
+        ) : (
+          <a href={otherUrl} hreflang={item.code} lang={item.code}>
+            {item.label}
+          </a>
+        )}
+      </>
+    ))
+  }
+</div>
+
+<style>
+  .language-switch {
+    display: flex;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .language-switch.large {
+    font-size: 15px;
+    gap: 8px;
+  }
+
+  .current {
+    color: var(--ink);
+  }
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--ink);
+  }
+
+  .slash {
+    color: var(--faint);
+  }
+</style>

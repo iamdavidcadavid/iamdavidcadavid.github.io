@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageTitle from '../../../components/PageTitle.astro';
+import NowTimeline from '../../../components/NowTimeline.astro';
+import { t } from '../../../i18n/ui';
+
+const entries = await getCollection('now', ({ id }) => id.startsWith('es/'));
+---
+
+<BaseLayout title="Ahora — David Cadavid">
+  <NowTimeline entries={entries} locale="es">
+    <PageTitle text={t('es', 'nav.now')} />
+  </NowTimeline>
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogList from '../../../components/BlogList.astro';
+import PageTitle from '../../../components/PageTitle.astro';
+import { plural } from '../../../i18n/ui';
+
+const posts = await getCollection('blog', ({ id }) => id.startsWith('es/'));
+---
+
+<BaseLayout title="Blog — David Cadavid">
+  <PageTitle text="Blog" meta={plural('es', 'blog.count', posts.length)} />
+  <BlogList posts={posts} locale="es" />
+</BaseLayout>

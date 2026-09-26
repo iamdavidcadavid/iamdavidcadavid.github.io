@@ -1,0 +1,11 @@
+title: "[MARCADOR DE POSICIÓN] Caminata de fin de semana"
+cover:
+  src: "/albums/placeholder-cover.svg"
+  alt: "Imagen de portada provisional para el álbum Caminata de fin de semana"
+photos:
+  - src: "/albums/placeholder-photo-1.svg"
+    alt: "[MARCADOR DE POSICIÓN] Foto 1 de la caminata de fin de semana"
+  - src: "/albums/placeholder-photo-2.svg"
+    alt: "[MARCADOR DE POSICIÓN] Foto 2 de la caminata de fin de semana"
+  - src: "/albums/placeholder-photo-3.svg"
+    alt: "[MARCADOR DE POSICIÓN] Foto 3 de la caminata de fin de semana"

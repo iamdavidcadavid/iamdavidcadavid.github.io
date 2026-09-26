@@ -1,0 +1,131 @@
+---
+// Served by GitHub Pages for any missing URL, including under /es/, so the visitor's
+// language is unknown here: the page shows English and Spanish together.
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found · Página no encontrada — David Cadavid" noindex={true} hideLanguageSwitch={true}>
+  <div class="error-page">
+    <div class="code anim-rise" aria-hidden="true">
+      <span>4</span>
+      <span class="ring"><span class="ring-dot"></span></span>
+      <span>4</span>
+    </div>
+    <p class="visually-hidden">404</p>
+
+    <div class="message anim-rise delay-1">
+      <h1>This page doesn’t exist.</h1>
+      <p class="sub">The link may be broken, or the page may have moved.</p>
+    </div>
+
+    <div class="message-es anim-rise delay-2" lang="es">
+      <p class="es-title">Esta página no existe.</p>
+      <p class="es-sub">Puede que el enlace esté roto o que la página se haya movido.</p>
+    </div>
+
+    <div class="actions anim-rise delay-2">
+      <a class="btn btn-blue" href="/">Go home · <span lang="es">Ir al inicio</span></a>
+      <a class="btn btn-surface" href="/blog/">Read the blog · <span lang="es">Leer el blog</span></a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(22px, 2.4vw, 31px);
+    max-width: 680px;
+    margin: clamp(8px, 3vw, 38px) auto 0;
+    text-align: center;
+  }
+
+  .code {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 13px);
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: clamp(110px, 16vw, 210px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .ring {
+    display: grid;
+    place-items: center;
+    width: 0.72em;
+    height: 0.72em;
+    border: 0.14em solid var(--blue);
+    border-radius: 50%;
+  }
+
+  .ring-dot {
+    width: 0.16em;
+    height: 0.16em;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .sub {
+    margin: 0;
+    font-size: clamp(16px, 1.45vw, 19px);
+    line-height: 1.6;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .message-es {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    max-width: 420px;
+    padding-top: clamp(16px, 1.8vw, 23px);
+    border-top: 1px solid var(--line);
+  }
+
+  .es-title {
+    margin: 0;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 19px;
+    color: var(--body);
+  }
+
+  .es-sub {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ring {
+      animation: pulse 2.6s ease-in-out infinite;
+    }
+  }
+</style>

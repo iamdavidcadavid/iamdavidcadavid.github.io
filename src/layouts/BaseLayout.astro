@@ -1,0 +1,180 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import NavBar from '../components/NavBar.astro';
+import LanguageSwitch from '../components/LanguageSwitch.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+interface Props {
+  title: string;
+  noindex?: boolean;
+  /**
+   * Set true on a page that has no equivalent in the other language (e.g. a
+   * blog post marked translationPending) so LanguageSwitch isn't rendered
+   * pointing at a URL that doesn't exist.
+   */
+  hideLanguageSwitch?: boolean;
+}
+
+const { title, noindex = false, hideLanguageSwitch = false } = Astro.props;
+const locale = Astro.currentLocale ?? 'en';
+
+// Footer quote (002-layout-nav-refresh FR-011), localized.
+const footerQuoteCopy = {
+  en: 'All we have to decide is what to do with the time that is given us',
+  es: 'Lo único que podemos decidir es qué hacer con el tiempo que se nos ha dado',
+} as const;
+const footerQuote = footerQuoteCopy[locale as 'en' | 'es'] ?? footerQuoteCopy.en;
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <script is:inline>
+      // Runs before first paint so a saved theme never flashes the other one (FR-004).
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.dataset.theme = savedTheme;
+        }
+      } catch (e) {
+        /* storage blocked: follow the device preference */
+      }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <Font cssVariable="--font-serif" preload />
+    <Font cssVariable="--font-sans" preload />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner site-container">
+        <a class="wordmark" href={getRelativeLocaleUrl(locale, '/')}>David Cadavid<span class="dot">.</span></a>
+        <NavBar hideLanguageSwitch={hideLanguageSwitch} />
+        <div class="header-actions">
+          {
+            !hideLanguageSwitch && (
+              <div class="desktop-lang">
+                <LanguageSwitch />
+              </div>
+            )
+          }
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+    <main class="site-container">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p class="footer-quote">“{footerQuote}” — Gandalf</p>
+      <p class="copyright">&copy; {new Date().getFullYear()} David Cadavid</p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  /* Pinned and opaque so scrolled content never shows through (FR-012). z-index stays
+     below the photo viewers' and gates' z-index: 100. */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--bg);
+  }
+
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 24px;
+  }
+
+  .wordmark {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 22px;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .wordmark .dot {
+    color: var(--blue);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Compact desktop range (see the Layout note in global.css). */
+  @media (min-width: 768px) and (max-width: 959.98px) {
+    .header-actions {
+      gap: 12px;
+    }
+  }
+
+  main {
+    min-height: 60vh;
+    padding-block: clamp(24px, 3.2vw, 41px) clamp(48px, 5.6vw, 72px);
+    /* Entrance animations start up to 48px off to the side; clip (not hidden) so they never
+       cause a sideways scrollbar, without creating a scroll container. */
+    overflow-x: clip;
+  }
+
+  .site-footer {
+    padding: 24px 20px;
+    text-align: center;
+    color: var(--muted);
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+  }
+
+  .site-footer p {
+    margin: 0;
+  }
+
+  /* Scoped so it outranks `.site-footer p` without !important. */
+  .site-footer .copyright {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .footer-quote {
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 767.98px) {
+    .site-header-inner {
+      height: 68px;
+      padding-block: 0;
+      padding-inline-end: 12px;
+      gap: 4px;
+    }
+
+    .wordmark {
+      font-size: 19px;
+      order: 1;
+      margin-right: auto;
+    }
+
+    .header-actions {
+      order: 2;
+      gap: 4px;
+    }
+
+    .desktop-lang {
+      display: none;
+    }
+  }
+</style>

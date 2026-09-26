@@ -1,0 +1,63 @@
+---
+interface Props {
+  text: string;
+  /** Small right-aligned note on the title row, e.g. a post count. */
+  meta?: string;
+  /** Optional back link shown above the title (albums). */
+  back?: { href: string; label: string };
+  /** `md` is the smaller album-title size from the design. */
+  size?: 'lg' | 'md';
+}
+
+const { text, meta, back, size = 'lg' } = Astro.props;
+---
+
+<div class="page-title anim-slide-left">
+  {back && <a class="back-link" href={back.href}>{back.label}</a>}
+  <div class="row">
+    <h1 class:list={['title', size]}>{text}<span class="dot">.</span></h1>
+    {meta && <span class="meta">{meta}</span>}
+  </div>
+</div>
+
+<style>
+  .page-title {
+    margin-bottom: clamp(24px, 3vw, 38px);
+  }
+
+  .back-link {
+    margin-bottom: clamp(18px, 2vw, 26px);
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .title {
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .title.lg {
+    font-size: clamp(44px, 6.5vw, 84px);
+  }
+
+  .title.md {
+    font-size: clamp(40px, 5.6vw, 72px);
+  }
+
+  .dot {
+    color: var(--blue);
+  }
+
+  .meta {
+    flex: none;
+    font-size: 15px;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,64 @@
+[
+  {
+    "id": "item-1",
+    "name": "[MARCADOR DE POSICIÓN] Artículo Uno",
+    "price": "$25",
+    "description": "[MARCADOR DE POSICIÓN] Una breve descripción del artículo uno.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-1.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Uno, foto 1" },
+      { "src": "/albums/placeholder-photo-2.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Uno, foto 2" }
+    ]
+  },
+  {
+    "id": "item-2",
+    "name": "[MARCADOR DE POSICIÓN] Artículo Dos",
+    "price": "$40",
+    "photos": [
+      { "src": "/albums/placeholder-photo-2.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Dos, foto 1" }
+    ]
+  },
+  {
+    "id": "item-3",
+    "name": "[MARCADOR DE POSICIÓN] Artículo Tres",
+    "price": "$15",
+    "description": "[MARCADOR DE POSICIÓN] Una breve descripción del artículo tres.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-3.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Tres, foto 1" }
+    ]
+  },
+  {
+    "id": "item-4",
+    "name": "[MARCADOR DE POSICIÓN] Artículo Cuatro",
+    "price": "$60",
+    "photos": [
+      { "src": "/albums/placeholder-photo-1.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Cuatro, foto 1" },
+      { "src": "/albums/placeholder-photo-3.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Cuatro, foto 2" }
+    ]
+  },
+  {
+    "id": "item-5",
+    "name": "[MARCADOR DE POSICIÓN] Artículo Cinco",
+    "price": "$10",
+    "description": "[MARCADOR DE POSICIÓN] Una breve descripción del artículo cinco.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-2.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Cinco, foto 1" }
+    ]
+  },
+  {
+    "id": "item-6",
+    "name": "[MARCADOR DE POSICIÓN] Artículo Seis",
+    "price": "$80",
+    "photos": [
+      { "src": "/albums/placeholder-photo-1.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Seis, foto 1" }
+    ]
+  },
+  {
+    "id": "item-7",
+    "name": "[MARCADOR DE POSICIÓN] Artículo Siete",
+    "price": "$35",
+    "description": "[MARCADOR DE POSICIÓN] Una breve descripción del artículo siete.",
+    "photos": [
+      { "src": "/albums/placeholder-photo-3.svg", "alt": "[MARCADOR DE POSICIÓN] Artículo Siete, foto 1" }
+    ]
+  }
+]

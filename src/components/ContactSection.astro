@@ -1,0 +1,198 @@
+---
+import { contactLinks, contactLinkUrl, type ContactPlatform } from '../config/site';
+import contactPhoto from '../assets/placeholders/contact-photo.svg';
+
+const platformLabels: Record<ContactPlatform, string> = {
+  linkedin: 'LinkedIn',
+  github: 'GitHub',
+  youtube: 'YouTube',
+  email: 'Email',
+};
+
+const locale = Astro.currentLocale ?? 'en';
+
+const introCopy = {
+  en: "[PLACEHOLDER: I'd love to hear from you — whether it's about a project, an opportunity, or just to say hello. Here's how to reach me.]",
+  es: '[MARCADOR DE POSICIÓN: Me encantaría saber de ti — ya sea por un proyecto, una oportunidad o solo para saludar. Así puedes encontrarme.]',
+} as const;
+
+const intro = introCopy[locale as 'en' | 'es'] ?? introCopy.en;
+
+const photoAltCopy = {
+  en: 'Placeholder contact image',
+  es: 'Imagen de contacto provisional',
+} as const;
+
+const photoAlt = photoAltCopy[locale as 'en' | 'es'] ?? photoAltCopy.en;
+
+function handleFor(platform: ContactPlatform, username: string): string {
+  return platform === 'youtube' ? `@${username}` : username;
+}
+---
+
+<section class="contact">
+  <div class="contact-text">
+    <div class="heading anim-slide-left">
+      <slot />
+      <p class="intro">{intro}</p>
+    </div>
+    <ul class="links card anim-rise delay-1">
+      {
+        contactLinks.map((link) => {
+          const isExternal = link.platform !== 'email';
+          return (
+            <li>
+              <a
+                class="link-row"
+                href={contactLinkUrl(link)}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+              >
+                <span class="icon" aria-hidden="true">
+                  {link.platform === 'linkedin' && <span class="initials">in</span>}
+                  {link.platform === 'email' && (
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="M2 6l10 7 10-7" />
+                    </svg>
+                  )}
+                  {link.platform === 'github' && (
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z" />
+                    </svg>
+                  )}
+                  {link.platform === 'youtube' && (
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="5" width="20" height="14" rx="4" />
+                      <path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" />
+                    </svg>
+                  )}
+                </span>
+                <span class="label">
+                  <span class="platform">{platformLabels[link.platform]}</span>
+                  <span class="handle">{handleFor(link.platform, link.username)}</span>
+                </span>
+                <span class="arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+  <div class="photo-frame anim-slide-right delay-3">
+    <img src={contactPhoto.src} width={contactPhoto.width} height={contactPhoto.height} alt={photoAlt} />
+  </div>
+</section>
+
+<style>
+  .contact {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    gap: clamp(32px, 5vw, 64px);
+  }
+
+  .contact-text {
+    flex: 1 1 440px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .heading :global(.page-title) {
+    margin-bottom: 0;
+  }
+
+  .intro {
+    margin: 20px 0 0;
+    max-width: 560px;
+    font-size: clamp(17px, 1.55vw, 20px);
+    line-height: 1.6;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  .links {
+    margin: 0;
+    padding: 8px clamp(20px, 2.4vw, 31px);
+    list-style: none;
+  }
+
+  .links li + li .link-row {
+    border-top: 1px solid var(--line);
+  }
+
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .link-row:hover {
+    color: var(--blue-ink);
+  }
+
+  .icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--on-blue);
+  }
+
+  .initials {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .label {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .platform {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .handle {
+    font-size: 14px;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  .arrow {
+    color: var(--faint);
+  }
+
+  .photo-frame {
+    flex: 0 1 460px;
+    min-width: 0;
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(7px, 0.8vw, 10px);
+    border-radius: clamp(26px, 2.6vw, 33px);
+    background: var(--blue);
+    box-shadow: var(--shadow-photo);
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: clamp(20px, 2vw, 26px);
+  }
+</style>

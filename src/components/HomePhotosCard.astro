@@ -1,0 +1,142 @@
+---
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+const albums = await getCollection('albums', ({ id }) => id.startsWith(`${locale}/`));
+
+// Every album photo in this locale (covers excluded). The first three render at build
+// time, so visitors without JS still see photos; the script swaps in a random pick.
+const pool = albums.flatMap((album) => album.data.photos.map((photo) => ({ src: photo.src, alt: photo.alt })));
+---
+
+<article class="home-card card photos-card">
+  <div class="card-head">
+    <h3>{t(locale, 'home.photos.title')}</h3>
+    <a class="more" href={getRelativeLocaleUrl(locale, '/photos/')}>{t(locale, 'home.photos.more')}</a>
+  </div>
+  {
+    pool.length === 0 ? (
+      <p class="empty">{t(locale, 'home.photos.empty')}</p>
+    ) : (
+      <div class="tiles" data-photo-pool={JSON.stringify(pool)}>
+        {pool.slice(0, 3).map((photo) => (
+          <img src={photo.src} alt={photo.alt} loading="lazy" />
+        ))}
+      </div>
+    )
+  }
+</article>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-photo-pool]').forEach((wrap) => {
+    let pool: { src: string; alt: string }[] = [];
+    try {
+      pool = JSON.parse(wrap.dataset.photoPool ?? '[]');
+    } catch {
+      return;
+    }
+    const tiles = Array.from(wrap.querySelectorAll<HTMLImageElement>('img'));
+    if (pool.length <= tiles.length) return;
+
+    // Fisher–Yates shuffle of a copy, then rewrite the existing tile images in place.
+    const picks = [...pool];
+    for (let i = picks.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [picks[i], picks[j]] = [picks[j], picks[i]];
+    }
+    tiles.forEach((img, index) => {
+      const photo = picks[index];
+      if (!photo) return;
+      img.src = photo.src;
+      img.alt = photo.alt;
+    });
+  });
+</script>
+
+<style>
+  .home-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 28px 32px;
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .more {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--blue-ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .more:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Plain photo mosaic: the first photo spans both rows. The photos are decorative
+     previews, not controls, so they get no pointer, hover zoom or viewer. */
+  .tiles {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    min-height: 210px;
+  }
+
+  .tiles img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    cursor: default;
+  }
+
+  .tiles img:first-child {
+    grid-row: span 2;
+  }
+
+  .empty {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  @media (max-width: 767.98px) {
+    .home-card {
+      gap: 14px;
+      padding: 22px 24px 24px;
+    }
+
+    h3 {
+      font-size: 21px;
+    }
+
+    .tiles {
+      gap: 6px;
+      min-height: 200px;
+    }
+
+    .tiles img {
+      border-radius: 12px;
+    }
+  }
+</style>

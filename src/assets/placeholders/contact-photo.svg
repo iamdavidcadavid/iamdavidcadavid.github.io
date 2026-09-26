@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" role="img" aria-label="Placeholder contact image">
+  <rect width="400" height="400" fill="#e4e4e4"/>
+  <rect x="70" y="130" width="260" height="170" rx="12" fill="#bfcf74"/>
+  <path d="M70 140 L200 240 L330 140" fill="none" stroke="#f6f6f4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200" y="345" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#4a4a4a">[ PLACEHOLDER IMAGE ]</text>
+</svg>

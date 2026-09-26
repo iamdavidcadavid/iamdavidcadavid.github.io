@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /sales/
+Disallow: /es/sales/
+Disallow: /easter-egg/
+Disallow: /es/easter-egg/
+
+Sitemap: https://iamdavidcadavid.github.io/sitemap-index.xml

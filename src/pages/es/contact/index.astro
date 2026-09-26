@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ContactSection from '../../../components/ContactSection.astro';
+import PageTitle from '../../../components/PageTitle.astro';
+import { t } from '../../../i18n/ui';
+---
+
+<BaseLayout title="Contacto — David Cadavid">
+  <ContactSection>
+    <PageTitle text={t('es', 'nav.contact')} />
+  </ContactSection>
+</BaseLayout>

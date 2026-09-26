@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&amp;family=Onest:ital,wght@0,300..600;1,300..600&amp;display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#eceae5;font-family:system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+@keyframes dcfade{from{opacity:0}to{opacity:1}}
+@keyframes dcup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes dcleft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+@keyframes dcglow{0%,100%{opacity:.55;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
+@keyframes dcwobble{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes dcring{0%,100%{transform:scale(1)}50%{transform:scale(.9)}}
+@keyframes dcside{from{opacity:0;transform:translateX(48px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<sc-for list="{{ pages }}" as="pg" hint-placeholder-count="6">
+<section class="dv-turn" id="{{ pg.id }}">
+<div class="dv-thd"><a class="dv-tid" href="#{{ pg.id }}">{{ pg.num }}</a><span class="dv-tname">{{ pg.title }}</span></div>
+<div class="dv-opts">
+<sc-for list="{{ pg.frames }}" as="v" hint-placeholder-count="2">
+<div class="dv-opt" id="{{ v.key }}">
+<div class="dv-olabel"><a class="dv-oid" href="#{{ v.key }}">{{ v.key }}</a>{{ v.label }}</div>
+<div class="dv-card" style="width:{{ v.width }};container-type:inline-size;position:relative;background:{{ v.bg }};color:{{ v.ink }};font-family:'Onest',sans-serif;border-color:{{ v.line }};border-radius:{{ v.radius }};transition:background .4s,color .4s">
+
+  <sc-if value="{{ v.desktop }}" hint-placeholder-val="{{ true }}">
+    <header style="padding:24px 48px;display:flex;align-items:center;justify-content:space-between">
+      <a href="#" style="font-family:'Young Serif',serif;font-size:22px;color:{{ v.ink }}">David Cadavid<span style="color:{{ v.blue }}">.</span></a>
+      <nav style="display:flex;gap:6px;padding:6px;border-radius:999px;background:{{ v.surface }};box-shadow:{{ v.shadow }};font-size:15px">
+        <sc-for list="{{ v.nav }}" as="n" hint-placeholder-count="5">
+          <a href="#" style="padding:10px 18px;border-radius:999px;background:{{ n.bg }};color:{{ n.color }}" style-hover="box-shadow:inset 0 0 0 1px {{ v.line }}">{{ n.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:20px">
+        <sc-if value="{{ v.showLang }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:6px;font-size:14px;font-weight:500"><a href="#" style="color:{{ v.ink }}">EN</a><span style="color:{{ v.faint }}">/</span><a href="#" style="color:{{ v.faint }}" style-hover="color:{{ v.ink }}">ES</a></div>
+        </sc-if>
+        <div style="display:flex;padding:4px;gap:2px;border-radius:999px;background:{{ v.surface }};box-shadow:{{ v.shadow }}">
+          <button type="button" onClick="{{ v.setLight }}" aria-label="Light theme" style="width:32px;height:32px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.lightBtnBg }};transition:background .3s"><span style="width:11px;height:11px;border-radius:50%;background:{{ v.lightIcon }}"></span></button>
+          <button type="button" onClick="{{ v.setDark }}" aria-label="Dark theme" style="width:32px;height:32px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.darkBtnBg }};transition:background .3s"><span style="width:13px;height:13px;border-radius:50%;box-shadow:inset -4px -2px 0 0 {{ v.darkIcon }}"></span></button>
+        </div>
+      </div>
+    </header>
+  </sc-if>
+
+  <sc-if value="{{ v.mobile }}" hint-placeholder-val="{{ false }}">
+    <header style="height:68px;padding:0 12px 0 20px;display:flex;align-items:center;justify-content:space-between">
+      <a href="#" style="font-family:'Young Serif',serif;font-size:19px;color:{{ v.ink }}">David Cadavid<span style="color:{{ v.blue }}">.</span></a>
+      <div style="display:flex;align-items:center;gap:4px">
+        <div style="display:flex;padding:3px;gap:2px;border-radius:999px;background:{{ v.surface }};box-shadow:{{ v.shadow }}">
+          <button type="button" onClick="{{ v.setLight }}" aria-label="Light theme" style="width:30px;height:30px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.lightBtnBg }}"><span style="width:10px;height:10px;border-radius:50%;background:{{ v.lightIcon }}"></span></button>
+          <button type="button" onClick="{{ v.setDark }}" aria-label="Dark theme" style="width:30px;height:30px;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;background:{{ v.darkBtnBg }}"><span style="width:12px;height:12px;border-radius:50%;box-shadow:inset -4px -2px 0 0 {{ v.darkIcon }}"></span></button>
+        </div>
+        <button type="button" onClick="{{ v.toggleMenu }}" aria-label="Toggle navigation menu" style="width:44px;height:44px;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px">
+          <span style="width:20px;height:2px;border-radius:2px;background:{{ v.ink }}"></span>
+          <span style="width:20px;height:2px;border-radius:2px;background:{{ v.ink }}"></span>
+          <span style="width:20px;height:2px;border-radius:2px;background:{{ v.ink }}"></span>
+        </button>
+      </div>
+    </header>
+    <sc-if value="{{ v.menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;top:68px;left:12px;right:12px;z-index:10;background:{{ v.surface }};border-radius:24px;box-shadow:0 24px 48px -20px rgba(20,18,16,.35);padding:8px 20px 20px;animation:dcfade .2s ease-out">
+        <sc-for list="{{ v.nav }}" as="n" hint-placeholder-count="5">
+          <a href="#" style="display:flex;align-items:center;justify-content:space-between;height:56px;border-bottom:1px solid {{ v.line }};font-family:'Young Serif',serif;font-size:24px;color:{{ n.mColor }}">{{ n.label }}<span style="width:8px;height:8px;border-radius:50%;background:{{ n.dot }}"></span></a>
+        </sc-for>
+        <sc-if value="{{ v.showLang }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:8px;padding-top:18px;font-size:15px;font-weight:500"><a href="#" style="color:{{ v.ink }}">EN</a><span style="color:{{ v.faint }}">/</span><a href="#" style="color:{{ v.faint }}">ES</a></div>
+        </sc-if>
+      </div>
+    </sc-if>
+  </sc-if>
+
+  <main style="padding:max(24px,3.2cqi) max(20px,3.75cqi) max(48px,5.6cqi);min-height:420px">
+
+    <sc-if value="{{ v.isBlog }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:max(24px,3cqi);animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">
+        <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em">Blog<span style="color:{{ v.blue }}">.</span></h1>
+        <span style="font-size:15px;color:{{ v.faint }}">7 posts</span>
+      </div>
+      <div style="background:{{ v.surface }};border-radius:max(24px,2.2cqi);padding:max(8px,1cqi) max(22px,3cqi);animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+        <sc-for list="{{ v.posts }}" as="p" hint-placeholder-count="6">
+          <a href="#" style="display:flex;flex-wrap:wrap;gap:6px 32px;padding:max(20px,2.2cqi) 0;border-top:{{ p.border }};color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}">
+            <span style="flex:0 0 150px;font-size:14px;color:{{ v.faint }};padding-top:6px">{{ p.date }}</span>
+            <span style="flex:1 1 280px;display:flex;flex-direction:column;gap:8px;min-width:0">
+              <span style="display:flex;justify-content:space-between;gap:16px;align-items:baseline"><span style="font-family:'Young Serif',serif;font-size:clamp(20px,2cqi,26px);line-height:1.25">{{ p.title }}</span><span style="color:{{ v.faint }}">↗</span></span>
+              <sc-if value="{{ p.pending }}" hint-placeholder-val="{{ false }}"><span style="align-self:start;font-size:12px;padding:2px 10px;border-radius:999px;border:1px solid {{ v.line }};color:{{ v.muted }}">Not yet available in Spanish</span></sc-if>
+              <span style="font-size:15px;line-height:1.6;color:{{ v.muted }}">{{ p.excerpt }}</span>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+      <sc-if value="{{ v.showMore }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;justify-content:center;margin-top:28px"><button type="button" onClick="{{ v.loadMore }}" style="padding:15px 30px;border:0;border-radius:999px;background:{{ v.blue }};color:{{ v.onBlue }};font:500 15px 'Onest',sans-serif;cursor:pointer" style-hover="background:{{ v.blueHover }}">Load more</button></div>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ v.isPost }}" hint-placeholder-val="{{ false }}">
+      <article style="max-width:720px;margin:0 auto">
+        <div style="animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">
+          <a href="#" style="display:inline-flex;font-size:14px;font-weight:500;color:{{ v.blueInk }};margin-bottom:max(24px,3cqi)">← All posts</a>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:18px;font-size:14px;color:{{ v.faint }}"><span>February 9, 2026</span><span style="font-size:12px;padding:3px 10px;border-radius:999px;background:{{ v.surface }};color:{{ v.muted }}">Not yet available in Spanish</span></div>
+          <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(36px,4.6cqi,58px);line-height:1.08;letter-spacing:-.015em;text-wrap:balance">An English-only post (translation pending)</h1>
+        </div>
+        <div style="margin-top:max(28px,3.5cqi);padding-top:max(28px,3.5cqi);border-top:1px solid {{ v.line }};font-size:clamp(17px,1.45cqi,19px);line-height:1.75;color:{{ v.body }};animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+          <p style="margin:0 0 1.2em;font-size:1.15em;color:{{ v.ink }};text-wrap:pretty">[PLACEHOLDER: This post intentionally has no Spanish translation yet, to exercise the translation-pending indicator.]</p>
+          <p style="margin:0 0 1.2em;text-wrap:pretty">[PLACEHOLDER: Rest of the article body.] Links look <a href="#" style="color:{{ v.blueInk }};text-decoration:underline;text-underline-offset:3px">like this</a> inside a paragraph.</p>
+          <h2 style="margin:1.8em 0 .6em;font-family:'Young Serif',serif;font-weight:400;font-size:1.5em;line-height:1.2;color:{{ v.ink }}">A section heading</h2>
+          <p style="margin:0 0 1.2em;text-wrap:pretty">[PLACEHOLDER: Sample paragraph showing how markdown sub-headings, quotes and images will be styled.]</p>
+          <blockquote style="margin:1.6em 0;padding:0;font-family:'Young Serif',serif;font-size:1.4em;line-height:1.35;color:{{ v.blueInk }};text-wrap:balance">“A pull quote from the article sits here, larger and in blue.”</blockquote>
+          <figure style="margin:1.6em 0">
+            <div style="aspect-ratio:3/2;border-radius:20px;background:{{ v.stripeA }}"></div>
+            <figcaption style="margin-top:10px;font-size:14px;color:{{ v.faint }}">Image caption from the markdown alt text.</figcaption>
+          </figure>
+        </div>
+        <div style="margin-top:max(32px,4cqi);display:flex;justify-content:center"><a href="#" style="padding:14px 26px;border-radius:999px;background:{{ v.surface }};color:{{ v.ink }};font-size:15px;font-weight:500" style-hover="background:{{ v.sand }}">← Back to all posts</a></div>
+      </article>
+    </sc-if>
+
+    <sc-if value="{{ v.isPhotos }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:max(24px,3cqi);animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">
+        <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em">Photos<span style="color:{{ v.blue }}">.</span></h1>
+        <span style="font-size:15px;color:{{ v.faint }}">2 albums</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+        <sc-for list="{{ v.albums }}" as="al" hint-placeholder-count="2">
+          <a href="#" style="background:{{ v.surface }};border-radius:28px;padding:12px;display:flex;flex-direction:column;gap:14px;color:{{ v.ink }};transition:transform .25s" style-hover="transform:translateY(-4px)">
+            <div style="aspect-ratio:4/3;border-radius:20px;background:{{ al.bg }}"></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 10px 8px"><span style="font-family:'Young Serif',serif;font-size:22px">{{ al.title }}</span><span style="font-size:14px;color:{{ v.faint }}">{{ al.meta }}</span></div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.isAlbum }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:max(24px,3cqi);animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">
+        <a href="#" style="display:inline-flex;font-size:14px;font-weight:500;color:{{ v.blueInk }};margin-bottom:max(18px,2cqi)">← Photos</a>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+          <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(40px,5.6cqi,72px);line-height:1;letter-spacing:-.02em">Weekend hike<span style="color:{{ v.blue }}">.</span></h1>
+          <span style="font-size:15px;color:{{ v.faint }}">3 photos</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:max(10px,1.2cqi);animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+        <sc-for list="{{ v.photos }}" as="ph" hint-placeholder-count="3">
+          <button type="button" onClick="{{ ph.open }}" aria-label="{{ ph.alt }}" style="aspect-ratio:4/3;border:0;padding:0;border-radius:20px;cursor:zoom-in;background:{{ ph.bg }};transition:transform .25s,filter .25s" style-hover="transform:scale(1.02);filter:brightness(1.05)"></button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.isNow }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:760px;margin:0 auto">
+        <h1 style="margin:0 0 max(24px,3cqi);font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em;animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">Now<span style="color:{{ v.blue }}">.</span></h1>
+        <section style="background:{{ v.surface }};border-radius:max(24px,2.2cqi);padding:max(24px,3.2cqi);display:flex;flex-direction:column;gap:16px;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+          <span style="align-self:start;display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:{{ v.blueSoft }};color:{{ v.blueInk }};font-size:13px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:{{ v.blue }}"></span>September 15, 2026</span>
+          <h2 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(26px,2.6cqi,34px);line-height:1.2">What I’m up to now</h2>
+          <p style="margin:0;font-size:clamp(16px,1.4cqi,18px);line-height:1.75;color:{{ v.body }};text-wrap:pretty">[PLACEHOLDER: A short summary of what David is currently focused on — work, projects, or learning.]</p>
+          <p style="margin:0;font-size:clamp(16px,1.4cqi,18px);line-height:1.75;color:{{ v.body }};text-wrap:pretty">[PLACEHOLDER: A second paragraph with more detail on the current season — what’s true today, not a historical record.]</p>
+        </section>
+        <div style="margin-top:max(32px,4cqi);animation:dcup .8s cubic-bezier(.2,.7,.2,1) .24s both">
+          <h3 style="margin:0 0 6px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:{{ v.faint }}">Earlier updates</h3>
+          <div style="border-top:1px solid {{ v.line }}">
+            <button type="button" onClick="{{ v.toggleNow }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;border:0;background:none;cursor:pointer;color:{{ v.ink }};font:inherit;text-align:left">
+              <span style="display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline"><span style="font-size:14px;color:{{ v.faint }}">June 1, 2026</span><span style="font-family:'Young Serif',serif;font-size:20px">An earlier update</span></span>
+              <span style="flex:none;width:32px;height:32px;border-radius:50%;background:{{ v.surface }};display:grid;place-items:center;font-size:18px;color:{{ v.blueInk }}">{{ v.nowSign }}</span>
+            </button>
+            <sc-if value="{{ v.nowOpen }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0;padding:0 0 22px;font-size:16px;line-height:1.75;color:{{ v.body }};animation:dcfade .25s ease-out">[PLACEHOLDER: A short note about what was going on earlier this year — kept here as part of the update history.]</p>
+            </sc-if>
+          </div>
+          <div style="border-top:1px solid {{ v.line }}"></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.isContact }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap-reverse;align-items:center;gap:max(32px,5cqi)">
+        <div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:24px">
+          <div style="animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">
+            <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em">Contact<span style="color:{{ v.blue }}">.</span></h1>
+            <p style="margin:20px 0 0;font-size:clamp(17px,1.55cqi,20px);line-height:1.6;color:{{ v.muted }};max-width:560px;text-wrap:pretty">[PLACEHOLDER: I’d love to hear from you — whether it’s about a project, an opportunity, or just to say hello. Here’s how to reach me.]</p>
+          </div>
+          <div style="background:{{ v.surface }};border-radius:28px;padding:8px max(20px,2.4cqi);animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+            <a href="#" style="display:flex;align-items:center;gap:16px;padding:16px 0;color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}">
+              <span style="flex:none;width:44px;height:44px;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};display:grid;place-items:center;font-weight:700;font-size:17px">in</span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:16px;font-weight:500">LinkedIn</span><span style="font-size:14px;color:{{ v.faint }}">cadaviddavid</span></span><span style="color:{{ v.faint }}">↗</span>
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:16px;padding:16px 0;border-top:1px solid {{ v.line }};color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}">
+              <span style="flex:none;width:44px;height:44px;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};display:grid;place-items:center"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.170 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.470-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.560-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"></path></svg></span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:16px;font-weight:500">GitHub</span><span style="font-size:14px;color:{{ v.faint }}">iamdavidcadavid</span></span><span style="color:{{ v.faint }}">↗</span>
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:16px;padding:16px 0;border-top:1px solid {{ v.line }};color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}">
+              <span style="flex:none;width:44px;height:44px;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};display:grid;place-items:center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none"></path></svg></span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:16px;font-weight:500">YouTube</span><span style="font-size:14px;color:{{ v.faint }}">@iamdavidcadavid</span></span><span style="color:{{ v.faint }}">↗</span>
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:16px;padding:16px 0;border-top:1px solid {{ v.line }};color:{{ v.ink }}" style-hover="color:{{ v.blueInk }}">
+              <span style="flex:none;width:44px;height:44px;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};display:grid;place-items:center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg></span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:16px;font-weight:500">Email</span><span style="font-size:14px;color:{{ v.faint }}">contact@davidcadavid.com</span></span><span style="color:{{ v.faint }}">↗</span>
+            </a>
+          </div>
+        </div>
+        <div style="flex:0 1 460px;min-width:0;margin:0 auto;width:100%;padding:max(7px,.8cqi);border-radius:max(26px,2.6cqi);background:{{ v.blue }};box-shadow:0 30px 60px -30px rgba(20,18,16,.5);animation:dcside 1s cubic-bezier(.2,.7,.2,1) .15s both">
+          <div style="aspect-ratio:4/5;border-radius:max(20px,2cqi);background:{{ v.stripeB }}"></div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ v.isSales }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ v.locked }}" hint-placeholder-val="{{ true }}">
+        <div style="max-width:440px;margin:max(8px,2cqi) auto 0;display:flex;flex-direction:column;align-items:center;gap:max(24px,2.6cqi)">
+          <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em;animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">Sales<span style="color:{{ v.blue }}">.</span></h1>
+          <form onSubmit="{{ v.submit }}" style="width:100%;background:{{ v.surface }};border-radius:28px;padding:max(24px,2.6cqi);display:flex;flex-direction:column;gap:14px;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+            <div style="align-self:center;width:60px;height:60px;border-radius:50%;background:{{ v.blueSoft }};display:grid;place-items:center;margin-bottom:6px">
+              <div style="position:relative;width:22px;height:17px;border-radius:5px;background:{{ v.blueInk }};margin-top:8px"><div style="position:absolute;left:3px;top:-11px;width:16px;height:14px;border:3px solid {{ v.blueInk }};border-bottom:0;border-radius:9px 9px 0 0"></div></div>
+            </div>
+            <label for="{{ v.pwId }}" style="font-size:14px;font-weight:500">Password</label>
+            <input id="{{ v.pwId }}" type="password" name="password" autocomplete="off" value="{{ v.pw }}" onChange="{{ v.onPw }}" style="height:52px;padding:0 18px;border-radius:14px;border:1px solid {{ v.inputBorder }};background:{{ v.bg }};color:{{ v.ink }};font:16px 'Onest',sans-serif;outline:none" style-focus="box-shadow:0 0 0 3px {{ v.blueSoft }};border-color:{{ v.blue }}">
+            <sc-if value="{{ v.pwError }}" hint-placeholder-val="{{ false }}">
+              <p role="alert" style="margin:0;font-size:14px;color:{{ v.danger }};animation:dcfade .2s ease-out">Incorrect password.</p>
+            </sc-if>
+            <button type="submit" style="height:52px;margin-top:4px;border:0;border-radius:999px;background:{{ v.blue }};color:{{ v.onBlue }};font:500 16px 'Onest',sans-serif;cursor:pointer" style-hover="background:{{ v.blueHover }}">Unlock</button>
+          </form>
+        </div>
+      </sc-if>
+      <sc-if value="{{ v.unlocked }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:max(24px,3cqi);animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">
+          <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em">Sales<span style="color:{{ v.blue }}">.</span></h1>
+          <span style="font-size:15px;color:{{ v.faint }}">7 items</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+          <sc-for list="{{ v.items }}" as="it" hint-placeholder-count="5">
+            <article style="background:{{ v.surface }};border-radius:28px;padding:12px;display:flex;flex-direction:column;gap:12px">
+              <button type="button" onClick="{{ it.open }}" aria-label="Enlarge photo" style="aspect-ratio:4/3;border:0;padding:0;border-radius:20px;cursor:zoom-in;background:{{ it.bg }};transition:filter .25s" style-hover="filter:brightness(1.05)"></button>
+              <sc-if value="{{ it.multi }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px">
+                  <button type="button" onClick="{{ it.prev }}" aria-label="Previous photo" style="width:36px;height:36px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:18px;cursor:pointer">‹</button>
+                  <span style="display:flex;gap:6px"><sc-for list="{{ it.dots }}" as="d" hint-placeholder-count="3"><span style="width:7px;height:7px;border-radius:50%;background:{{ d.c }};transition:background .2s"></span></sc-for></span>
+                  <button type="button" onClick="{{ it.next }}" aria-label="Next photo" style="width:36px;height:36px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:18px;cursor:pointer">›</button>
+                </div>
+              </sc-if>
+              <div style="padding:2px 10px 10px;display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><h3 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:21px;line-height:1.25">{{ it.name }}</h3><span style="flex:none;font-size:16px;font-weight:600;color:{{ v.blueInk }}">{{ it.price }}</span></div>
+                <p style="margin:0;font-size:15px;line-height:1.6;color:{{ v.muted }}">{{ it.desc }}</p>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <sc-if value="{{ v.showMoreSales }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;justify-content:center;margin-top:28px"><button type="button" onClick="{{ v.loadMoreSales }}" style="padding:15px 30px;border:0;border-radius:999px;background:{{ v.blue }};color:{{ v.onBlue }};font:500 15px 'Onest',sans-serif;cursor:pointer" style-hover="background:{{ v.blueHover }}">Load more</button></div>
+        </sc-if>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ v.isNoscript }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:480px;margin:max(8px,2cqi) auto 0;display:flex;flex-direction:column;align-items:center;gap:max(24px,2.6cqi);text-align:center">
+        <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em">Sales<span style="color:{{ v.blue }}">.</span></h1>
+        <div style="width:100%;background:{{ v.surface }};border-radius:28px;padding:max(28px,3cqi);display:flex;flex-direction:column;align-items:center;gap:14px">
+          <span style="width:48px;height:48px;border-radius:50%;background:{{ v.blueSoft }};color:{{ v.blueInk }};display:grid;place-items:center;font-family:'Young Serif',serif;font-size:24px">!</span>
+          <p style="margin:0;font-size:17px;line-height:1.6;color:{{ v.body }};text-wrap:pretty">This page requires JavaScript to be enabled in your browser.</p>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.isEmptyBlog }}" hint-placeholder-val="{{ false }}">
+      <h1 style="margin:0 0 max(24px,3cqi);font-family:'Young Serif',serif;font-weight:400;font-size:clamp(44px,6.5cqi,84px);line-height:1;letter-spacing:-.02em;animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">Blog<span style="color:{{ v.blue }}">.</span></h1>
+      <div role="status" style="background:{{ v.surface }};border-radius:max(24px,2.2cqi);padding:max(44px,6cqi) 24px;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+        <div aria-hidden="true" style="position:relative;width:200px;height:150px">
+          <div style="position:absolute;left:0;top:0;width:200px;height:136px;border-radius:24px;background:{{ v.blue }}"></div>
+          <div style="position:absolute;right:24px;top:14px;width:10px;height:10px;border-radius:50%;background:{{ v.onBlue }};opacity:.7"></div>
+          <div style="position:absolute;right:42px;top:14px;width:10px;height:10px;border-radius:50%;background:{{ v.onBlue }};opacity:.7"></div>
+          <div style="position:absolute;left:22px;top:38px;width:156px;height:78px;border-radius:14px;background:rgba(0,0,0,.28);display:grid;place-items:center">
+            <div style="width:46px;height:46px;border-radius:50%;background:{{ v.glow }};box-shadow:0 0 28px 6px {{ v.glow }};animation:dcglow 1.6s ease-in-out infinite"></div>
+          </div>
+          <div style="position:absolute;left:-8px;bottom:0;width:216px;height:12px;border-radius:6px;background:{{ v.ink }}"></div>
+        </div>
+        <p style="margin:0;font-family:'Young Serif',serif;font-size:clamp(22px,2.2cqi,28px);line-height:1.3">Posts are still in the oven…</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.isEmptyAlbum }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-bottom:max(24px,3cqi);animation:dcleft .8s cubic-bezier(.2,.7,.2,1) both">
+        <a href="#" style="display:inline-flex;font-size:14px;font-weight:500;color:{{ v.blueInk }};margin-bottom:max(18px,2cqi)">← Photos</a>
+        <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(40px,5.6cqi,72px);line-height:1;letter-spacing:-.02em">Coming soon<span style="color:{{ v.blue }}">.</span></h1>
+      </div>
+      <div role="status" style="background:{{ v.surface }};border-radius:max(24px,2.2cqi);padding:max(44px,6cqi) 24px;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+        <div aria-hidden="true" style="position:relative;width:190px;height:140px">
+          <div style="position:absolute;left:34px;top:0;width:52px;height:22px;border-radius:10px 10px 0 0;background:{{ v.blue }}"></div>
+          <div style="position:absolute;left:0;top:16px;width:190px;height:124px;border-radius:24px;background:{{ v.blue }}"></div>
+          <div style="position:absolute;right:20px;top:30px;width:16px;height:8px;border-radius:4px;background:{{ v.onBlue }};opacity:.7"></div>
+          <div style="position:absolute;left:55px;top:38px;width:80px;height:80px;border-radius:50%;background:{{ v.lens }};display:grid;place-items:center;box-shadow:0 0 0 6px rgba(255,255,255,.18)">
+            <div style="width:40px;height:40px;border-radius:50%;background:{{ v.blueSoft }};animation:dcglow 1.8s ease-in-out infinite"></div>
+          </div>
+        </div>
+        <p style="margin:0;font-family:'Young Serif',serif;font-size:clamp(22px,2.2cqi,28px);line-height:1.3">Development in process…</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ v.isEgg }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:640px;margin:max(16px,3cqi) auto 0;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center">
+        <div aria-hidden="true" style="position:relative;width:120px;height:150px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:{{ v.surface }};box-shadow:inset -10px -12px 0 0 {{ v.sand }},0 24px 40px -24px rgba(20,18,16,.45);transform-origin:50% 90%;animation:dcwobble 2.4s ease-in-out infinite">
+          <span style="position:absolute;left:30px;top:40px;width:14px;height:14px;border-radius:50%;background:{{ v.blue }}"></span>
+          <span style="position:absolute;left:70px;top:62px;width:10px;height:10px;border-radius:50%;background:{{ v.blue }};opacity:.7"></span>
+          <span style="position:absolute;left:44px;top:92px;width:18px;height:18px;border-radius:50%;background:{{ v.blue }};opacity:.85"></span>
+        </div>
+        <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(34px,4.4cqi,56px);line-height:1.1;letter-spacing:-.015em;text-wrap:balance;animation:dcup .8s cubic-bezier(.2,.7,.2,1) both">You found the secret page<span style="color:{{ v.blue }}">!</span></h1>
+        <p style="margin:0;font-size:clamp(16px,1.45cqi,19px);line-height:1.7;color:{{ v.muted }};animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">[PLACEHOLDER: Something fun goes here eventually.]</p>
+        <a href="#" style="padding:14px 26px;border-radius:999px;background:{{ v.surface }};color:{{ v.ink }};font-size:15px;font-weight:500;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .24s both" style-hover="background:{{ v.sand }}">← Back home</a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ v.isErr }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:680px;margin:max(8px,3cqi) auto 0;display:flex;flex-direction:column;align-items:center;gap:max(22px,2.4cqi);text-align:center">
+        <sc-if value="{{ v.noChrome }}" hint-placeholder-val="{{ false }}">
+          <span style="font-family:'Young Serif',serif;font-size:22px">David Cadavid<span style="color:{{ v.blue }}">.</span></span>
+        </sc-if>
+        <div aria-hidden="true" style="display:flex;align-items:center;gap:max(8px,1cqi);font-family:'Young Serif',serif;font-size:clamp(110px,16cqi,210px);line-height:.9;letter-spacing:-.03em;animation:dcup .8s cubic-bezier(.2,.7,.2,1) both">
+          <span>{{ v.err.code.0 }}</span>
+          <span style="width:.72em;height:.72em;border-radius:50%;border:.14em solid {{ v.blue }};display:grid;place-items:center;animation:dcring 2.6s ease-in-out infinite"><span style="width:.16em;height:.16em;border-radius:50%;background:{{ v.blue }}"></span></span>
+          <span>{{ v.err.code.1 }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .12s both">
+          <h1 style="margin:0;font-family:'Young Serif',serif;font-weight:400;font-size:clamp(28px,3.4cqi,44px);line-height:1.15;letter-spacing:-.01em;text-wrap:balance">{{ v.err.en }}</h1>
+          <p style="margin:0;font-size:clamp(16px,1.45cqi,19px);line-height:1.6;color:{{ v.muted }};text-wrap:pretty">{{ v.err.sub }}</p>
+        </div>
+        <div style="width:100%;max-width:420px;padding-top:max(16px,1.8cqi);border-top:1px solid {{ v.line }};display:flex;flex-direction:column;gap:4px;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .2s both" lang="es">
+          <p style="margin:0;font-family:'Young Serif',serif;font-size:19px;color:{{ v.body }}">{{ v.err.es }}</p>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:{{ v.faint }};text-wrap:pretty">{{ v.err.subEs }}</p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:6px;animation:dcup .8s cubic-bezier(.2,.7,.2,1) .28s both">
+          <a href="#" style="padding:15px 26px;border-radius:999px;background:{{ v.blue }};color:{{ v.onBlue }};font-size:15px;font-weight:500" style-hover="background:{{ v.blueHover }}">{{ v.err.primary }} · <span lang="es">{{ v.err.primaryEs }}</span></a>
+          <sc-if value="{{ v.errSecondary }}" hint-placeholder-val="{{ true }}">
+            <a href="#" style="padding:15px 26px;border-radius:999px;background:{{ v.surface }};color:{{ v.ink }};font-size:15px;font-weight:500" style-hover="background:{{ v.sand }}">{{ v.err.secondary }}</a>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+  </main>
+
+  <footer style="padding:24px 20px;text-align:center;background:{{ v.surface }};border-top:1px solid {{ v.line }};color:{{ v.muted }}">
+    <p style="margin:0;font-size:15px">© 2026 David Cadavid</p>
+    <p style="margin:8px 0 0;font-style:italic;font-size:14px;line-height:1.5">“All we have to decide is what to do with the time that is given us” — Gandalf</p>
+  </footer>
+
+  <sc-if value="{{ v.lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;animation:dcfade .25s ease-out">
+      <button type="button" onClick="{{ v.lbClose }}" aria-label="Close" style="position:absolute;inset:0;border:0;padding:0;background:rgba(12,11,10,.85);cursor:pointer"></button>
+      <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:14px">
+        <button type="button" onClick="{{ v.lbClose }}" aria-label="Close" style="position:absolute;top:-48px;right:0;width:44px;height:44px;border:0;background:none;color:#fff;font-size:32px;line-height:1;cursor:pointer">×</button>
+        <div style="width:min(760px,86cqi);aspect-ratio:4/3;border-radius:14px;background:{{ v.lbBg }}"></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:0 8px">
+          <button type="button" onClick="{{ v.lbPrev }}" aria-label="Previous photo" style="flex:none;width:44px;height:44px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:20px;cursor:pointer">‹</button>
+          <p style="margin:0;color:#fff;font-size:14px;text-align:center">{{ v.lbAlt }}</p>
+          <button type="button" onClick="{{ v.lbNext }}" aria-label="Next photo" style="flex:none;width:44px;height:44px;border:0;border-radius:50%;background:{{ v.blue }};color:{{ v.onBlue }};font-size:20px;cursor:pointer">›</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+</sc-for>
+<p class="dv-next" style="padding:0 44px 40px">Home lives in <a href="Home Redesign.dc.html" style="text-decoration:underline">Home Redesign</a> (<a href="Home%20Redesign.dc.html#2a">2a</a>). Desktop frames start light, mobile start dark — use the sun/moon to flip. Sales password for the demo: changeme. Try next: "add previous/next post links" · "design a 404 page" · "show the Spanish versions"</p>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PAL = {
+  light: { bg: '#f2efe9', surface: '#fbfaf7', sand: '#ebe5dc', ink: '#2a2622', body: '#4d4741', muted: '#6b645c', faint: '#857d74', line: '#e6e0d6',
+    blue: 'oklch(0.50 0.15 265)', blueHover: 'oklch(0.44 0.15 265)', blueInk: 'oklch(0.46 0.15 265)', blueSoft: 'oklch(0.94 0.03 265)', onBlue: '#ffffff',
+    shadow: '0 1px 2px rgba(42,38,34,.06),0 8px 24px -12px rgba(42,38,34,.18)', st: [0.86, 0.91] },
+  dark: { bg: '#171615', surface: '#221f1d', sand: '#2e2a27', ink: '#efebe5', body: '#cfc8bf', muted: '#b0a89f', faint: '#8d857c', line: '#35312d',
+    blue: 'oklch(0.74 0.12 265)', blueHover: 'oklch(0.80 0.10 265)', blueInk: 'oklch(0.78 0.11 265)', blueSoft: 'oklch(0.30 0.06 265)', onBlue: '#11131c',
+    shadow: '0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.6)', st: [0.32, 0.36] },
+};
+const NAV = ['Home', 'Now', 'Contact', 'Blog', 'Photos'];
+const EX = '[PLACEHOLDER: Opening lines for the excerpt.]';
+const POSTS = [
+  { date: 'February 16, 2026', title: 'A quick project update' },
+  { date: 'February 9, 2026', title: 'An English-only post (translation pending)', pending: true },
+  { date: 'February 2, 2026', title: 'On photography' },
+  { date: 'January 26, 2026', title: 'Lessons learned' },
+  { date: 'January 19, 2026', title: 'A day in the life' },
+  { date: 'January 12, 2026', title: 'Getting started with Astro' },
+  { date: 'January 5, 2026', title: 'Welcome to the blog' },
+];
+const ALBUM = [
+  { alt: '[PLACEHOLDER] Photo 1 from the weekend hike', h: 150 },
+  { alt: '[PLACEHOLDER] Photo 2 from the weekend hike', h: 95 },
+  { alt: '[PLACEHOLDER] Photo 3 from the weekend hike', h: 220 },
+];
+const PAGES = [
+  { id: 't1', num: '1', title: 'Blog list', page: 'blog', nav: 'Blog' },
+  { id: 't2', num: '2', title: 'Blog post (translation-pending example — language switch hidden, as in the code)', page: 'post', nav: 'Blog' },
+  { id: 't3', num: '3', title: 'Photos — albums', page: 'photos', nav: 'Photos' },
+  { id: 't4', num: '4', title: 'Album — click a photo for the lightbox', page: 'album', nav: 'Photos' },
+  { id: 't5', num: '5', title: 'Now — latest entry + history', page: 'now', nav: 'Now' },
+  { id: 't6', num: '6', title: 'Contact', page: 'contact', nav: 'Contact' },
+  { id: 't7', num: '7', title: 'Sales — password gate (try a wrong password, then “changeme”)', page: 'sales', nav: null },
+  { id: 't8', num: '8', title: 'Sales — unlocked catalog (per-item carousel, lightbox, load more after 5)', page: 'catalog', nav: null },
+  { id: 't9', num: '9', title: 'Sales — JavaScript disabled', page: 'noscript', nav: null },
+  { id: 't10', num: '10', title: 'Blog — empty state', page: 'emptyBlog', nav: 'Blog' },
+  { id: 't11', num: '11', title: 'Album — empty state', page: 'emptyAlbum', nav: 'Photos' },
+  { id: 't12', num: '12', title: 'Easter egg', page: 'egg', nav: null },
+  { id: 't13', num: '13', title: '404 — page not found (bilingual, since the locale is unknown at the root)', page: 'err404', nav: null },
+  { id: 't14', num: '14', title: '500 — something went wrong', page: 'err500', nav: null },
+  { id: 't15', num: '15', title: '503 — down for maintenance (minimal: no nav, no theme-dependent links)', page: 'err503', nav: null },
+];
+const ERR = {
+  err404: { code: ['4', '4'], en: 'This page doesn’t exist.', es: 'Esta página no existe.',
+    sub: 'The link may be broken, or the page may have moved.', subEs: 'Puede que el enlace esté roto o que la página se haya movido.',
+    primary: 'Go home', primaryEs: 'Ir al inicio', secondary: 'Read the blog' },
+  err500: { code: ['5', '0'], en: 'Something went wrong on my end.', es: 'Algo salió mal de mi lado.',
+    sub: 'It’s not you. Try again in a moment.', subEs: 'No es tu culpa. Inténtalo de nuevo en un momento.',
+    primary: 'Try again', primaryEs: 'Reintentar', secondary: 'Go home' },
+  err503: { code: ['5', '3'], en: 'Back in a moment.', es: 'Volvemos en un momento.',
+    sub: 'The site is getting some maintenance.', subEs: 'El sitio está en mantenimiento.',
+    primary: 'Reload', primaryEs: 'Recargar', secondary: null },
+};
+const SALES = Array.from({ length: 7 }, (_, i) => ({
+  name: `[PLACEHOLDER] Item ${i + 1}`, price: '[PRICE]', desc: '[PLACEHOLDER: Short description of the item.]',
+  photos: Array.from({ length: i === 2 ? 1 : 3 }, (_, j) => ({ alt: `[PLACEHOLDER] Item ${i + 1} — photo ${j + 1}`, h: (i * 47 + j * 70 + 30) % 360 })),
+}));
+
+class Component extends DCLogic {
+  state = { theme: {}, menu: {}, lb: null, more: {}, open: {}, unlocked: {}, pw: {}, pwErr: {}, car: {}, salesMore: {} };
+  lbList(lb) { return lb.list === 'sales' ? SALES[lb.item].photos : ALBUM; }
+  stripe(h, st) { return `repeating-linear-gradient(135deg, oklch(${st[0]} 0.04 ${h}) 0 9px, oklch(${st[1]} 0.04 ${h}) 9px 18px)`; }
+  frame(pg, key, mobile) {
+    const s = this.state;
+    const mode = s.theme[key] || (mobile ? 'dark' : 'light'), P = PAL[mode], isDark = mode === 'dark';
+    const set = (field, val) => this.setState(st => ({ [field]: { ...st[field], [key]: val } }));
+    const lb = s.lb && s.lb.key === key ? s.lb : null;
+    const go = d => this.setState(st => { const n = this.lbList(st.lb).length; return { lb: { ...st.lb, idx: (st.lb.idx + d + n) % n } }; });
+    const cur = lb ? this.lbList(lb)[lb.idx] : null;
+    const unlocked = s.unlocked[key] ?? pg.page === 'catalog';
+    const items = (s.salesMore[key] ? SALES : SALES.slice(0, 5)).map((it, i) => {
+      const ck = key + ':' + i, n = it.photos.length, ci = s.car[ck] || 0;
+      const step = d => this.setState(st => ({ car: { ...st.car, [ck]: ((st.car[ck] || 0) + d + n) % n } }));
+      return { ...it, bg: this.stripe(it.photos[ci].h, P.st), multi: n > 1, prev: () => step(-1), next: () => step(1),
+        dots: it.photos.map((_, j) => ({ c: j === ci ? P.blue : P.line })),
+        open: () => this.setState({ lb: { key, list: 'sales', item: i, idx: ci } }) };
+    });
+    const posts = (s.more[key] ? POSTS : POSTS.slice(0, 6)).map((p, i) => ({ ...p, excerpt: EX, pending: !!p.pending, border: i === 0 ? '0' : `1px solid ${P.line}` }));
+    return {
+      key, label: mobile ? 'Mobile · 390' : 'Desktop · 1280', ...P,
+      width: mobile ? '390px' : '1280px', radius: mobile ? '28px' : '8px', mobile: mobile && pg.page !== 'err503', desktop: !mobile && pg.page !== 'err503',
+      isBlog: pg.page === 'blog', isPost: pg.page === 'post', isPhotos: pg.page === 'photos', isAlbum: pg.page === 'album', isNow: pg.page === 'now', isContact: pg.page === 'contact',
+      isSales: pg.page === 'sales' || pg.page === 'catalog', isNoscript: pg.page === 'noscript', isEmptyBlog: pg.page === 'emptyBlog', isEmptyAlbum: pg.page === 'emptyAlbum', isEgg: pg.page === 'egg',
+      isErr: !!ERR[pg.page], err: ERR[pg.page] || {}, errSecondary: !!(ERR[pg.page] && ERR[pg.page].secondary),
+      noChrome: pg.page === 'err503',
+      locked: !unlocked, unlocked, pw: s.pw[key] || '', pwId: 'pw-' + key, pwError: !!s.pwErr[key],
+      inputBorder: s.pwErr[key] ? (isDark ? 'oklch(0.72 0.14 25)' : 'oklch(0.55 0.18 25)') : P.line,
+      danger: isDark ? 'oklch(0.76 0.13 25)' : 'oklch(0.52 0.18 25)',
+      onPw: e => set('pw', e.target.value),
+      submit: e => { e.preventDefault(); const ok = (s.pw[key] || '') === 'changeme'; this.setState(st => ({ pwErr: { ...st.pwErr, [key]: !ok }, unlocked: { ...st.unlocked, [key]: ok } })); },
+      items, showMoreSales: !s.salesMore[key], loadMoreSales: () => set('salesMore', true),
+      glow: isDark ? 'oklch(0.86 0.12 80)' : 'oklch(0.88 0.13 85)', lens: isDark ? '#0f0e0d' : P.ink,
+      showLang: pg.page !== 'post',
+      nav: NAV.map(l => ({ label: l, bg: l === pg.nav ? P.blue : 'transparent', color: l === pg.nav ? P.onBlue : P.ink, mColor: l === pg.nav ? P.blueInk : P.ink, dot: l === pg.nav ? P.blue : 'transparent' })),
+      lightBtnBg: isDark ? 'transparent' : P.ink, lightIcon: isDark ? P.faint : P.surface,
+      darkBtnBg: isDark ? P.ink : 'transparent', darkIcon: isDark ? P.bg : P.faint,
+      setLight: () => set('theme', 'light'), setDark: () => set('theme', 'dark'),
+      menuOpen: !!s.menu[key], toggleMenu: () => set('menu', !s.menu[key]),
+      posts, showMore: !s.more[key], loadMore: () => set('more', true),
+      stripeA: this.stripe(200, P.st), stripeB: this.stripe(250, P.st),
+      albums: [{ title: 'Weekend hike', meta: '3 photos', bg: this.stripe(150, P.st) }, { title: 'Coming soon', meta: 'In the darkroom', bg: this.stripe(60, P.st) }],
+      photos: ALBUM.map((p, i) => ({ alt: p.alt, bg: this.stripe(p.h, P.st), open: () => this.setState({ lb: { key, list: 'album', idx: i } }) })),
+      lbOpen: !!lb, lbBg: cur ? this.stripe(cur.h, [0.42, 0.46]) : '', lbAlt: cur ? cur.alt : '',
+      lbClose: () => this.setState({ lb: null }), lbPrev: () => go(-1), lbNext: () => go(1),
+      nowOpen: !!s.open[key], nowSign: s.open[key] ? '−' : '+', toggleNow: () => set('open', !s.open[key]),
+    };
+  }
+  renderVals() {
+    return { pages: PAGES.map(pg => ({ ...pg, frames: [this.frame(pg, pg.num + 'a', false), this.frame(pg, pg.num + 'b', true)] })) };
+  }
+}
+</script>
+</body>
+</html>

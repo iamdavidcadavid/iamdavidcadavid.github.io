@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import SalesGate from '../../components/SalesGate.astro';
+import SalesNoScript from '../../components/SalesNoScript.astro';
+---
+
+<BaseLayout title="Sales" noindex={true}>
+  <div class="sales-head">
+    <PageTitle text="Sales" />
+  </div>
+  <SalesNoScript locale="en" />
+  <SalesGate locale="en" />
+</BaseLayout>
+
+<style>
+  /* Centred over the password card; left-aligned once the catalog is showing. */
+  .sales-head {
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .sales-head :global(.row) {
+    justify-content: center;
+  }
+
+  :global(main:has(.sg-catalog:not([hidden]))) .sales-head {
+    max-width: none;
+  }
+
+  :global(main:has(.sg-catalog:not([hidden]))) .sales-head :global(.row) {
+    justify-content: space-between;
+  }
+</style>

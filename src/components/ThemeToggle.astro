@@ -1,0 +1,139 @@
+---
+import { t } from '../i18n/ui';
+
+const locale = Astro.currentLocale ?? 'en';
+---
+
+<!-- One on/off switch ("Dark theme"): a click anywhere on it flips to the other theme. -->
+<button
+  type="button"
+  class="theme-toggle"
+  role="switch"
+  aria-checked="false"
+  aria-label={t(locale, 'theme.dark')}
+  data-theme-toggle
+  hidden
+>
+  <span class="thumb" aria-hidden="true"></span>
+  <span class="icon icon-light" aria-hidden="true"><span class="sun"></span></span>
+  <span class="icon icon-dark" aria-hidden="true"><span class="moon"></span></span>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const deviceDark = matchMedia('(prefers-color-scheme: dark)');
+
+  function effectiveTheme(): string {
+    return root.dataset.theme ?? (deviceDark.matches ? 'dark' : 'light');
+  }
+
+  function sync() {
+    toggle?.setAttribute('aria-checked', String(effectiveTheme() === 'dark'));
+  }
+
+  toggle?.addEventListener('click', () => {
+    const value = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = value;
+    try {
+      localStorage.setItem('theme', value);
+    } catch {
+      /* storage blocked: the choice applies to this page only */
+    }
+    sync();
+  });
+
+  deviceDark.addEventListener('change', sync);
+
+  if (toggle) {
+    toggle.hidden = false;
+    sync();
+    // Enable the slide only after the initial state has painted, so a page that loads in
+    // dark mode doesn't animate the thumb across on every visit.
+    requestAnimationFrame(() => requestAnimationFrame(() => (toggle.dataset.ready = '')));
+  }
+</script>
+
+<style>
+  .theme-toggle {
+    --icon-size: 32px;
+    --toggle-pad: 4px;
+    --toggle-gap: 2px;
+    position: relative;
+    display: flex;
+    gap: var(--toggle-gap);
+    padding: var(--toggle-pad);
+    border: 0;
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: var(--shadow-pill);
+    cursor: pointer;
+  }
+
+  .theme-toggle[hidden] {
+    display: none;
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+
+  /* The highlighted circle (thumb) sits behind the icon of the current theme and slides
+     between them. Only its transform animates: its colour must not transition (see the note
+     on .btn in global.css). */
+  .thumb {
+    position: absolute;
+    top: var(--toggle-pad);
+    left: var(--toggle-pad);
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  .theme-toggle[aria-checked='true'] .thumb {
+    transform: translateX(calc(var(--icon-size) + var(--toggle-gap)));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-toggle[data-ready] .thumb {
+      transition: transform 0.22s ease;
+    }
+  }
+
+  .icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    color: var(--faint);
+  }
+
+  .theme-toggle[aria-checked='false'] .icon-light,
+  .theme-toggle[aria-checked='true'] .icon-dark {
+    color: var(--surface);
+  }
+
+  .sun {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .moon {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    box-shadow: inset -4px -2px 0 0 currentColor;
+  }
+
+  @media (max-width: 767.98px) {
+    .theme-toggle {
+      --icon-size: 30px;
+      --toggle-pad: 3px;
+    }
+  }
+</style>

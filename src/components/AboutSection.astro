@@ -1,0 +1,60 @@
+---
+import { t } from '../i18n/ui';
+
+const locale = Astro.currentLocale ?? 'en';
+const copy = {
+  en: [
+    "[PLACEHOLDER: A short paragraph introducing David Cadavid — background, what he does, and what makes him worth talking to. Replace with real copy.]",
+    '[PLACEHOLDER: A second short paragraph — experience, interests, or anything else relevant to a visitor deciding whether to reach out.]',
+  ],
+  es: [
+    '[MARCADOR DE POSICIÓN: Un párrafo breve presentando a David Cadavid — su trayectoria, a qué se dedica y por qué vale la pena contactarlo. Reemplazar con el texto real.]',
+    '[MARCADOR DE POSICIÓN: Un segundo párrafo breve — experiencia, intereses u otra información relevante para quien esté decidiendo si ponerse en contacto.]',
+  ],
+} as const;
+
+const paragraphs = copy[locale as 'en' | 'es'] ?? copy.en;
+---
+
+<section class="about card">
+  <h2>{t(locale, 'home.about.title')}</h2>
+  {paragraphs.map((p) => <p>{p}</p>)}
+</section>
+
+<style>
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 32px 36px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 26px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--body);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 767.98px) {
+    .about {
+      gap: 12px;
+      padding: 24px;
+    }
+
+    h2 {
+      font-size: 22px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.65;
+    }
+  }
+</style>

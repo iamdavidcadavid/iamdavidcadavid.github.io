@@ -1,0 +1,558 @@
+---
+import { salesPassword, salesPageSize } from '../config/site';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: 'en' | 'es';
+}
+
+const { locale } = Astro.props;
+const catalogUrl = `/sales-catalog.${locale}.json`;
+const viewerLabels = {
+  prev: t(locale, 'viewer.prev'),
+  next: t(locale, 'viewer.next'),
+  position: t(locale, 'viewer.position'),
+};
+
+const copy = {
+  en: {
+    promptLabel: 'Password',
+    submit: 'Unlock',
+    error: 'Incorrect password.',
+    loadMore: 'Load more',
+  },
+  es: {
+    promptLabel: 'Contraseña',
+    submit: 'Desbloquear',
+    error: 'Contraseña incorrecta.',
+    loadMore: 'Cargar más',
+  },
+}[locale];
+---
+
+<div data-sales-gate>
+  <form class="sg-form card anim-rise delay-1" data-sg-form novalidate>
+    <span class="sg-lock" aria-hidden="true"><span class="sg-lock-body"></span></span>
+    <label for="sales-password">{copy.promptLabel}</label>
+    <input id="sales-password" type="password" name="password" autocomplete="off" aria-describedby="sales-password-error" />
+    <p class="sg-error" id="sales-password-error" role="alert" data-sg-error hidden>{copy.error}</p>
+    <button type="submit" class="btn btn-blue">{copy.submit}</button>
+  </form>
+
+  <div class="sg-catalog" data-sg-catalog hidden>
+    <div class="sg-items" data-sg-items></div>
+    <button type="button" class="btn btn-blue sg-load-more" data-sg-load-more hidden>{copy.loadMore}</button>
+  </div>
+
+  <div class="sg-modal" data-sg-modal hidden>
+    <button type="button" class="sg-modal-backdrop" data-sg-modal-close aria-label={t(locale, 'viewer.close')}></button>
+    <div class="sg-modal-content">
+      <button type="button" class="sg-modal-close" data-sg-modal-close aria-label={t(locale, 'viewer.close')}>×</button>
+      <button type="button" class="sg-modal-nav" data-sg-modal-prev aria-label={viewerLabels.prev} hidden>‹</button>
+      <img data-sg-modal-image src="" alt="" />
+      <button type="button" class="sg-modal-nav" data-sg-modal-next aria-label={viewerLabels.next} hidden>›</button>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ salesPassword, salesPageSize, catalogUrl, viewerLabels }}>
+  const root = document.querySelector('[data-sales-gate]');
+  const form = root.querySelector('[data-sg-form]');
+  const errorEl = root.querySelector('[data-sg-error]');
+  const catalogEl = root.querySelector('[data-sg-catalog]');
+  const itemsEl = root.querySelector('[data-sg-items]');
+  const loadMoreBtn = root.querySelector('[data-sg-load-more]');
+  const modal = root.querySelector('[data-sg-modal]');
+  const modalImage = root.querySelector('[data-sg-modal-image]');
+  const modalPrevButton = root.querySelector('[data-sg-modal-prev]');
+  const modalNextButton = root.querySelector('[data-sg-modal-next]');
+
+  const STORAGE_KEY = 'sales-unlocked';
+  let catalog = [];
+  let shown = 0;
+
+  const modalCloseButton = modal.querySelector('.sg-modal-close');
+  let lastFocused = null;
+  let currentPhotos = [];
+  let currentIndex = 0;
+
+  function showAt(index) {
+    const wrapped = ((index % currentPhotos.length) + currentPhotos.length) % currentPhotos.length;
+    const photo = currentPhotos[wrapped];
+    if (!photo) return;
+    modalImage.src = photo.src;
+    modalImage.alt = photo.alt;
+    currentIndex = wrapped;
+  }
+
+  function openModal(photos, index) {
+    lastFocused = document.activeElement;
+    currentPhotos = photos;
+    showAt(index);
+    const hasMultiple = photos.length > 1;
+    if (modalPrevButton) modalPrevButton.hidden = !hasMultiple;
+    if (modalNextButton) modalNextButton.hidden = !hasMultiple;
+    modal.hidden = false;
+    modalCloseButton?.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    if (lastFocused instanceof HTMLElement) lastFocused.focus();
+  }
+
+  modal.querySelectorAll('[data-sg-modal-close]').forEach((el) => {
+    el.addEventListener('click', closeModal);
+  });
+
+  modalPrevButton?.addEventListener('click', () => showAt(currentIndex - 1));
+  modalNextButton?.addEventListener('click', () => showAt(currentIndex + 1));
+
+  document.addEventListener('keydown', (event) => {
+    if (modal.hidden) return;
+    if (event.key === 'Escape') {
+      closeModal();
+    } else if (currentPhotos.length > 1 && event.key === 'ArrowLeft') {
+      showAt(currentIndex - 1);
+    } else if (currentPhotos.length > 1 && event.key === 'ArrowRight') {
+      showAt(currentIndex + 1);
+    }
+  });
+
+  function renderItem(item) {
+    const card = document.createElement('article');
+    card.className = 'sg-item';
+
+    const carousel = document.createElement('div');
+    carousel.className = 'sg-carousel';
+
+    const track = document.createElement('div');
+    track.className = 'sg-carousel-track';
+    let current = 0;
+
+    const slideButtons = item.photos.map((photo, index) => {
+      const slideBtn = document.createElement('button');
+      slideBtn.type = 'button';
+      slideBtn.className = 'sg-carousel-slide';
+      slideBtn.style.display = index === 0 ? '' : 'none';
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.alt = photo.alt;
+      img.loading = 'lazy';
+      slideBtn.appendChild(img);
+      slideBtn.addEventListener('click', () => openModal(item.photos, index));
+      track.appendChild(slideBtn);
+      return slideBtn;
+    });
+    carousel.appendChild(track);
+
+    if (item.photos.length > 1) {
+      // Without dots, the visible photo announces its position to screen readers.
+      const label = (index) =>
+        `${item.photos[index].alt} — ${viewerLabels.position.replace('{i}', String(index + 1)).replace('{n}', String(slideButtons.length))}`;
+      slideButtons.forEach((slideBtn, index) => slideBtn.setAttribute('aria-label', label(index)));
+
+      const show = (next) => {
+        slideButtons[current].style.display = 'none';
+        current = next;
+        slideButtons[current].style.display = '';
+      };
+
+      const prev = document.createElement('button');
+      prev.type = 'button';
+      prev.className = 'sg-carousel-arrow sg-carousel-prev';
+      prev.textContent = '‹';
+      prev.setAttribute('aria-label', viewerLabels.prev);
+      prev.addEventListener('click', () => show((current - 1 + slideButtons.length) % slideButtons.length));
+      const next = document.createElement('button');
+      next.type = 'button';
+      next.className = 'sg-carousel-arrow sg-carousel-next';
+      next.textContent = '›';
+      next.setAttribute('aria-label', viewerLabels.next);
+      next.addEventListener('click', () => show((current + 1) % slideButtons.length));
+
+      carousel.appendChild(prev);
+      carousel.appendChild(next);
+    }
+
+    card.appendChild(carousel);
+
+    const info = document.createElement('div');
+    info.className = 'sg-info';
+
+    const titleRow = document.createElement('div');
+    titleRow.className = 'sg-title-row';
+    const heading = document.createElement('h3');
+    heading.textContent = item.name;
+    titleRow.appendChild(heading);
+    const price = document.createElement('span');
+    price.className = 'sg-price';
+    price.textContent = item.price;
+    titleRow.appendChild(price);
+    info.appendChild(titleRow);
+
+    if (item.description) {
+      const desc = document.createElement('p');
+      desc.className = 'sg-description';
+      desc.textContent = item.description;
+      info.appendChild(desc);
+    }
+
+    card.appendChild(info);
+    return card;
+  }
+
+  function revealNext() {
+    const next = Math.min(shown + salesPageSize, catalog.length);
+    for (let i = shown; i < next; i++) {
+      itemsEl.appendChild(renderItem(catalog[i]));
+    }
+    shown = next;
+    loadMoreBtn.hidden = shown >= catalog.length;
+  }
+
+  loadMoreBtn.addEventListener('click', revealNext);
+
+  async function unlock() {
+    form.hidden = true;
+    catalogEl.hidden = false;
+    const response = await fetch(catalogUrl);
+    catalog = await response.json();
+    shown = 0;
+    itemsEl.innerHTML = '';
+    revealNext();
+  }
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = form.querySelector('input[name="password"]');
+    input.classList.remove('is-invalid');
+    input.removeAttribute('aria-invalid');
+    if (input.value === salesPassword) {
+      errorEl.hidden = true;
+      try {
+        sessionStorage.setItem(STORAGE_KEY, 'true');
+      } catch {
+        /* sessionStorage unavailable — access just won't persist across reloads */
+      }
+      unlock();
+    } else {
+      errorEl.hidden = false;
+      input.classList.add('is-invalid');
+      input.setAttribute('aria-invalid', 'true');
+    }
+  });
+
+  try {
+    if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+      unlock();
+    }
+  } catch {
+    /* sessionStorage unavailable — always show the password form */
+  }
+</script>
+
+<style is:global>
+  /* is:global because catalog cards are created by the script above, so scoped
+     styles would not reach them. Every selector is prefixed with sg-. */
+  .sg-form[hidden],
+  .sg-catalog[hidden],
+  .sg-load-more[hidden],
+  .sg-modal[hidden],
+  .sg-modal-nav[hidden] {
+    display: none;
+  }
+
+  .sg-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: clamp(24px, 2.6vw, 33px);
+    text-align: left;
+  }
+
+  .sg-lock {
+    align-self: center;
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: var(--blue-soft);
+  }
+
+  .sg-lock-body {
+    position: relative;
+    width: 22px;
+    height: 17px;
+    margin-top: 8px;
+    border-radius: 5px;
+    background: var(--blue-ink);
+  }
+
+  .sg-lock-body::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: -11px;
+    width: 16px;
+    height: 14px;
+    border: 3px solid var(--blue-ink);
+    border-bottom: 0;
+    border-radius: 9px 9px 0 0;
+    box-sizing: border-box;
+  }
+
+  .sg-form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .sg-form input {
+    height: 52px;
+    padding: 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px var(--font-sans), system-ui, sans-serif;
+    outline: none;
+  }
+
+  .sg-form input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-soft);
+  }
+
+  .sg-form input.is-invalid {
+    border-color: var(--danger-border);
+  }
+
+  .sg-error {
+    margin: 0;
+    font-size: 14px;
+    color: var(--danger);
+  }
+
+  .sg-form .btn {
+    height: 52px;
+    margin-top: 4px;
+    font-size: 16px;
+  }
+
+  .sg-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: 20px;
+  }
+
+  .sg-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 28px;
+    background: var(--surface);
+  }
+
+  .sg-carousel-slide {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: none;
+    cursor: zoom-in;
+  }
+
+  .sg-carousel-slide img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  /* Arrows overlay the card photo's edges; the photo keeps a fixed 4:3 frame, so top: 50%
+     centres them on it. */
+  .sg-carousel {
+    position: relative;
+  }
+
+  .sg-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--on-blue);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+
+  .sg-carousel-prev {
+    left: 10px;
+  }
+
+  .sg-carousel-next {
+    right: 10px;
+  }
+
+  .sg-carousel-arrow:hover {
+    background: var(--blue-hover);
+  }
+
+  /* Two rings so the focus indicator shows over light and dark photos alike. */
+  .sg-carousel-arrow:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--on-blue),
+      0 0 0 4px var(--blue);
+  }
+
+  .sg-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 2px 10px 10px;
+  }
+
+  .sg-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .sg-item h3 {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.25;
+  }
+
+  .sg-price {
+    flex: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--blue-ink);
+  }
+
+  .sg-description {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .sg-load-more {
+    display: flex;
+    width: fit-content;
+    margin: 28px auto 0;
+    padding: 15px 30px;
+  }
+
+  /* Viewer: same look as PhotoLightbox (FR-023). */
+  .sg-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .sg-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: var(--backdrop);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  /* Same one-row layout as PhotoLightbox: arrows stay on the photo's vertical middle. */
+  .sg-modal-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .sg-modal-content img {
+    min-width: 0;
+    max-width: min(760px, calc(100vw - 2 * (44px + 14px) - 32px));
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: 14px;
+  }
+
+  .sg-modal-nav {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--on-blue);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .sg-modal-nav:hover {
+    background: var(--blue-hover);
+  }
+
+  .sg-modal-close {
+    position: absolute;
+    top: -48px;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    color: var(--on-backdrop);
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .sg-modal-nav:focus-visible,
+  .sg-modal-close:focus-visible {
+    outline: 2px solid var(--on-backdrop);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 767.98px) {
+    .sg-modal-content {
+      gap: 10px;
+    }
+
+    .sg-modal-content img {
+      max-width: min(760px, calc(100vw - 2 * (44px + 10px) - 24px));
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sg-modal:not([hidden]) {
+      animation: fade 0.25s ease-out;
+    }
+
+    .sg-carousel-slide img {
+      transition: filter 0.25s;
+    }
+
+    .sg-carousel-slide:hover img {
+      filter: brightness(1.05);
+    }
+  }
+</style>
