@@ -14,17 +14,19 @@ const en = {
   'lang.label': 'Language',
 
   'home.title': 'Hello — I am David',
-  'home.subline': 'I build systems, help people grow, and occasionally lend my voice to a story.',
+  'home.subline': 'I build systems, help people grow, create content, and occasionally lend my voice to a story.',
   'home.chip.engineer': 'Systems engineer',
   'home.chip.mentor': 'Mentor',
   'home.chip.speaker': 'Public speaker',
   'home.chip.voice': 'Voice actor',
+  'home.chip.creator': 'Content creator',
   'home.about.title': 'A bit about me',
   'home.cta.hello': 'Say hello',
   'home.cta.now': 'What I am up to now',
   'home.photo.alt': 'David Cadavid',
   'home.now.title': 'Now',
   'home.now.more': 'Read more →',
+  'home.now.empty': 'Nothing new yet.',
   'home.writing.title': 'Latest writing',
   'home.writing.all': 'All posts →',
   'home.photos.title': 'Photos',
@@ -44,8 +46,17 @@ const en = {
   'photos.albumsOne': '1 album',
   'photos.albumsOther': '{n} albums',
   'photos.back': '← Photos',
+  'photos.empty': 'Development in process…',
 
   'now.earlier': 'Earlier updates',
+  'now.empty': "Still figuring out what's next…",
+
+  'sales.empty': 'The shelves are empty for now…',
+
+  'contact.copy': 'Copy',
+  'contact.copyLabel': 'Copy email address',
+  'contact.copied': 'Copied',
+  'contact.copyFailed': "Couldn't copy. Select and copy the address: {email}",
 
   'viewer.close': 'Close',
   'viewer.prev': 'Previous photo',
@@ -67,17 +78,19 @@ const es: Record<UIKey, string> = {
 
   'home.title': 'Hola, soy David',
   'home.subline':
-    'Construyo sistemas, ayudo a las personas a crecer y, de vez en cuando, le presto mi voz a una historia.',
+    'Construyo sistemas, ayudo a las personas a crecer, creo contenido y, de vez en cuando, le presto mi voz a una historia.',
   'home.chip.engineer': 'Ingeniero de sistemas',
   'home.chip.mentor': 'Mentor',
   'home.chip.speaker': 'Conferencista',
   'home.chip.voice': 'Actor de voz',
+  'home.chip.creator': 'Creador de contenido',
   'home.about.title': 'Un poco sobre mí',
   'home.cta.hello': 'Salúdame',
   'home.cta.now': 'En qué ando ahora',
   'home.photo.alt': 'David Cadavid',
   'home.now.title': 'Ahora',
   'home.now.more': 'Leer más →',
+  'home.now.empty': 'Aún no hay novedades.',
   'home.writing.title': 'Lo último que escribí',
   'home.writing.all': 'Todas las entradas →',
   'home.photos.title': 'Fotos',
@@ -97,8 +110,17 @@ const es: Record<UIKey, string> = {
   'photos.albumsOne': '1 álbum',
   'photos.albumsOther': '{n} álbumes',
   'photos.back': '← Fotos',
+  'photos.empty': 'En proceso de revelado…',
 
   'now.earlier': 'Actualizaciones anteriores',
+  'now.empty': 'Todavía decidiendo qué sigue…',
+
+  'sales.empty': 'Los estantes están vacíos por ahora…',
+
+  'contact.copy': 'Copiar',
+  'contact.copyLabel': 'Copiar dirección de correo',
+  'contact.copied': 'Copiado',
+  'contact.copyFailed': 'No se pudo copiar. Selecciona y copia la dirección: {email}',
 
   'viewer.close': 'Cerrar',
   'viewer.prev': 'Foto anterior',

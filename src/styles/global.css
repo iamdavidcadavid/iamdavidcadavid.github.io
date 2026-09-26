@@ -27,6 +27,7 @@
   --chip-mentor: oklch(0.64 0.11 150);
   --chip-speaker: oklch(0.64 0.12 45);
   --chip-voice: oklch(0.64 0.11 330);
+  --chip-creator: oklch(0.64 0.11 85);
 
   /* Photo viewer */
   --backdrop: rgba(12, 11, 10, 0.85);

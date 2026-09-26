@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { plural } from '../i18n/ui';
+import { plural, t } from '../i18n/ui';
+import EmptyState from './EmptyState.astro';
 
 interface Props {
   albums: CollectionEntry<'albums'>[];
@@ -22,21 +23,25 @@ const items = albums.map((album) => ({
 }));
 ---
 
-<ul class="album-grid anim-rise delay-1">
-  {
-    items.map((item) => (
-      <li>
-        <a class="album-card card" href={item.href}>
-          <img src={item.cover.src} alt={item.cover.alt} loading="lazy" />
-          <span class="info">
-            <span class="title">{item.title}</span>
-            <span class="count">{item.count}</span>
-          </span>
-        </a>
-      </li>
-    ))
-  }
-</ul>
+{
+  items.length === 0 ? (
+    <EmptyState illustration="camera" message={t(locale, 'photos.empty')} />
+  ) : (
+    <ul class="album-grid anim-rise delay-1">
+      {items.map((item) => (
+        <li>
+          <a class="album-card card" href={item.href}>
+            <img src={item.cover.src} alt={item.cover.alt} loading="lazy" />
+            <span class="info">
+              <span class="title">{item.title}</span>
+              <span class="count">{item.count}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 <style>
   .album-grid {

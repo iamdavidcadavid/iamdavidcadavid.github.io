@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from 'astro:content';
 import { t } from '../i18n/ui';
 import { formatDate } from '../lib/format';
+import EmptyState from './EmptyState.astro';
 
 interface Props {
   entries: CollectionEntry<'now'>[];
@@ -19,6 +20,8 @@ const priorRendered = await Promise.all(
 
 <div class="now">
   <slot />
+
+  {!latest && <EmptyState illustration="hourglass" message={t(locale, 'now.empty')} />}
 
   {
     latest && LatestContent && (

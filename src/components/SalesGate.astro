@@ -1,6 +1,7 @@
 ---
 import { salesPassword, salesPageSize } from '../config/site';
 import { t } from '../i18n/ui';
+import EmptyState from './EmptyState.astro';
 
 interface Props {
   locale: 'en' | 'es';
@@ -40,6 +41,9 @@ const copy = {
   </form>
 
   <div class="sg-catalog" data-sg-catalog hidden>
+    <div data-sg-empty hidden>
+      <EmptyState illustration="tag" message={t(locale, 'sales.empty')} />
+    </div>
     <div class="sg-items" data-sg-items></div>
     <button type="button" class="btn btn-blue sg-load-more" data-sg-load-more hidden>{copy.loadMore}</button>
   </div>
@@ -62,6 +66,7 @@ const copy = {
   const catalogEl = root.querySelector('[data-sg-catalog]');
   const itemsEl = root.querySelector('[data-sg-items]');
   const loadMoreBtn = root.querySelector('[data-sg-load-more]');
+  const emptyEl = root.querySelector('[data-sg-empty]');
   const modal = root.querySelector('[data-sg-modal]');
   const modalImage = root.querySelector('[data-sg-modal-image]');
   const modalPrevButton = root.querySelector('[data-sg-modal-prev]');
@@ -218,6 +223,7 @@ const copy = {
     catalogEl.hidden = false;
     const response = await fetch(catalogUrl);
     catalog = await response.json();
+    emptyEl.hidden = catalog.length > 0;
     shown = 0;
     itemsEl.innerHTML = '';
     revealNext();

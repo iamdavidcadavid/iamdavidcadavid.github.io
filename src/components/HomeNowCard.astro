@@ -18,7 +18,7 @@ const [latest] = [...entries].sort((a, b) => b.data.date.valueOf() - a.data.date
     <h3>{t(locale, 'home.now.title')}</h3>
     {latest && <span class="date">{formatDate(latest.data.date, locale, 'medium')}</span>}
   </div>
-  {latest && <p class="summary">{firstParagraph(latest.body)}</p>}
+  <p class="summary">{latest ? firstParagraph(latest.body) : t(locale, 'home.now.empty')}</p>
   <a class="more" href={getRelativeLocaleUrl(locale, '/now/')}>{t(locale, 'home.now.more')}</a>
 </article>
 
