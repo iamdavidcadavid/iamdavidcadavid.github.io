@@ -1,2 +1,1070 @@
 [
+  {
+    "id": "cordless-handheld-vacuum-lt-101c",
+    "name": "Aspiradora de mano inalámbrica LT-101C",
+    "price": "40000",
+    "description": "Aspiradora de mano recargable y compacta, color negro. Incluye boquilla ancha para pisos, boquilla estrecha con cepillo, cable de carga y su caja original.",
+    "photos": [
+      {
+        "src": "/sales/cordless-handheld-vacuum-lt-101c/cordless-handheld-vacuum-lt-101c-1.jpg",
+        "alt": "Aspiradora de mano inalámbrica LT-101C, foto 1 de 2"
+      },
+      {
+        "src": "/sales/cordless-handheld-vacuum-lt-101c/cordless-handheld-vacuum-lt-101c-2.jpg",
+        "alt": "Aspiradora de mano inalámbrica LT-101C, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "logitech-g332-headset",
+    "name": "Audífonos gamer Logitech G332",
+    "price": "250000",
+    "description": "Audífonos gamer alámbricos en negro y rojo, con micrófono abatible y conector de 3,5 mm. Funcionan con PC, consolas y celulares.",
+    "photos": [
+      {
+        "src": "/sales/logitech-g332-headset/logitech-g332-headset-1.jpg",
+        "alt": "Audífonos gamer Logitech G332, foto 1 de 3"
+      },
+      {
+        "src": "/sales/logitech-g332-headset/logitech-g332-headset-2.jpg",
+        "alt": "Audífonos gamer Logitech G332, foto 2 de 3"
+      },
+      {
+        "src": "/sales/logitech-g332-headset/logitech-g332-headset-3.jpg",
+        "alt": "Audífonos gamer Logitech G332, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "tile-leveling-system",
+    "name": "Niveladores de baldosa (2 bolsas x 50 cada una)",
+    "price": "20000",
+    "description": "Dos bolsas de niveladores de baldosa reutilizables tipo rosca (tapas naranjas y bases negras) con la llave para apretar. Ayudan a dejar las baldosas planas y parejas al instalarlas.",
+    "photos": [
+      {
+        "src": "/sales/tile-leveling-system/tile-leveling-system-1.jpg",
+        "alt": "Niveladores de baldosa (2 bolsas), foto 1 de 2"
+      },
+      {
+        "src": "/sales/tile-leveling-system/tile-leveling-system-2.jpg",
+        "alt": "Niveladores de baldosa (2 bolsas), foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "backbone-one-android",
+    "name": "Control Backbone One para celular (Android)",
+    "price": "180000",
+    "description": "Control Backbone One que convierte un celular Android en consola portátil. Sirve para Xbox Game Pass, Steam Link, GeForce NOW y más. En su caja, que anuncia un mes de Xbox Game Pass Ultimate incluido.",
+    "photos": [
+      {
+        "src": "/sales/backbone-one-android/backbone-one-android-1.jpg",
+        "alt": "Control Backbone One para celular (Android), foto 1 de 2"
+      },
+      {
+        "src": "/sales/backbone-one-android/backbone-one-android-2.jpg",
+        "alt": "Control Backbone One para celular (Android), foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "dual-monitor-arm-laptop-tray",
+    "name": "Brazo para dos monitores con bandeja para portátil",
+    "price": "90000",
+    "description": "Brazo de escritorio con prensa para dos monitores, color plata, con dos soportes VESA, más una bandeja VESA negra para portátil con ganchos ajustables, para poner un portátil en uno de los brazos.",
+    "photos": [
+      {
+        "src": "/sales/dual-monitor-arm-laptop-tray/dual-monitor-arm-laptop-tray-1.jpg",
+        "alt": "Brazo para dos monitores con bandeja para portátil, foto 1 de 3"
+      },
+      {
+        "src": "/sales/dual-monitor-arm-laptop-tray/dual-monitor-arm-laptop-tray-2.jpg",
+        "alt": "Brazo para dos monitores con bandeja para portátil, foto 2 de 3"
+      },
+      {
+        "src": "/sales/dual-monitor-arm-laptop-tray/dual-monitor-arm-laptop-tray-3.jpg",
+        "alt": "Brazo para dos monitores con bandeja para portátil, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "aokeo-ak35-mic-arm-pop-filter",
+    "name": "Brazo para micrófono Aokeo AK-35 + filtro antipop",
+    "price": "35000",
+    "description": "Brazo tipo tijera Aokeo AK-35 para micrófono en su caja, más filtro antipop redondo con cuello flexible y prensa. No incluye micrófono ni araña.",
+    "photos": [
+      {
+        "src": "/sales/aokeo-ak35-mic-arm-pop-filter/aokeo-ak35-mic-arm-pop-filter-1.jpg",
+        "alt": "Brazo para micrófono Aokeo AK-35 + filtro antipop, foto 1 de 2"
+      },
+      {
+        "src": "/sales/aokeo-ak35-mic-arm-pop-filter/aokeo-ak35-mic-arm-pop-filter-2.jpg",
+        "alt": "Brazo para micrófono Aokeo AK-35 + filtro antipop, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "dual-monitor-desk-mount-black",
+    "name": "Soporte de escritorio para dos monitores (negro)",
+    "price": "90000",
+    "description": "Soporte de escritorio negro para dos monitores: base con prensa, tubo vertical y dos brazos articulados con placas VESA.",
+    "photos": [
+      {
+        "src": "/sales/dual-monitor-desk-mount-black/dual-monitor-desk-mount-black-1.jpg",
+        "alt": "Soporte de escritorio para dos monitores (negro), foto 1 de 3"
+      },
+      {
+        "src": "/sales/dual-monitor-desk-mount-black/dual-monitor-desk-mount-black-2.jpg",
+        "alt": "Soporte de escritorio para dos monitores (negro), foto 2 de 3"
+      },
+      {
+        "src": "/sales/dual-monitor-desk-mount-black/dual-monitor-desk-mount-black-3.jpg",
+        "alt": "Soporte de escritorio para dos monitores (negro), foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "igoma-bike-phone-bag",
+    "name": "Bolso porta celular iGOMA para manubrio",
+    "price": "25000",
+    "description": "Bolso iGOMA Moto BikeBag para manubrio de bicicleta o moto. Estuche resistente al agua con ventana transparente táctil para celulares de hasta 6,9 pulgadas, doble cremallera y montaje rápido. Con su caja.",
+    "photos": [
+      {
+        "src": "/sales/igoma-bike-phone-bag/igoma-bike-phone-bag-1.jpg",
+        "alt": "Bolso porta celular iGOMA para manubrio, foto 1 de 4"
+      },
+      {
+        "src": "/sales/igoma-bike-phone-bag/igoma-bike-phone-bag-2.jpg",
+        "alt": "Bolso porta celular iGOMA para manubrio, foto 2 de 4"
+      },
+      {
+        "src": "/sales/igoma-bike-phone-bag/igoma-bike-phone-bag-3.jpg",
+        "alt": "Bolso porta celular iGOMA para manubrio, foto 3 de 4"
+      },
+      {
+        "src": "/sales/igoma-bike-phone-bag/igoma-bike-phone-bag-4.jpg",
+        "alt": "Bolso porta celular iGOMA para manubrio, foto 4 de 4"
+      }
+    ]
+  },
+  {
+    "id": "bose-quietcomfort-45",
+    "name": "Audífonos Bose QuietComfort 45",
+    "price": "1100000",
+    "description": "Audífonos inalámbricos Bose QC45 con cancelación de ruido, color negro, con su estuche rígido original.",
+    "photos": [
+      {
+        "src": "/sales/bose-quietcomfort-45/bose-quietcomfort-45-1.jpg",
+        "alt": "Audífonos Bose QuietComfort 45, foto 1 de 3"
+      },
+      {
+        "src": "/sales/bose-quietcomfort-45/bose-quietcomfort-45-2.jpg",
+        "alt": "Audífonos Bose QuietComfort 45, foto 2 de 3"
+      },
+      {
+        "src": "/sales/bose-quietcomfort-45/bose-quietcomfort-45-3.jpg",
+        "alt": "Audífonos Bose QuietComfort 45, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "taumm-shower-arm",
+    "name": "Brazo largo para ducha Täumm",
+    "price": "20000",
+    "description": "Brazo largo metálico Täumm para plato de ducha, de instalación en muro, en su caja.",
+    "photos": [
+      {
+        "src": "/sales/taumm-shower-arm/taumm-shower-arm-1.jpg",
+        "alt": "Brazo largo para ducha Täumm, foto 1 de 1"
+      }
+    ]
+  },
+  {
+    "id": "philips-sonicare-toothbrush",
+    "name": "Cepillo eléctrico Philips Sonicare",
+    "price": "180000",
+    "description": "Cepillo de dientes eléctrico Philips Sonicare con estuche de viaje, base de carga y cabezales.",
+    "photos": [
+      {
+        "src": "/sales/philips-sonicare-toothbrush/philips-sonicare-toothbrush-1.jpg",
+        "alt": "Cepillo eléctrico Philips Sonicare, foto 1 de 2"
+      },
+      {
+        "src": "/sales/philips-sonicare-toothbrush/philips-sonicare-toothbrush-2.jpg",
+        "alt": "Cepillo eléctrico Philips Sonicare, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "bike-wall-hanger",
+    "name": "Colgador de bicicleta para pared",
+    "price": "30000",
+    "description": "Colgador de bicicleta en acero blanco con puntas de caucho, aún con su plástico protector.",
+    "photos": [
+      {
+        "src": "/sales/bike-wall-hanger/bike-wall-hanger-1.jpg",
+        "alt": "Colgador de bicicleta para pared, foto 1 de 2"
+      },
+      {
+        "src": "/sales/bike-wall-hanger/bike-wall-hanger-2.jpg",
+        "alt": "Colgador de bicicleta para pared, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "ps4-dualshock-4-phone-clip",
+    "name": "Control PS4 DualShock 4 con soporte para celular",
+    "price": "100000",
+    "description": "Control inalámbrico Sony DualShock 4 negro con soporte para celular y capuchones para los joysticks, listo para jugar en el celular.",
+    "photos": [
+      {
+        "src": "/sales/ps4-dualshock-4-phone-clip/ps4-dualshock-4-phone-clip-1.jpg",
+        "alt": "Control PS4 DualShock 4 con soporte para celular, foto 1 de 2"
+      },
+      {
+        "src": "/sales/ps4-dualshock-4-phone-clip/ps4-dualshock-4-phone-clip-2.jpg",
+        "alt": "Control PS4 DualShock 4 con soporte para celular, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "ps5-dualsense-30th-anniversary",
+    "name": "Control PS5 DualSense edición 30.º aniversario",
+    "price": "300000",
+    "description": "Control inalámbrico Sony DualSense de edición limitada en el gris clásico de PlayStation, con su caja.",
+    "photos": [
+      {
+        "src": "/sales/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-1.jpg",
+        "alt": "Control PS5 DualSense edición 30.º aniversario, foto 1 de 3"
+      },
+      {
+        "src": "/sales/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-2.jpg",
+        "alt": "Control PS5 DualSense edición 30.º aniversario, foto 2 de 3"
+      },
+      {
+        "src": "/sales/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-3.jpg",
+        "alt": "Control PS5 DualSense edición 30.º aniversario, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "xbox-controller-shock-blue",
+    "name": "Control Xbox inalámbrico azul (Shock Blue)",
+    "price": "180000",
+    "description": "Control inalámbrico Microsoft Xbox en azul Shock Blue con parte trasera blanca. Funciona con Xbox Series X|S, Xbox One, PC y celulares. Con su caja.",
+    "photos": [
+      {
+        "src": "/sales/xbox-controller-shock-blue/xbox-controller-shock-blue-1.jpg",
+        "alt": "Control Xbox inalámbrico azul (Shock Blue), foto 1 de 3"
+      },
+      {
+        "src": "/sales/xbox-controller-shock-blue/xbox-controller-shock-blue-2.jpg",
+        "alt": "Control Xbox inalámbrico azul (Shock Blue), foto 2 de 3"
+      },
+      {
+        "src": "/sales/xbox-controller-shock-blue/xbox-controller-shock-blue-3.jpg",
+        "alt": "Control Xbox inalámbrico azul (Shock Blue), foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "xbox-elite-series-2-core-blue",
+    "name": "Control Xbox Elite Serie 2 Core (azul) + kit de componentes",
+    "price": "550000",
+    "description": "Control inalámbrico Xbox Elite Serie 2 Core en azul junto con el Complete Component Pack: estuche, paletas, joysticks adicionales, cruceta y accesorios de carga. Incluye ambas cajas.",
+    "photos": [
+      {
+        "src": "/sales/xbox-elite-series-2-core-blue/xbox-elite-series-2-core-blue-1.jpg",
+        "alt": "Control Xbox Elite Serie 2 Core (azul) + kit de componentes, foto 1 de 4"
+      },
+      {
+        "src": "/sales/xbox-elite-series-2-core-blue/xbox-elite-series-2-core-blue-2.jpg",
+        "alt": "Control Xbox Elite Serie 2 Core (azul) + kit de componentes, foto 2 de 4"
+      },
+      {
+        "src": "/sales/xbox-elite-series-2-core-blue/xbox-elite-series-2-core-blue-3.jpg",
+        "alt": "Control Xbox Elite Serie 2 Core (azul) + kit de componentes, foto 3 de 4"
+      },
+      {
+        "src": "/sales/xbox-elite-series-2-core-blue/xbox-elite-series-2-core-blue-4.jpg",
+        "alt": "Control Xbox Elite Serie 2 Core (azul) + kit de componentes, foto 4 de 4"
+      }
+    ]
+  },
+  {
+    "id": "xbox-controller-carbon-black",
+    "name": "Control Xbox inalámbrico negro (Carbon Black)",
+    "price": "180000",
+    "description": "Control inalámbrico Microsoft Xbox en negro Carbon Black. Funciona con Xbox Series X|S, Xbox One, PC y celulares. Con su caja.",
+    "photos": [
+      {
+        "src": "/sales/xbox-controller-carbon-black/xbox-controller-carbon-black-1.jpg",
+        "alt": "Control Xbox inalámbrico negro (Carbon Black), foto 1 de 2"
+      },
+      {
+        "src": "/sales/xbox-controller-carbon-black/xbox-controller-carbon-black-2.jpg",
+        "alt": "Control Xbox inalámbrico negro (Carbon Black), foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "xbox-controller-black-with-case",
+    "name": "Control Xbox inalámbrico negro con estuche",
+    "price": "180000",
+    "description": "Control inalámbrico Xbox negro con estuche rígido acolchado de tela azul, con bolsillo de malla y correa.",
+    "photos": [
+      {
+        "src": "/sales/xbox-controller-black-with-case/xbox-controller-black-with-case-1.jpg",
+        "alt": "Control Xbox inalámbrico negro con estuche, foto 1 de 3"
+      },
+      {
+        "src": "/sales/xbox-controller-black-with-case/xbox-controller-black-with-case-2.jpg",
+        "alt": "Control Xbox inalámbrico negro con estuche, foto 2 de 3"
+      },
+      {
+        "src": "/sales/xbox-controller-black-with-case/xbox-controller-black-with-case-3.jpg",
+        "alt": "Control Xbox inalámbrico negro con estuche, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "galaxy-tab-s9-fe-case",
+    "name": "Funda para Samsung Galaxy Tab S9 FE",
+    "price": "25000",
+    "description": "Funda inteligente plegable en tres para Samsung Galaxy Tab S9 FE, color lavanda, con parte trasera transparente y espacio para el S Pen. Sirve también de soporte.",
+    "photos": [
+      {
+        "src": "/sales/galaxy-tab-s9-fe-case/galaxy-tab-s9-fe-case-1.jpg",
+        "alt": "Funda para Samsung Galaxy Tab S9 FE, foto 1 de 2"
+      },
+      {
+        "src": "/sales/galaxy-tab-s9-fe-case/galaxy-tab-s9-fe-case-2.jpg",
+        "alt": "Funda para Samsung Galaxy Tab S9 FE, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "strebito-precision-screwdriver-kit",
+    "name": "Kit de destornilladores de precisión Strebito",
+    "price": "90000",
+    "description": "Kit Strebito para reparar electrónicos en estuche enrollable: destornillador de precisión con más de 100 puntas, extensión, palancas, pinzas, ventosa y herramientas de apertura para celulares, portátiles y consolas.",
+    "photos": [
+      {
+        "src": "/sales/strebito-precision-screwdriver-kit/strebito-precision-screwdriver-kit-1.jpg",
+        "alt": "Kit de destornilladores de precisión Strebito, foto 1 de 5"
+      },
+      {
+        "src": "/sales/strebito-precision-screwdriver-kit/strebito-precision-screwdriver-kit-2.jpg",
+        "alt": "Kit de destornilladores de precisión Strebito, foto 2 de 5"
+      },
+      {
+        "src": "/sales/strebito-precision-screwdriver-kit/strebito-precision-screwdriver-kit-3.jpg",
+        "alt": "Kit de destornilladores de precisión Strebito, foto 3 de 5"
+      },
+      {
+        "src": "/sales/strebito-precision-screwdriver-kit/strebito-precision-screwdriver-kit-4.jpg",
+        "alt": "Kit de destornilladores de precisión Strebito, foto 4 de 5"
+      },
+      {
+        "src": "/sales/strebito-precision-screwdriver-kit/strebito-precision-screwdriver-kit-5.jpg",
+        "alt": "Kit de destornilladores de precisión Strebito, foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "at-gorras-black-cap",
+    "name": "Gorra AT Gorras original (negra)",
+    "price": "150000",
+    "description": "Gorra negra snapback de AT Gorras Original Colombia con logo AT bordado en blanco. Nueva con etiquetas.",
+    "photos": [
+      {
+        "src": "/sales/at-gorras-black-cap/at-gorras-black-cap-1.jpg",
+        "alt": "Gorra AT Gorras original (negra), foto 1 de 3"
+      },
+      {
+        "src": "/sales/at-gorras-black-cap/at-gorras-black-cap-2.jpg",
+        "alt": "Gorra AT Gorras original (negra), foto 2 de 3"
+      },
+      {
+        "src": "/sales/at-gorras-black-cap/at-gorras-black-cap-3.jpg",
+        "alt": "Gorra AT Gorras original (negra), foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "plugable-tbt3-udz-dock",
+    "name": "Dock Plugable TBT3-UDZ Thunderbolt 3",
+    "price": "1000000",
+    "description": "Estación de acoplamiento Plugable Thunderbolt 3 y USB-C para dos pantallas DisplayPort y HDMI, con carga de 96 W para portátil, Ethernet Gigabit, puertos USB-A, lector de tarjetas SD y audio. En su caja.",
+    "photos": [
+      {
+        "src": "/sales/plugable-tbt3-udz-dock/plugable-tbt3-udz-dock-1.jpg",
+        "alt": "Dock Plugable TBT3-UDZ Thunderbolt 3, foto 1 de 4"
+      },
+      {
+        "src": "/sales/plugable-tbt3-udz-dock/plugable-tbt3-udz-dock-2.jpg",
+        "alt": "Dock Plugable TBT3-UDZ Thunderbolt 3, foto 2 de 4"
+      },
+      {
+        "src": "/sales/plugable-tbt3-udz-dock/plugable-tbt3-udz-dock-3.jpg",
+        "alt": "Dock Plugable TBT3-UDZ Thunderbolt 3, foto 3 de 4"
+      },
+      {
+        "src": "/sales/plugable-tbt3-udz-dock/plugable-tbt3-udz-dock-4.jpg",
+        "alt": "Dock Plugable TBT3-UDZ Thunderbolt 3, foto 4 de 4"
+      }
+    ]
+  },
+  {
+    "id": "nintendo-world-championships-nes-deluxe",
+    "name": "Nintendo World Championships: NES Edition, Deluxe Set",
+    "price": "250000",
+    "description": "Set de lujo para Nintendo Switch con el juego, réplica de cartucho Game Pak, set de pines y tarjetas de arte. Más de 150 desafíos de speedrun de 13 clásicos de NES.",
+    "photos": [
+      {
+        "src": "/sales/nintendo-world-championships-nes-deluxe/nintendo-world-championships-nes-deluxe-1.jpg",
+        "alt": "Nintendo World Championships: NES Edition, Deluxe Set, foto 1 de 2"
+      },
+      {
+        "src": "/sales/nintendo-world-championships-nes-deluxe/nintendo-world-championships-nes-deluxe-2.jpg",
+        "alt": "Nintendo World Championships: NES Edition, Deluxe Set, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "kindle-scribe",
+    "name": "Amazon Kindle Scribe 2024 32GB",
+    "price": "1000000",
+    "description": "Lector Kindle Scribe de 10,2 pulgadas y cuaderno digital, con lápiz y funda tipo folio gris.",
+    "photos": [
+      {
+        "src": "/sales/kindle-scribe/kindle-scribe-1.jpg",
+        "alt": "Amazon Kindle Scribe, foto 1 de 2"
+      },
+      {
+        "src": "/sales/kindle-scribe/kindle-scribe-2.jpg",
+        "alt": "Amazon Kindle Scribe, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "oval-led-wall-light",
+    "name": "Lámpara LED ovalada de pared/techo",
+    "price": "30000",
+    "description": "Lámpara LED moderna ovalada con marco gris oscuro y difusor blanco. Nueva en su empaque, con tornillos de instalación.",
+    "photos": [
+      {
+        "src": "/sales/oval-led-wall-light/oval-led-wall-light-1.jpg",
+        "alt": "Lámpara LED ovalada de pared/techo, foto 1 de 2"
+      },
+      {
+        "src": "/sales/oval-led-wall-light/oval-led-wall-light-2.jpg",
+        "alt": "Lámpara LED ovalada de pared/techo, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "usb-mosquito-trap",
+    "name": "Lámpara atrapamosquitos USB",
+    "price": "10000",
+    "description": "Trampa para mosquitos blanca, silenciosa y alimentada por USB, que atrae los insectos con luz y los atrapa con un ventilador. Con su caja.",
+    "photos": [
+      {
+        "src": "/sales/usb-mosquito-trap/usb-mosquito-trap-1.jpg",
+        "alt": "Lámpara atrapamosquitos USB, foto 1 de 2"
+      },
+      {
+        "src": "/sales/usb-mosquito-trap/usb-mosquito-trap-2.jpg",
+        "alt": "Lámpara atrapamosquitos USB, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "lenovo-legion-go-bundle",
+    "name": "Lenovo Legion Go con estuche y accesorios",
+    "price": "2600000",
+    "description": "Consola PC portátil Lenovo Legion Go con su estuche Legion, protector de pantalla antirreflejo JSAUX (en caja), capuchones para joysticks, carcasa protectora, soporte y correas.",
+    "photos": [
+      {
+        "src": "/sales/lenovo-legion-go-bundle/lenovo-legion-go-bundle-1.jpg",
+        "alt": "Lenovo Legion Go con estuche y accesorios, foto 1 de 5"
+      },
+      {
+        "src": "/sales/lenovo-legion-go-bundle/lenovo-legion-go-bundle-2.jpg",
+        "alt": "Lenovo Legion Go con estuche y accesorios, foto 2 de 5"
+      },
+      {
+        "src": "/sales/lenovo-legion-go-bundle/lenovo-legion-go-bundle-3.jpg",
+        "alt": "Lenovo Legion Go con estuche y accesorios, foto 3 de 5"
+      },
+      {
+        "src": "/sales/lenovo-legion-go-bundle/lenovo-legion-go-bundle-4.jpg",
+        "alt": "Lenovo Legion Go con estuche y accesorios, foto 4 de 5"
+      },
+      {
+        "src": "/sales/lenovo-legion-go-bundle/lenovo-legion-go-bundle-5.jpg",
+        "alt": "Lenovo Legion Go con estuche y accesorios, foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "bluetooth-audio-sunglasses",
+    "name": "Gafas inteligentes con audio Bluetooth",
+    "price": "50000",
+    "description": "Gafas de sol negras con parlantes y micrófono Bluetooth integrados para música y llamadas. Con su caja.",
+    "photos": [
+      {
+        "src": "/sales/bluetooth-audio-sunglasses/bluetooth-audio-sunglasses-1.jpg",
+        "alt": "Gafas inteligentes con audio Bluetooth, foto 1 de 3"
+      },
+      {
+        "src": "/sales/bluetooth-audio-sunglasses/bluetooth-audio-sunglasses-2.jpg",
+        "alt": "Gafas inteligentes con audio Bluetooth, foto 2 de 3"
+      },
+      {
+        "src": "/sales/bluetooth-audio-sunglasses/bluetooth-audio-sunglasses-3.jpg",
+        "alt": "Gafas inteligentes con audio Bluetooth, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "llano-dual-camera-battery-charger",
+    "name": "Cargador doble Llano para baterías de cámara",
+    "price": "280000",
+    "description": "Cargador rápido doble Llano para baterías de cámara, sellado de fábrica.",
+    "photos": [
+      {
+        "src": "/sales/llano-dual-camera-battery-charger/llano-dual-camera-battery-charger-1.jpg",
+        "alt": "Cargador doble Llano para baterías de cámara, foto 1 de 2"
+      },
+      {
+        "src": "/sales/llano-dual-camera-battery-charger/llano-dual-camera-battery-charger-2.jpg",
+        "alt": "Cargador doble Llano para baterías de cámara, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "logitech-k380-keyboard",
+    "name": "Teclado Logitech K380 multidispositivo (español)",
+    "price": "60000",
+    "description": "Teclado Bluetooth compacto gris oscuro que se conecta hasta con tres dispositivos (computador, celular, tablet) y cambia entre ellos con una tecla. Distribución en español, con su caja.",
+    "photos": [
+      {
+        "src": "/sales/logitech-k380-keyboard/logitech-k380-keyboard-1.jpg",
+        "alt": "Teclado Logitech K380 multidispositivo (español), foto 1 de 2"
+      },
+      {
+        "src": "/sales/logitech-k380-keyboard/logitech-k380-keyboard-2.jpg",
+        "alt": "Teclado Logitech K380 multidispositivo (español), foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "logitech-k400-plus-keyboard",
+    "name": "Teclado inalámbrico Logitech K400 Plus con touchpad (español)",
+    "price": "120000",
+    "description": "Teclado inalámbrico con touchpad integrado, ideal para un PC conectado al televisor. Distribución en español, gris oscuro.",
+    "photos": [
+      {
+        "src": "/sales/logitech-k400-plus-keyboard/logitech-k400-plus-keyboard-1.jpg",
+        "alt": "Teclado inalámbrico Logitech K400 Plus con touchpad (español), foto 1 de 1"
+      }
+    ]
+  },
+  {
+    "id": "switch-zelda-carrying-case",
+    "name": "Estuche para Nintendo Switch (diseño Zelda)",
+    "price": "120000",
+    "description": "Estuche rígido para Nintendo Switch con estampado inspirado en Zelda: Tears of the Kingdom, ranuras para juegos, bolsillo de malla y correa para el hombro.",
+    "photos": [
+      {
+        "src": "/sales/switch-zelda-carrying-case/switch-zelda-carrying-case-1.jpg",
+        "alt": "Estuche para Nintendo Switch (diseño Zelda), foto 1 de 2"
+      },
+      {
+        "src": "/sales/switch-zelda-carrying-case/switch-zelda-carrying-case-2.jpg",
+        "alt": "Estuche para Nintendo Switch (diseño Zelda), foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "magnetic-mosquito-screen-door",
+    "name": "Malla mosquitera magnética para puerta",
+    "price": "10000",
+    "description": "Malla mosquitera magnética para puerta: dos paneles negros de 210 x 50 cm que se cierran solos con 18 imanes. Deja pasar mascotas; no requiere herramientas. En su caja.",
+    "photos": [
+      {
+        "src": "/sales/magnetic-mosquito-screen-door/magnetic-mosquito-screen-door-1.jpg",
+        "alt": "Malla mosquitera magnética para puerta, foto 1 de 1"
+      }
+    ]
+  },
+  {
+    "id": "tp-link-deco-e4-2-pack",
+    "name": "Wi-Fi mesh TP-Link Deco E4 (2 unidades)",
+    "price": "220000",
+    "description": "Sistema Wi-Fi mesh TP-Link Deco E4 AC1200 para todo el hogar, con dos unidades y sus adaptadores de corriente. Cubre hasta 280 m² y hasta 100 dispositivos. En su caja.",
+    "photos": [
+      {
+        "src": "/sales/tp-link-deco-e4-2-pack/tp-link-deco-e4-2-pack-1.jpg",
+        "alt": "Wi-Fi mesh TP-Link Deco E4 (2 unidades), foto 1 de 4"
+      },
+      {
+        "src": "/sales/tp-link-deco-e4-2-pack/tp-link-deco-e4-2-pack-2.jpg",
+        "alt": "Wi-Fi mesh TP-Link Deco E4 (2 unidades), foto 2 de 4"
+      },
+      {
+        "src": "/sales/tp-link-deco-e4-2-pack/tp-link-deco-e4-2-pack-3.jpg",
+        "alt": "Wi-Fi mesh TP-Link Deco E4 (2 unidades), foto 3 de 4"
+      },
+      {
+        "src": "/sales/tp-link-deco-e4-2-pack/tp-link-deco-e4-2-pack-4.jpg",
+        "alt": "Wi-Fi mesh TP-Link Deco E4 (2 unidades), foto 4 de 4"
+      }
+    ]
+  },
+  {
+    "id": "tp-link-deco-mesh-3-pack",
+    "name": "Wi-Fi mesh TP-Link Deco S4R (3 unidades)",
+    "price": "300000",
+    "description": "Tres unidades TP-Link Deco de Wi-Fi mesh con sus adaptadores de corriente y un cable Ethernet.",
+    "photos": [
+      {
+        "src": "/sales/tp-link-deco-mesh-3-pack/tp-link-deco-mesh-3-pack-1.jpg",
+        "alt": "Wi-Fi mesh TP-Link Deco S4R (3 unidades), foto 1 de 2"
+      },
+      {
+        "src": "/sales/tp-link-deco-mesh-3-pack/tp-link-deco-mesh-3-pack-2.jpg",
+        "alt": "Wi-Fi mesh TP-Link Deco S4R (3 unidades), foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "boya-lavalier-microphone",
+    "name": "Micrófono de solapa BOYA",
+    "price": "50000",
+    "description": "Micrófono de solapa alámbrico BOYA con pinza, espuma antiviento, módulo de batería y cable largo con conector de 3,5 mm. Funciona con celulares, cámaras y computadores.",
+    "photos": [
+      {
+        "src": "/sales/boya-lavalier-microphone/boya-lavalier-microphone-1.jpg",
+        "alt": "Micrófono de solapa BOYA, foto 1 de 1"
+      }
+    ]
+  },
+  {
+    "id": "audiopro-usb-condenser-mic",
+    "name": "Micrófono de condensador AudioPro X5 de escritorio",
+    "price": "280000",
+    "description": "Micrófono de condensador AudioPro X5 en negro y rojo con soporte de escritorio, espuma antiviento y controles en el cuerpo. En su caja original. Ideal para streaming, podcasts y llamadas.",
+    "photos": [
+      {
+        "src": "/sales/audiopro-usb-condenser-mic/audiopro-usb-condenser-mic-1.jpg",
+        "alt": "Micrófono de condensador AudioPro X5 de escritorio, foto 1 de 5"
+      },
+      {
+        "src": "/sales/audiopro-usb-condenser-mic/audiopro-usb-condenser-mic-2.jpg",
+        "alt": "Micrófono de condensador AudioPro X5 de escritorio, foto 2 de 5"
+      },
+      {
+        "src": "/sales/audiopro-usb-condenser-mic/audiopro-usb-condenser-mic-3.jpg",
+        "alt": "Micrófono de condensador AudioPro X5 de escritorio, foto 3 de 5"
+      },
+      {
+        "src": "/sales/audiopro-usb-condenser-mic/audiopro-usb-condenser-mic-4.jpg",
+        "alt": "Micrófono de condensador AudioPro X5 de escritorio, foto 4 de 5"
+      },
+      {
+        "src": "/sales/audiopro-usb-condenser-mic/audiopro-usb-condenser-mic-5.jpg",
+        "alt": "Micrófono de condensador AudioPro X5 de escritorio, foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "graco-sound-select-baby-monitor",
+    "name": "Monitor de bebé Graco Sound Select",
+    "price": "110000",
+    "description": "Monitor de audio para bebé Graco Sound Select con tecnología Static Filter, alcance de 150 m, alerta de batería baja y clip para el cinturón. Unidades de padres y bebé con adaptadores, en su caja.",
+    "photos": [
+      {
+        "src": "/sales/graco-sound-select-baby-monitor/graco-sound-select-baby-monitor-1.jpg",
+        "alt": "Monitor de bebé Graco Sound Select, foto 1 de 3"
+      },
+      {
+        "src": "/sales/graco-sound-select-baby-monitor/graco-sound-select-baby-monitor-2.jpg",
+        "alt": "Monitor de bebé Graco Sound Select, foto 2 de 3"
+      },
+      {
+        "src": "/sales/graco-sound-select-baby-monitor/graco-sound-select-baby-monitor-3.jpg",
+        "alt": "Monitor de bebé Graco Sound Select, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "nes-console-bundle",
+    "name": "Consola Nintendo NES original con accesorios",
+    "price": "400000",
+    "description": "Nintendo Entertainment System clásico con dos controles, pistola Zapper con manual, adaptador de corriente, cables AV y varios cartuchos de juegos en sus fundas.",
+    "photos": [
+      {
+        "src": "/sales/nes-console-bundle/nes-console-bundle-1.jpg",
+        "alt": "Consola Nintendo NES original con accesorios, foto 1 de 5"
+      },
+      {
+        "src": "/sales/nes-console-bundle/nes-console-bundle-2.jpg",
+        "alt": "Consola Nintendo NES original con accesorios, foto 2 de 5"
+      },
+      {
+        "src": "/sales/nes-console-bundle/nes-console-bundle-3.jpg",
+        "alt": "Consola Nintendo NES original con accesorios, foto 3 de 5"
+      },
+      {
+        "src": "/sales/nes-console-bundle/nes-console-bundle-4.jpg",
+        "alt": "Consola Nintendo NES original con accesorios, foto 4 de 5"
+      },
+      {
+        "src": "/sales/nes-console-bundle/nes-console-bundle-5.jpg",
+        "alt": "Consola Nintendo NES original con accesorios, foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "nintendo-ds-lite-pink-bundle",
+    "name": "Nintendo DS Lite (rosado) con juegos",
+    "price": "450000",
+    "description": "Nintendo DS Lite rosado metálico con lápiz, cargador y estuche de tela, más FIFA Soccer 11 en su caja y cuatro cartuchos sueltos.",
+    "photos": [
+      {
+        "src": "/sales/nintendo-ds-lite-pink-bundle/nintendo-ds-lite-pink-bundle-1.jpg",
+        "alt": "Nintendo DS Lite (rosado) con juegos, foto 1 de 3"
+      },
+      {
+        "src": "/sales/nintendo-ds-lite-pink-bundle/nintendo-ds-lite-pink-bundle-2.jpg",
+        "alt": "Nintendo DS Lite (rosado) con juegos, foto 2 de 3"
+      },
+      {
+        "src": "/sales/nintendo-ds-lite-pink-bundle/nintendo-ds-lite-pink-bundle-3.jpg",
+        "alt": "Nintendo DS Lite (rosado) con juegos, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "gigabyte-aorus-pc-case",
+    "name": "Caja de PC Gigabyte AORUS (torre media)",
+    "price": "90000",
+    "description": "Caja de PC AORUS torre media ATX negra, con ventana lateral polarizada, filtro superior y puertos frontales USB 3.0, USB 2.0 y audio. Ventilador trasero instalado.",
+    "photos": [
+      {
+        "src": "/sales/gigabyte-aorus-pc-case/gigabyte-aorus-pc-case-1.jpg",
+        "alt": "Caja de PC Gigabyte AORUS (torre media), foto 1 de 3"
+      },
+      {
+        "src": "/sales/gigabyte-aorus-pc-case/gigabyte-aorus-pc-case-2.jpg",
+        "alt": "Caja de PC Gigabyte AORUS (torre media), foto 2 de 3"
+      },
+      {
+        "src": "/sales/gigabyte-aorus-pc-case/gigabyte-aorus-pc-case-3.jpg",
+        "alt": "Caja de PC Gigabyte AORUS (torre media), foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "jx-11-bluetooth-ring-remote",
+    "name": "Control remoto en anillo JX-11 para celular",
+    "price": "35000",
+    "description": "Control remoto Bluetooth en forma de anillo para pasar videos, cambiar páginas de libros y tomar selfies sin tocar el celular. En su estuche y caja.",
+    "photos": [
+      {
+        "src": "/sales/jx-11-bluetooth-ring-remote/jx-11-bluetooth-ring-remote-1.jpg",
+        "alt": "Control remoto en anillo JX-11 para celular, foto 1 de 2"
+      },
+      {
+        "src": "/sales/jx-11-bluetooth-ring-remote/jx-11-bluetooth-ring-remote-2.jpg",
+        "alt": "Control remoto en anillo JX-11 para celular, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "inflatable-family-pool",
+    "name": "Piscina inflable familiar con estampado de océano",
+    "price": "120000",
+    "description": "Piscina inflable familiar rectangular de dos anillos con un colorido estampado 3D de océano en el fondo.",
+    "photos": [
+      {
+        "src": "/sales/inflatable-family-pool/inflatable-family-pool-1.jpg",
+        "alt": "Piscina inflable familiar con estampado de océano, foto 1 de 3"
+      },
+      {
+        "src": "/sales/inflatable-family-pool/inflatable-family-pool-2.jpg",
+        "alt": "Piscina inflable familiar con estampado de océano, foto 2 de 3"
+      },
+      {
+        "src": "/sales/inflatable-family-pool/inflatable-family-pool-3.jpg",
+        "alt": "Piscina inflable familiar con estampado de océano, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "black-decker-garment-steamer",
+    "name": "Vaporizador de ropa Black+Decker",
+    "price": "90000",
+    "description": "Vaporizador de mano para ropa Black+Decker en azul y blanco, con tanque de agua removible.",
+    "photos": [
+      {
+        "src": "/sales/black-decker-garment-steamer/black-decker-garment-steamer-1.jpg",
+        "alt": "Vaporizador de ropa Black+Decker, foto 1 de 3"
+      },
+      {
+        "src": "/sales/black-decker-garment-steamer/black-decker-garment-steamer-2.jpg",
+        "alt": "Vaporizador de ropa Black+Decker, foto 2 de 3"
+      },
+      {
+        "src": "/sales/black-decker-garment-steamer/black-decker-garment-steamer-3.jpg",
+        "alt": "Vaporizador de ropa Black+Decker, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "waterproof-handlebar-phone-mount",
+    "name": "Soporte de celular impermeable para manubrio",
+    "price": "20000",
+    "description": "Estuche resistente al agua para celular con ventana táctil, brazo ajustable y abrazadera para manubrio de bicicleta o moto.",
+    "photos": [
+      {
+        "src": "/sales/waterproof-handlebar-phone-mount/waterproof-handlebar-phone-mount-1.jpg",
+        "alt": "Soporte de celular impermeable para manubrio, foto 1 de 3"
+      },
+      {
+        "src": "/sales/waterproof-handlebar-phone-mount/waterproof-handlebar-phone-mount-2.jpg",
+        "alt": "Soporte de celular impermeable para manubrio, foto 2 de 3"
+      },
+      {
+        "src": "/sales/waterproof-handlebar-phone-mount/waterproof-handlebar-phone-mount-3.jpg",
+        "alt": "Soporte de celular impermeable para manubrio, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "adjustable-shoe-stackers",
+    "name": "Organizadores de zapatos ajustables x10",
+    "price": "30000",
+    "description": "Organizadores de zapatos en plástico negro que apilan un par uno sobre otro con altura ajustable, ahorrando la mitad del espacio en el clóset.",
+    "photos": [
+      {
+        "src": "/sales/adjustable-shoe-stackers/adjustable-shoe-stackers-1.jpg",
+        "alt": "Organizadores de zapatos ajustables x10, foto 1 de 4"
+      },
+      {
+        "src": "/sales/adjustable-shoe-stackers/adjustable-shoe-stackers-2.jpg",
+        "alt": "Organizadores de zapatos ajustables x10, foto 2 de 4"
+      },
+      {
+        "src": "/sales/adjustable-shoe-stackers/adjustable-shoe-stackers-3.jpg",
+        "alt": "Organizadores de zapatos ajustables x10, foto 3 de 4"
+      },
+      {
+        "src": "/sales/adjustable-shoe-stackers/adjustable-shoe-stackers-4.jpg",
+        "alt": "Organizadores de zapatos ajustables x10, foto 4 de 4"
+      }
+    ]
+  },
+  {
+    "id": "weight-plate-tree-rack",
+    "name": "Rack árbol para discos de pesas",
+    "price": "80000",
+    "description": "Árbol de acero negro para guardar discos de pesas, con postes y soportes para barras.",
+    "photos": [
+      {
+        "src": "/sales/weight-plate-tree-rack/weight-plate-tree-rack-1.jpg",
+        "alt": "Rack árbol para discos de pesas, foto 1 de 5"
+      },
+      {
+        "src": "/sales/weight-plate-tree-rack/weight-plate-tree-rack-2.jpg",
+        "alt": "Rack árbol para discos de pesas, foto 2 de 5"
+      },
+      {
+        "src": "/sales/weight-plate-tree-rack/weight-plate-tree-rack-3.jpg",
+        "alt": "Rack árbol para discos de pesas, foto 3 de 5"
+      },
+      {
+        "src": "/sales/weight-plate-tree-rack/weight-plate-tree-rack-4.jpg",
+        "alt": "Rack árbol para discos de pesas, foto 4 de 5"
+      },
+      {
+        "src": "/sales/weight-plate-tree-rack/weight-plate-tree-rack-5.jpg",
+        "alt": "Rack árbol para discos de pesas, foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "ddr5-4800-8gb-sodimm",
+    "name": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil",
+    "price": "250000",
+    "description": "Módulo de memoria SO-DIMM DDR5 de 8 GB a 4800 MHz para portátiles y mini PC, en su empaque.",
+    "photos": [
+      {
+        "src": "/sales/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-1.jpg",
+        "alt": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil, foto 1 de 3"
+      },
+      {
+        "src": "/sales/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-2.jpg",
+        "alt": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil, foto 2 de 3"
+      },
+      {
+        "src": "/sales/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-3.jpg",
+        "alt": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "folding-clothes-drying-rack",
+    "name": "Tendedero de ropa plegable de pie",
+    "price": "80000",
+    "description": "Tendedero de pie tipo trípode con brazos desplegables y muchas pinzas para colgar. Se pliega y guarda en poco espacio.",
+    "photos": [
+      {
+        "src": "/sales/folding-clothes-drying-rack/folding-clothes-drying-rack-1.jpg",
+        "alt": "Tendedero de ropa plegable de pie, foto 1 de 4"
+      },
+      {
+        "src": "/sales/folding-clothes-drying-rack/folding-clothes-drying-rack-2.jpg",
+        "alt": "Tendedero de ropa plegable de pie, foto 2 de 4"
+      },
+      {
+        "src": "/sales/folding-clothes-drying-rack/folding-clothes-drying-rack-3.jpg",
+        "alt": "Tendedero de ropa plegable de pie, foto 3 de 4"
+      },
+      {
+        "src": "/sales/folding-clothes-drying-rack/folding-clothes-drying-rack-4.jpg",
+        "alt": "Tendedero de ropa plegable de pie, foto 4 de 4"
+      }
+    ]
+  },
+  {
+    "id": "tp-link-wifi-router-single-antenna",
+    "name": "Router Wi-Fi TP-Link TL-WR740N",
+    "price": "20000",
+    "description": "Router inalámbrico TP-Link blanco con una antena y su adaptador de corriente.",
+    "photos": [
+      {
+        "src": "/sales/tp-link-wifi-router-single-antenna/tp-link-wifi-router-single-antenna-1.jpg",
+        "alt": "Router Wi-Fi TP-Link TL-WR740N, foto 1 de 2"
+      },
+      {
+        "src": "/sales/tp-link-wifi-router-single-antenna/tp-link-wifi-router-single-antenna-2.jpg",
+        "alt": "Router Wi-Fi TP-Link TL-WR740N, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "xiaomi-mi-wifi-range-extender-pro",
+    "name": "Repetidor Wi-Fi Xiaomi Mi",
+    "price": "120000",
+    "description": "Repetidor de señal Wi-Fi Xiaomi Mi con dos antenas externas que se conecta directo al tomacorriente. Con su caja. Enchufe europeo.",
+    "photos": [
+      {
+        "src": "/sales/xiaomi-mi-wifi-range-extender-pro/xiaomi-mi-wifi-range-extender-pro-1.jpg",
+        "alt": "Repetidor Wi-Fi Xiaomi Mi, foto 1 de 3"
+      },
+      {
+        "src": "/sales/xiaomi-mi-wifi-range-extender-pro/xiaomi-mi-wifi-range-extender-pro-2.jpg",
+        "alt": "Repetidor Wi-Fi Xiaomi Mi, foto 2 de 3"
+      },
+      {
+        "src": "/sales/xiaomi-mi-wifi-range-extender-pro/xiaomi-mi-wifi-range-extender-pro-3.jpg",
+        "alt": "Repetidor Wi-Fi Xiaomi Mi, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "samsung-usb-connection-kit-30pin",
+    "name": "Kit de conexión USB Samsung (30 pines)",
+    "price": "10000",
+    "description": "Kit de conexión USB Samsung para tablets Galaxy Tab con puerto de 30 pines: agrega un puerto USB y lector de tarjetas SD. En su caja.",
+    "photos": [
+      {
+        "src": "/sales/samsung-usb-connection-kit-30pin/samsung-usb-connection-kit-30pin-1.jpg",
+        "alt": "Kit de conexión USB Samsung (30 pines), foto 1 de 2"
+      },
+      {
+        "src": "/sales/samsung-usb-connection-kit-30pin/samsung-usb-connection-kit-30pin-2.jpg",
+        "alt": "Kit de conexión USB Samsung (30 pines), foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "bluetooth-selfie-stick",
+    "name": "Palo de selfie Bluetooth",
+    "price": "20000",
+    "description": "Palo de selfie extensible con botón disparador Bluetooth, correa, cable de carga y bolsa de terciopelo.",
+    "photos": [
+      {
+        "src": "/sales/bluetooth-selfie-stick/bluetooth-selfie-stick-1.jpg",
+        "alt": "Palo de selfie Bluetooth, foto 1 de 2"
+      },
+      {
+        "src": "/sales/bluetooth-selfie-stick/bluetooth-selfie-stick-2.jpg",
+        "alt": "Palo de selfie Bluetooth, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "sonos-ace-headphones",
+    "name": "Audífonos Sonos Ace",
+    "price": "1100000",
+    "description": "Audífonos inalámbricos Sonos Ace con cancelación de ruido, color negro, con su estuche original de fieltro.",
+    "photos": [
+      {
+        "src": "/sales/sonos-ace-headphones/sonos-ace-headphones-1.jpg",
+        "alt": "Audífonos Sonos Ace, foto 1 de 3"
+      },
+      {
+        "src": "/sales/sonos-ace-headphones/sonos-ace-headphones-2.jpg",
+        "alt": "Audífonos Sonos Ace, foto 2 de 3"
+      },
+      {
+        "src": "/sales/sonos-ace-headphones/sonos-ace-headphones-3.jpg",
+        "alt": "Audífonos Sonos Ace, foto 3 de 3"
+      }
+    ]
+  },
+  {
+    "id": "m2-ssd-256gb",
+    "name": "SSD M.2 de 256 GB NVMe",
+    "price": "180000",
+    "description": "Unidad de estado sólido M.2 2280 de 256 GB para portátiles y computadores de escritorio, en bandeja protectora.",
+    "photos": [
+      {
+        "src": "/sales/m2-ssd-256gb/m2-ssd-256gb-1.jpg",
+        "alt": "SSD M.2 de 256 GB, foto 1 de 1"
+      }
+    ]
+  },
+  {
+    "id": "advantek-wireless-pci-adapter",
+    "name": "Tarjeta de red inalámbrica PCI Advantek",
+    "price": "50000",
+    "description": "Adaptador inalámbrico PCI Advantek Networks (chip Realtek RTL8185L) con antena desmontable, para agregar Wi-Fi a un PC de escritorio con ranura PCI.",
+    "photos": [
+      {
+        "src": "/sales/advantek-wireless-pci-adapter/advantek-wireless-pci-adapter-1.jpg",
+        "alt": "Tarjeta de red inalámbrica PCI Advantek, foto 1 de 2"
+      },
+      {
+        "src": "/sales/advantek-wireless-pci-adapter/advantek-wireless-pci-adapter-2.jpg",
+        "alt": "Tarjeta de red inalámbrica PCI Advantek, foto 2 de 2"
+      }
+    ]
+  },
+  {
+    "id": "tp-link-tl-wn822n-usb-wifi",
+    "name": "Adaptador Wi-Fi USB TP-Link TL-WN822N",
+    "price": "30000",
+    "description": "Adaptador inalámbrico USB TP-Link TL-WN822N de 300 Mbps con dos antenas de alta ganancia y botón WPS. En su caja.",
+    "photos": [
+      {
+        "src": "/sales/tp-link-tl-wn822n-usb-wifi/tp-link-tl-wn822n-usb-wifi-1.jpg",
+        "alt": "Adaptador Wi-Fi USB TP-Link TL-WN822N, foto 1 de 1"
+      }
+    ]
+  }
 ]
