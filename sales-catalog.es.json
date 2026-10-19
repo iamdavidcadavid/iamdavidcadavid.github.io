@@ -52,22 +52,6 @@
     ]
   },
   {
-    "id": "backbone-one-android",
-    "name": "Control Backbone One para celular (Android)",
-    "price": "180000",
-    "description": "Control Backbone One que convierte un celular Android en consola portátil. Sirve para Xbox Game Pass, Steam Link, GeForce NOW y más. En su caja, que anuncia un mes de Xbox Game Pass Ultimate incluido.",
-    "photos": [
-      {
-        "src": "/sales-photos/backbone-one-android/backbone-one-android-1.jpg",
-        "alt": "Control Backbone One para celular (Android), foto 1 de 2"
-      },
-      {
-        "src": "/sales-photos/backbone-one-android/backbone-one-android-2.jpg",
-        "alt": "Control Backbone One para celular (Android), foto 2 de 2"
-      }
-    ]
-  },
-  {
     "id": "dual-monitor-arm-laptop-tray",
     "name": "Brazo para dos monitores con bandeja para portátil",
     "price": "90000",
@@ -224,46 +208,6 @@
       {
         "src": "/sales-photos/ps4-dualshock-4-phone-clip/ps4-dualshock-4-phone-clip-2.jpg",
         "alt": "Control PS4 DualShock 4 con soporte para celular, foto 2 de 2"
-      }
-    ]
-  },
-  {
-    "id": "ps5-dualsense-30th-anniversary",
-    "name": "Control PS5 DualSense edición 30.º aniversario",
-    "price": "300000",
-    "description": "Control inalámbrico Sony DualSense de edición limitada en el gris clásico de PlayStation, con su caja.",
-    "photos": [
-      {
-        "src": "/sales-photos/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-1.jpg",
-        "alt": "Control PS5 DualSense edición 30.º aniversario, foto 1 de 3"
-      },
-      {
-        "src": "/sales-photos/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-2.jpg",
-        "alt": "Control PS5 DualSense edición 30.º aniversario, foto 2 de 3"
-      },
-      {
-        "src": "/sales-photos/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-3.jpg",
-        "alt": "Control PS5 DualSense edición 30.º aniversario, foto 3 de 3"
-      }
-    ]
-  },
-  {
-    "id": "xbox-controller-shock-blue",
-    "name": "Control Xbox inalámbrico azul (Shock Blue)",
-    "price": "180000",
-    "description": "Control inalámbrico Microsoft Xbox en azul Shock Blue con parte trasera blanca. Funciona con Xbox Series X|S, Xbox One, PC y celulares. Con su caja.",
-    "photos": [
-      {
-        "src": "/sales-photos/xbox-controller-shock-blue/xbox-controller-shock-blue-1.jpg",
-        "alt": "Control Xbox inalámbrico azul (Shock Blue), foto 1 de 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-shock-blue/xbox-controller-shock-blue-2.jpg",
-        "alt": "Control Xbox inalámbrico azul (Shock Blue), foto 2 de 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-shock-blue/xbox-controller-shock-blue-3.jpg",
-        "alt": "Control Xbox inalámbrico azul (Shock Blue), foto 3 de 3"
       }
     ]
   },
@@ -892,26 +836,6 @@
       {
         "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-5.jpg",
         "alt": "Rack árbol para discos de pesas, foto 5 de 5"
-      }
-    ]
-  },
-  {
-    "id": "ddr5-4800-8gb-sodimm",
-    "name": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil",
-    "price": "250000",
-    "description": "Módulo de memoria SO-DIMM DDR5 de 8 GB a 4800 MHz para portátiles y mini PC, en su empaque.",
-    "photos": [
-      {
-        "src": "/sales-photos/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-1.jpg",
-        "alt": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil, foto 1 de 3"
-      },
-      {
-        "src": "/sales-photos/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-2.jpg",
-        "alt": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil, foto 2 de 3"
-      },
-      {
-        "src": "/sales-photos/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-3.jpg",
-        "alt": "Memoria RAM 8 GB DDR5-4800 SO-DIMM para portátil, foto 3 de 3"
       }
     ]
   },
