@@ -52,22 +52,6 @@
     ]
   },
   {
-    "id": "backbone-one-android",
-    "name": "Backbone One mobile controller (Android)",
-    "price": "180000",
-    "description": "Backbone One controller that turns an Android phone into a handheld console. Plays Xbox Game Pass, Steam Link, GeForce NOW and more. In its box, which advertises one month of Xbox Game Pass Ultimate included.",
-    "photos": [
-      {
-        "src": "/sales-photos/backbone-one-android/backbone-one-android-1.jpg",
-        "alt": "Backbone One mobile controller (Android), photo 1 of 2"
-      },
-      {
-        "src": "/sales-photos/backbone-one-android/backbone-one-android-2.jpg",
-        "alt": "Backbone One mobile controller (Android), photo 2 of 2"
-      }
-    ]
-  },
-  {
     "id": "dual-monitor-arm-laptop-tray",
     "name": "Dual monitor arm with laptop tray",
     "price": "90000",
@@ -224,46 +208,6 @@
       {
         "src": "/sales-photos/ps4-dualshock-4-phone-clip/ps4-dualshock-4-phone-clip-2.jpg",
         "alt": "PS4 DualShock 4 controller with phone clip, photo 2 of 2"
-      }
-    ]
-  },
-  {
-    "id": "ps5-dualsense-30th-anniversary",
-    "name": "PS5 DualSense 30th Anniversary edition",
-    "price": "300000",
-    "description": "Limited-edition Sony DualSense wireless controller in the classic PlayStation grey, with its box.",
-    "photos": [
-      {
-        "src": "/sales-photos/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-1.jpg",
-        "alt": "PS5 DualSense 30th Anniversary edition, photo 1 of 3"
-      },
-      {
-        "src": "/sales-photos/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-2.jpg",
-        "alt": "PS5 DualSense 30th Anniversary edition, photo 2 of 3"
-      },
-      {
-        "src": "/sales-photos/ps5-dualsense-30th-anniversary/ps5-dualsense-30th-anniversary-3.jpg",
-        "alt": "PS5 DualSense 30th Anniversary edition, photo 3 of 3"
-      }
-    ]
-  },
-  {
-    "id": "xbox-controller-shock-blue",
-    "name": "Xbox Wireless Controller, Shock Blue",
-    "price": "180000",
-    "description": "Microsoft Xbox Wireless Controller in Shock Blue with white back. Works with Xbox Series X|S, Xbox One, PC and phones. With its box.",
-    "photos": [
-      {
-        "src": "/sales-photos/xbox-controller-shock-blue/xbox-controller-shock-blue-1.jpg",
-        "alt": "Xbox Wireless Controller, Shock Blue, photo 1 of 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-shock-blue/xbox-controller-shock-blue-2.jpg",
-        "alt": "Xbox Wireless Controller, Shock Blue, photo 2 of 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-shock-blue/xbox-controller-shock-blue-3.jpg",
-        "alt": "Xbox Wireless Controller, Shock Blue, photo 3 of 3"
       }
     ]
   },
@@ -892,26 +836,6 @@
       {
         "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-5.jpg",
         "alt": "Weight plate tree rack, photo 5 of 5"
-      }
-    ]
-  },
-  {
-    "id": "ddr5-4800-8gb-sodimm",
-    "name": "8 GB DDR5-4800 SO-DIMM laptop RAM",
-    "price": "250000",
-    "description": "8 GB DDR5 4800 MHz SO-DIMM memory module for laptops and mini PCs, in its blister pack.",
-    "photos": [
-      {
-        "src": "/sales-photos/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-1.jpg",
-        "alt": "8 GB DDR5-4800 SO-DIMM laptop RAM, photo 1 of 3"
-      },
-      {
-        "src": "/sales-photos/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-2.jpg",
-        "alt": "8 GB DDR5-4800 SO-DIMM laptop RAM, photo 2 of 3"
-      },
-      {
-        "src": "/sales-photos/ddr5-4800-8gb-sodimm/ddr5-4800-8gb-sodimm-3.jpg",
-        "alt": "8 GB DDR5-4800 SO-DIMM laptop RAM, photo 3 of 3"
       }
     ]
   },
