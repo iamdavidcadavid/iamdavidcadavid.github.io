@@ -132,26 +132,6 @@
     ]
   },
   {
-    "id": "bose-quietcomfort-45",
-    "name": "Audífonos Bose QuietComfort 45",
-    "price": "1100000",
-    "description": "Audífonos inalámbricos Bose QC45 con cancelación de ruido, color negro, con su estuche rígido original.",
-    "photos": [
-      {
-        "src": "/sales-photos/bose-quietcomfort-45/bose-quietcomfort-45-1.jpg",
-        "alt": "Audífonos Bose QuietComfort 45, foto 1 de 3"
-      },
-      {
-        "src": "/sales-photos/bose-quietcomfort-45/bose-quietcomfort-45-2.jpg",
-        "alt": "Audífonos Bose QuietComfort 45, foto 2 de 3"
-      },
-      {
-        "src": "/sales-photos/bose-quietcomfort-45/bose-quietcomfort-45-3.jpg",
-        "alt": "Audífonos Bose QuietComfort 45, foto 3 de 3"
-      }
-    ]
-  },
-  {
     "id": "taumm-shower-arm",
     "name": "Brazo largo para ducha Täumm",
     "price": "20000",
@@ -252,26 +232,6 @@
     ]
   },
   {
-    "id": "xbox-controller-black-with-case",
-    "name": "Control Xbox inalámbrico negro con estuche",
-    "price": "180000",
-    "description": "Control inalámbrico Xbox negro con estuche rígido acolchado de tela azul, con bolsillo de malla y correa.",
-    "photos": [
-      {
-        "src": "/sales-photos/xbox-controller-black-with-case/xbox-controller-black-with-case-1.jpg",
-        "alt": "Control Xbox inalámbrico negro con estuche, foto 1 de 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-black-with-case/xbox-controller-black-with-case-2.jpg",
-        "alt": "Control Xbox inalámbrico negro con estuche, foto 2 de 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-black-with-case/xbox-controller-black-with-case-3.jpg",
-        "alt": "Control Xbox inalámbrico negro con estuche, foto 3 de 3"
-      }
-    ]
-  },
-  {
     "id": "galaxy-tab-s9-fe-case",
     "name": "Funda para Samsung Galaxy Tab S9 FE",
     "price": "25000",
@@ -312,6 +272,54 @@
       {
         "src": "/sales-photos/strebito-precision-screwdriver-kit/strebito-precision-screwdriver-kit-5.jpg",
         "alt": "Kit de destornilladores de precisión Strebito, foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "brookstone-wireless-earbuds-black",
+    "name": "Audífonos inalámbricos Brookstone (negros)",
+    "price": "50000",
+    "description": "Audífonos Bluetooth totalmente inalámbricos negros con su estuche de carga. Incluye cable USB de carga y almohadillas de repuesto.",
+    "photos": [
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-1.jpg",
+        "alt": "Audífonos inalámbricos Brookstone (negros), foto 1 de 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-2.jpg",
+        "alt": "Audífonos inalámbricos Brookstone (negros), foto 2 de 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-3.jpg",
+        "alt": "Audífonos inalámbricos Brookstone (negros), foto 3 de 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-4.jpg",
+        "alt": "Audífonos inalámbricos Brookstone (negros), foto 4 de 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-5.jpg",
+        "alt": "Audífonos inalámbricos Brookstone (negros), foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "wireless-earbuds-white-led-case",
+    "name": "Audífonos inalámbricos con estuche de pantalla LED (blancos)",
+    "price": "50000",
+    "description": "Audífonos Bluetooth totalmente inalámbricos blancos. El estuche de carga tiene una pantalla digital que muestra el nivel de batería. Incluye cable USB de carga y almohadillas de repuesto.",
+    "photos": [
+      {
+        "src": "/sales-photos/wireless-earbuds-white-led-case/wireless-earbuds-white-led-case-1.jpg",
+        "alt": "Audífonos inalámbricos con estuche de pantalla LED (blancos), foto 1 de 3"
+      },
+      {
+        "src": "/sales-photos/wireless-earbuds-white-led-case/wireless-earbuds-white-led-case-2.jpg",
+        "alt": "Audífonos inalámbricos con estuche de pantalla LED (blancos), foto 2 de 3"
+      },
+      {
+        "src": "/sales-photos/wireless-earbuds-white-led-case/wireless-earbuds-white-led-case-3.jpg",
+        "alt": "Audífonos inalámbricos con estuche de pantalla LED (blancos), foto 3 de 3"
       }
     ]
   },
@@ -372,22 +380,6 @@
       {
         "src": "/sales-photos/nintendo-world-championships-nes-deluxe/nintendo-world-championships-nes-deluxe-2.jpg",
         "alt": "Nintendo World Championships: NES Edition, Deluxe Set, foto 2 de 2"
-      }
-    ]
-  },
-  {
-    "id": "kindle-scribe",
-    "name": "Amazon Kindle Scribe 2024 32GB",
-    "price": "1000000",
-    "description": "Lector Kindle Scribe de 10,2 pulgadas y cuaderno digital, con lápiz y funda tipo folio gris.",
-    "photos": [
-      {
-        "src": "/sales-photos/kindle-scribe/kindle-scribe-1.jpg",
-        "alt": "Amazon Kindle Scribe, foto 1 de 2"
-      },
-      {
-        "src": "/sales-photos/kindle-scribe/kindle-scribe-2.jpg",
-        "alt": "Amazon Kindle Scribe, foto 2 de 2"
       }
     ]
   },
@@ -504,18 +496,6 @@
     ]
   },
   {
-    "id": "logitech-k400-plus-keyboard",
-    "name": "Teclado inalámbrico Logitech K400 Plus con touchpad (español)",
-    "price": "120000",
-    "description": "Teclado inalámbrico con touchpad integrado, ideal para un PC conectado al televisor. Distribución en español, gris oscuro.",
-    "photos": [
-      {
-        "src": "/sales-photos/logitech-k400-plus-keyboard/logitech-k400-plus-keyboard-1.jpg",
-        "alt": "Teclado inalámbrico Logitech K400 Plus con touchpad (español), foto 1 de 1"
-      }
-    ]
-  },
-  {
     "id": "switch-zelda-carrying-case",
     "name": "Estuche para Nintendo Switch (diseño Zelda)",
     "price": "120000",
@@ -564,22 +544,6 @@
       {
         "src": "/sales-photos/tp-link-deco-e4-2-pack/tp-link-deco-e4-2-pack-4.jpg",
         "alt": "Wi-Fi mesh TP-Link Deco E4 (2 unidades), foto 4 de 4"
-      }
-    ]
-  },
-  {
-    "id": "tp-link-deco-mesh-3-pack",
-    "name": "Wi-Fi mesh TP-Link Deco S4R (3 unidades)",
-    "price": "300000",
-    "description": "Tres unidades TP-Link Deco de Wi-Fi mesh con sus adaptadores de corriente y un cable Ethernet.",
-    "photos": [
-      {
-        "src": "/sales-photos/tp-link-deco-mesh-3-pack/tp-link-deco-mesh-3-pack-1.jpg",
-        "alt": "Wi-Fi mesh TP-Link Deco S4R (3 unidades), foto 1 de 2"
-      },
-      {
-        "src": "/sales-photos/tp-link-deco-mesh-3-pack/tp-link-deco-mesh-3-pack-2.jpg",
-        "alt": "Wi-Fi mesh TP-Link Deco S4R (3 unidades), foto 2 de 2"
       }
     ]
   },
@@ -640,34 +604,6 @@
       {
         "src": "/sales-photos/graco-sound-select-baby-monitor/graco-sound-select-baby-monitor-3.jpg",
         "alt": "Monitor de bebé Graco Sound Select, foto 3 de 3"
-      }
-    ]
-  },
-  {
-    "id": "nes-console-bundle",
-    "name": "Consola Nintendo NES original con accesorios",
-    "price": "400000",
-    "description": "Nintendo Entertainment System clásico con dos controles, pistola Zapper con manual, adaptador de corriente, cables AV y varios cartuchos de juegos en sus fundas.",
-    "photos": [
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-1.jpg",
-        "alt": "Consola Nintendo NES original con accesorios, foto 1 de 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-2.jpg",
-        "alt": "Consola Nintendo NES original con accesorios, foto 2 de 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-3.jpg",
-        "alt": "Consola Nintendo NES original con accesorios, foto 3 de 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-4.jpg",
-        "alt": "Consola Nintendo NES original con accesorios, foto 4 de 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-5.jpg",
-        "alt": "Consola Nintendo NES original con accesorios, foto 5 de 5"
       }
     ]
   },
@@ -788,30 +724,6 @@
     ]
   },
   {
-    "id": "adjustable-shoe-stackers",
-    "name": "Organizadores de zapatos ajustables x10",
-    "price": "30000",
-    "description": "Organizadores de zapatos en plástico negro que apilan un par uno sobre otro con altura ajustable, ahorrando la mitad del espacio en el clóset.",
-    "photos": [
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-1.jpg",
-        "alt": "Organizadores de zapatos ajustables x10, foto 1 de 4"
-      },
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-2.jpg",
-        "alt": "Organizadores de zapatos ajustables x10, foto 2 de 4"
-      },
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-3.jpg",
-        "alt": "Organizadores de zapatos ajustables x10, foto 3 de 4"
-      },
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-4.jpg",
-        "alt": "Organizadores de zapatos ajustables x10, foto 4 de 4"
-      }
-    ]
-  },
-  {
     "id": "weight-plate-tree-rack",
     "name": "Rack árbol para discos de pesas",
     "price": "80000",
@@ -836,6 +748,86 @@
       {
         "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-5.jpg",
         "alt": "Rack árbol para discos de pesas, foto 5 de 5"
+      }
+    ]
+  },
+  {
+    "id": "rayneo-air-4-pro-batman-edition",
+    "name": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition)",
+    "price": "1000000",
+    "description": "Gafas con pantalla que muestran una pantalla virtual grande desde un celular, consola o computador por USB-C. Edición de colección de Batman en su caja original, con la cubierta de lentes estilo Batman y su soporte, cubierta estándar, estuche, almohadillas nasales, tubos de sonido, cable USB-C, paño de limpieza y manuales.",
+    "photos": [
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-1.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 1 de 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-2.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 2 de 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-3.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 3 de 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-4.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 4 de 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-5.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 5 de 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-6.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 6 de 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-7.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 7 de 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-8.jpg",
+        "alt": "Gafas XR RayNeo Air 4 Pro, edición limitada Batman (Justice Edition), foto 8 de 8"
+      }
+    ]
+  },
+  {
+    "id": "rog-xbox-ally-x",
+    "name": "Consola portátil ROG Xbox Ally X",
+    "price": "3800000",
+    "description": "Consola portátil (PC para juegos) ASUS ROG Xbox Ally X negra, con su caja original, estuche de transporte ROG y cargador.",
+    "photos": [
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-1.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 1 de 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-2.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 2 de 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-3.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 3 de 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-4.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 4 de 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-5.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 5 de 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-6.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 6 de 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-7.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 7 de 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-8.jpg",
+        "alt": "Consola portátil ROG Xbox Ally X, foto 8 de 8"
       }
     ]
   },
@@ -916,6 +908,30 @@
     ]
   },
   {
+    "id": "samsung-freestyle-projector-battery-base",
+    "name": "Proyector portátil Samsung The Freestyle con base de batería",
+    "price": "1500000",
+    "description": "Proyector inteligente compacto Samsung The Freestyle blanco que se inclina sobre su soporte, con su base de batería para usarlo sin conectar. Incluye control remoto, adaptador y cable de corriente, estuche acolchado y un soporte negro.",
+    "photos": [
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-1.jpg",
+        "alt": "Proyector portátil Samsung The Freestyle con base de batería, foto 1 de 4"
+      },
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-2.jpg",
+        "alt": "Proyector portátil Samsung The Freestyle con base de batería, foto 2 de 4"
+      },
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-3.jpg",
+        "alt": "Proyector portátil Samsung The Freestyle con base de batería, foto 3 de 4"
+      },
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-4.jpg",
+        "alt": "Proyector portátil Samsung The Freestyle con base de batería, foto 4 de 4"
+      }
+    ]
+  },
+  {
     "id": "bluetooth-selfie-stick",
     "name": "Palo de selfie Bluetooth",
     "price": "20000",
@@ -988,6 +1004,34 @@
       {
         "src": "/sales-photos/tp-link-tl-wn822n-usb-wifi/tp-link-tl-wn822n-usb-wifi-1.jpg",
         "alt": "Adaptador Wi-Fi USB TP-Link TL-WN822N, foto 1 de 1"
+      }
+    ]
+  },
+  {
+    "id": "xp-pen-artist-pro-16-gen2",
+    "name": "Pantalla de dibujo XP-Pen Artist Pro 16 (Gen 2)",
+    "price": "1800000",
+    "description": "Pantalla interactiva de 16 pulgadas para dibujo y diseño, con su caja original, funda protectora, lápiz y estuche, control inalámbrico de atajos ACK05, cables, adaptadores de enchufe internacionales, guante de dibujo y paño de limpieza.",
+    "photos": [
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-1.jpg",
+        "alt": "Pantalla de dibujo XP-Pen Artist Pro 16 (Gen 2), foto 1 de 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-2.jpg",
+        "alt": "Pantalla de dibujo XP-Pen Artist Pro 16 (Gen 2), foto 2 de 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-3.jpg",
+        "alt": "Pantalla de dibujo XP-Pen Artist Pro 16 (Gen 2), foto 3 de 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-4.jpg",
+        "alt": "Pantalla de dibujo XP-Pen Artist Pro 16 (Gen 2), foto 4 de 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-5.jpg",
+        "alt": "Pantalla de dibujo XP-Pen Artist Pro 16 (Gen 2), foto 5 de 5"
       }
     ]
   }

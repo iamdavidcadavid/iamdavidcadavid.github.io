@@ -132,26 +132,6 @@
     ]
   },
   {
-    "id": "bose-quietcomfort-45",
-    "name": "Bose QuietComfort 45 headphones",
-    "price": "1100000",
-    "description": "Bose QC45 wireless noise-cancelling over-ear headphones in black, with the original hard carrying case.",
-    "photos": [
-      {
-        "src": "/sales-photos/bose-quietcomfort-45/bose-quietcomfort-45-1.jpg",
-        "alt": "Bose QuietComfort 45 headphones, photo 1 of 3"
-      },
-      {
-        "src": "/sales-photos/bose-quietcomfort-45/bose-quietcomfort-45-2.jpg",
-        "alt": "Bose QuietComfort 45 headphones, photo 2 of 3"
-      },
-      {
-        "src": "/sales-photos/bose-quietcomfort-45/bose-quietcomfort-45-3.jpg",
-        "alt": "Bose QuietComfort 45 headphones, photo 3 of 3"
-      }
-    ]
-  },
-  {
     "id": "taumm-shower-arm",
     "name": "Täumm long metal shower arm",
     "price": "20000",
@@ -252,26 +232,6 @@
     ]
   },
   {
-    "id": "xbox-controller-black-with-case",
-    "name": "Xbox Wireless Controller (black) with case",
-    "price": "180000",
-    "description": "Black Xbox Wireless Controller with a padded blue fabric hard case that has a mesh pocket and strap.",
-    "photos": [
-      {
-        "src": "/sales-photos/xbox-controller-black-with-case/xbox-controller-black-with-case-1.jpg",
-        "alt": "Xbox Wireless Controller (black) with case, photo 1 of 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-black-with-case/xbox-controller-black-with-case-2.jpg",
-        "alt": "Xbox Wireless Controller (black) with case, photo 2 of 3"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-black-with-case/xbox-controller-black-with-case-3.jpg",
-        "alt": "Xbox Wireless Controller (black) with case, photo 3 of 3"
-      }
-    ]
-  },
-  {
     "id": "galaxy-tab-s9-fe-case",
     "name": "Case for Samsung Galaxy Tab S9 FE",
     "price": "25000",
@@ -312,6 +272,54 @@
       {
         "src": "/sales-photos/strebito-precision-screwdriver-kit/strebito-precision-screwdriver-kit-5.jpg",
         "alt": "Strebito precision screwdriver kit, photo 5 of 5"
+      }
+    ]
+  },
+  {
+    "id": "brookstone-wireless-earbuds-black",
+    "name": "Brookstone wireless earbuds (black)",
+    "price": "50000",
+    "description": "True wireless Bluetooth earbuds in black with their charging case. Includes a USB charging cable and spare ear tips.",
+    "photos": [
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-1.jpg",
+        "alt": "Brookstone wireless earbuds (black), photo 1 of 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-2.jpg",
+        "alt": "Brookstone wireless earbuds (black), photo 2 of 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-3.jpg",
+        "alt": "Brookstone wireless earbuds (black), photo 3 of 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-4.jpg",
+        "alt": "Brookstone wireless earbuds (black), photo 4 of 5"
+      },
+      {
+        "src": "/sales-photos/brookstone-wireless-earbuds-black/brookstone-wireless-earbuds-black-5.jpg",
+        "alt": "Brookstone wireless earbuds (black), photo 5 of 5"
+      }
+    ]
+  },
+  {
+    "id": "wireless-earbuds-white-led-case",
+    "name": "Wireless earbuds with LED display case (white)",
+    "price": "50000",
+    "description": "True wireless Bluetooth earbuds in white. The charging case has a digital display that shows the battery level. Includes a USB charging cable and spare ear tips.",
+    "photos": [
+      {
+        "src": "/sales-photos/wireless-earbuds-white-led-case/wireless-earbuds-white-led-case-1.jpg",
+        "alt": "Wireless earbuds with LED display case (white), photo 1 of 3"
+      },
+      {
+        "src": "/sales-photos/wireless-earbuds-white-led-case/wireless-earbuds-white-led-case-2.jpg",
+        "alt": "Wireless earbuds with LED display case (white), photo 2 of 3"
+      },
+      {
+        "src": "/sales-photos/wireless-earbuds-white-led-case/wireless-earbuds-white-led-case-3.jpg",
+        "alt": "Wireless earbuds with LED display case (white), photo 3 of 3"
       }
     ]
   },
@@ -372,22 +380,6 @@
       {
         "src": "/sales-photos/nintendo-world-championships-nes-deluxe/nintendo-world-championships-nes-deluxe-2.jpg",
         "alt": "Nintendo World Championships: NES Edition Deluxe Set, photo 2 of 2"
-      }
-    ]
-  },
-  {
-    "id": "kindle-scribe",
-    "name": "Amazon Kindle Scribe 2024 32GB",
-    "price": "1000000",
-    "description": "Kindle Scribe 10.2-inch e-reader and digital notebook, with pen and a grey folio cover.",
-    "photos": [
-      {
-        "src": "/sales-photos/kindle-scribe/kindle-scribe-1.jpg",
-        "alt": "Amazon Kindle Scribe, photo 1 of 2"
-      },
-      {
-        "src": "/sales-photos/kindle-scribe/kindle-scribe-2.jpg",
-        "alt": "Amazon Kindle Scribe, photo 2 of 2"
       }
     ]
   },
@@ -504,18 +496,6 @@
     ]
   },
   {
-    "id": "logitech-k400-plus-keyboard",
-    "name": "Logitech K400 Plus wireless touch keyboard (Spanish)",
-    "price": "120000",
-    "description": "Wireless keyboard with built-in touchpad, ideal for a TV-connected PC. Spanish layout, dark grey.",
-    "photos": [
-      {
-        "src": "/sales-photos/logitech-k400-plus-keyboard/logitech-k400-plus-keyboard-1.jpg",
-        "alt": "Logitech K400 Plus wireless touch keyboard (Spanish), photo 1 of 1"
-      }
-    ]
-  },
-  {
     "id": "switch-zelda-carrying-case",
     "name": "Nintendo Switch carrying case (Zelda design)",
     "price": "120000",
@@ -564,22 +544,6 @@
       {
         "src": "/sales-photos/tp-link-deco-e4-2-pack/tp-link-deco-e4-2-pack-4.jpg",
         "alt": "TP-Link Deco E4 mesh Wi-Fi (2-pack), photo 4 of 4"
-      }
-    ]
-  },
-  {
-    "id": "tp-link-deco-mesh-3-pack",
-    "name": "TP-Link Deco mesh Wi-Fi S4R (3-pack)",
-    "price": "300000",
-    "description": "Three TP-Link Deco mesh Wi-Fi units with their power adapters and an Ethernet cable.",
-    "photos": [
-      {
-        "src": "/sales-photos/tp-link-deco-mesh-3-pack/tp-link-deco-mesh-3-pack-1.jpg",
-        "alt": "TP-Link Deco mesh Wi-Fi S4R (3-pack), photo 1 of 2"
-      },
-      {
-        "src": "/sales-photos/tp-link-deco-mesh-3-pack/tp-link-deco-mesh-3-pack-2.jpg",
-        "alt": "TP-Link Deco mesh Wi-Fi S4R (3-pack), photo 2 of 2"
       }
     ]
   },
@@ -640,34 +604,6 @@
       {
         "src": "/sales-photos/graco-sound-select-baby-monitor/graco-sound-select-baby-monitor-3.jpg",
         "alt": "Graco Sound Select audio baby monitor, photo 3 of 3"
-      }
-    ]
-  },
-  {
-    "id": "nes-console-bundle",
-    "name": "Original Nintendo NES console bundle",
-    "price": "400000",
-    "description": "Classic Nintendo Entertainment System with two controllers, Zapper light gun with manual, AC adapter, AV cables and several game cartridges in their sleeves.",
-    "photos": [
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-1.jpg",
-        "alt": "Original Nintendo NES console bundle, photo 1 of 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-2.jpg",
-        "alt": "Original Nintendo NES console bundle, photo 2 of 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-3.jpg",
-        "alt": "Original Nintendo NES console bundle, photo 3 of 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-4.jpg",
-        "alt": "Original Nintendo NES console bundle, photo 4 of 5"
-      },
-      {
-        "src": "/sales-photos/nes-console-bundle/nes-console-bundle-5.jpg",
-        "alt": "Original Nintendo NES console bundle, photo 5 of 5"
       }
     ]
   },
@@ -788,30 +724,6 @@
     ]
   },
   {
-    "id": "adjustable-shoe-stackers",
-    "name": "Adjustable shoe stackers x10",
-    "price": "30000",
-    "description": "Black plastic shoe slots that stack a pair of shoes on top of each other with adjustable height, saving half the space in your closet.",
-    "photos": [
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-1.jpg",
-        "alt": "Adjustable shoe stackers x10, photo 1 of 4"
-      },
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-2.jpg",
-        "alt": "Adjustable shoe stackers x10, photo 2 of 4"
-      },
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-3.jpg",
-        "alt": "Adjustable shoe stackers x10, photo 3 of 4"
-      },
-      {
-        "src": "/sales-photos/adjustable-shoe-stackers/adjustable-shoe-stackers-4.jpg",
-        "alt": "Adjustable shoe stackers x10, photo 4 of 4"
-      }
-    ]
-  },
-  {
     "id": "weight-plate-tree-rack",
     "name": "Weight plate tree rack",
     "price": "80000",
@@ -836,6 +748,86 @@
       {
         "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-5.jpg",
         "alt": "Weight plate tree rack, photo 5 of 5"
+      }
+    ]
+  },
+  {
+    "id": "rayneo-air-4-pro-batman-edition",
+    "name": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition",
+    "price": "1000000",
+    "description": "Wearable display glasses that show a large virtual screen from a phone, console or computer over USB-C. Batman collector's edition in its original box, with the Batman-style lens shade and its stand, standard lens shade, carry case, nose pads, sound tubes, USB-C cable, cleaning cloth and manuals.",
+    "photos": [
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-1.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 1 of 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-2.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 2 of 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-3.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 3 of 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-4.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 4 of 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-5.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 5 of 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-6.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 6 of 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-7.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 7 of 8"
+      },
+      {
+        "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-8.jpg",
+        "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 8 of 8"
+      }
+    ]
+  },
+  {
+    "id": "rog-xbox-ally-x",
+    "name": "ROG Xbox Ally X handheld console",
+    "price": "3800000",
+    "description": "ASUS ROG Xbox Ally X handheld gaming PC in black, with its original box, ROG carrying case and charger.",
+    "photos": [
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-1.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 1 of 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-2.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 2 of 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-3.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 3 of 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-4.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 4 of 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-5.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 5 of 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-6.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 6 of 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-7.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 7 of 8"
+      },
+      {
+        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-8.jpg",
+        "alt": "ROG Xbox Ally X handheld console, photo 8 of 8"
       }
     ]
   },
@@ -916,6 +908,30 @@
     ]
   },
   {
+    "id": "samsung-freestyle-projector-battery-base",
+    "name": "Samsung The Freestyle portable projector with battery base",
+    "price": "1500000",
+    "description": "Compact Samsung The Freestyle smart projector in white that tilts on its stand, with its battery base for use without a plug. Includes the remote, power adapter and cable, a padded carrying case and a black mount.",
+    "photos": [
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-1.jpg",
+        "alt": "Samsung The Freestyle portable projector with battery base, photo 1 of 4"
+      },
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-2.jpg",
+        "alt": "Samsung The Freestyle portable projector with battery base, photo 2 of 4"
+      },
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-3.jpg",
+        "alt": "Samsung The Freestyle portable projector with battery base, photo 3 of 4"
+      },
+      {
+        "src": "/sales-photos/samsung-freestyle-projector-battery-base/samsung-freestyle-projector-battery-base-4.jpg",
+        "alt": "Samsung The Freestyle portable projector with battery base, photo 4 of 4"
+      }
+    ]
+  },
+  {
     "id": "bluetooth-selfie-stick",
     "name": "Bluetooth selfie stick",
     "price": "20000",
@@ -988,6 +1004,34 @@
       {
         "src": "/sales-photos/tp-link-tl-wn822n-usb-wifi/tp-link-tl-wn822n-usb-wifi-1.jpg",
         "alt": "TP-Link TL-WN822N USB Wi-Fi adapter, photo 1 of 1"
+      }
+    ]
+  },
+  {
+    "id": "xp-pen-artist-pro-16-gen2",
+    "name": "XP-Pen Artist Pro 16 (Gen 2) drawing display",
+    "price": "1800000",
+    "description": "16-inch pen display for drawing and design, with its original box, protective sleeve, pen and pen case, ACK05 wireless shortcut remote, cables, international plug adapters, drawing glove and cleaning cloth.",
+    "photos": [
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-1.jpg",
+        "alt": "XP-Pen Artist Pro 16 (Gen 2) drawing display, photo 1 of 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-2.jpg",
+        "alt": "XP-Pen Artist Pro 16 (Gen 2) drawing display, photo 2 of 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-3.jpg",
+        "alt": "XP-Pen Artist Pro 16 (Gen 2) drawing display, photo 3 of 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-4.jpg",
+        "alt": "XP-Pen Artist Pro 16 (Gen 2) drawing display, photo 4 of 5"
+      },
+      {
+        "src": "/sales-photos/xp-pen-artist-pro-16-gen2/xp-pen-artist-pro-16-gen2-5.jpg",
+        "alt": "XP-Pen Artist Pro 16 (Gen 2) drawing display, photo 5 of 5"
       }
     ]
   }
