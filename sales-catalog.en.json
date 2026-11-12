@@ -192,6 +192,26 @@
     ]
   },
   {
+    "id": "switch-2-pro-controller-zelda-40th",
+    "name": "Nintendo Switch 2 Pro Controller – The Legend of Zelda 40th Anniversary",
+    "price": "700000",
+    "description": "Official Nintendo Switch 2 Pro Controller in the limited Legend of Zelda 40th Anniversary design: gold Triforce and Hylian crest pattern on black with a green grip, plus the GL/GR back buttons and the C button. New and sealed.",
+    "photos": [
+      {
+        "src": "/sales-photos/switch-2-pro-controller-zelda-40th/switch-2-pro-controller-zelda-40th-1.jpg",
+        "alt": "Nintendo Switch 2 Pro Controller – Zelda 40th Anniversary, box, photo 1 of 3"
+      },
+      {
+        "src": "/sales-photos/switch-2-pro-controller-zelda-40th/switch-2-pro-controller-zelda-40th-2.jpg",
+        "alt": "Nintendo Switch 2 Pro Controller – Zelda 40th Anniversary, front, photo 2 of 3"
+      },
+      {
+        "src": "/sales-photos/switch-2-pro-controller-zelda-40th/switch-2-pro-controller-zelda-40th-3.jpg",
+        "alt": "Nintendo Switch 2 Pro Controller – Zelda 40th Anniversary, back, photo 3 of 3"
+      }
+    ]
+  },
+  {
     "id": "xbox-elite-series-2-core-blue",
     "name": "Xbox Elite Series 2 Core (blue) + component pack",
     "price": "550000",
@@ -212,22 +232,6 @@
       {
         "src": "/sales-photos/xbox-elite-series-2-core-blue/xbox-elite-series-2-core-blue-4.jpg",
         "alt": "Xbox Elite Series 2 Core (blue) + component pack, photo 4 of 4"
-      }
-    ]
-  },
-  {
-    "id": "xbox-controller-carbon-black",
-    "name": "Xbox Wireless Controller, Carbon Black",
-    "price": "180000",
-    "description": "Microsoft Xbox Wireless Controller in Carbon Black. Works with Xbox Series X|S, Xbox One, PC and phones. With its box.",
-    "photos": [
-      {
-        "src": "/sales-photos/xbox-controller-carbon-black/xbox-controller-carbon-black-1.jpg",
-        "alt": "Xbox Wireless Controller, Carbon Black, photo 1 of 2"
-      },
-      {
-        "src": "/sales-photos/xbox-controller-carbon-black/xbox-controller-carbon-black-2.jpg",
-        "alt": "Xbox Wireless Controller, Carbon Black, photo 2 of 2"
       }
     ]
   },
@@ -724,34 +728,6 @@
     ]
   },
   {
-    "id": "weight-plate-tree-rack",
-    "name": "Weight plate tree rack",
-    "price": "80000",
-    "description": "Black steel weight plate tree with storage posts and bar holders.",
-    "photos": [
-      {
-        "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-1.jpg",
-        "alt": "Weight plate tree rack, photo 1 of 5"
-      },
-      {
-        "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-2.jpg",
-        "alt": "Weight plate tree rack, photo 2 of 5"
-      },
-      {
-        "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-3.jpg",
-        "alt": "Weight plate tree rack, photo 3 of 5"
-      },
-      {
-        "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-4.jpg",
-        "alt": "Weight plate tree rack, photo 4 of 5"
-      },
-      {
-        "src": "/sales-photos/weight-plate-tree-rack/weight-plate-tree-rack-5.jpg",
-        "alt": "Weight plate tree rack, photo 5 of 5"
-      }
-    ]
-  },
-  {
     "id": "rayneo-air-4-pro-batman-edition",
     "name": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition",
     "price": "1000000",
@@ -788,70 +764,6 @@
       {
         "src": "/sales-photos/rayneo-air-4-pro-batman-edition/rayneo-air-4-pro-batman-edition-8.jpg",
         "alt": "RayNeo Air 4 Pro XR glasses, Batman Limited Justice Edition, photo 8 of 8"
-      }
-    ]
-  },
-  {
-    "id": "rog-xbox-ally-x",
-    "name": "ROG Xbox Ally X handheld console",
-    "price": "3800000",
-    "description": "ASUS ROG Xbox Ally X handheld gaming PC in black, with its original box, ROG carrying case and charger.",
-    "photos": [
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-1.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 1 of 8"
-      },
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-2.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 2 of 8"
-      },
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-3.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 3 of 8"
-      },
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-4.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 4 of 8"
-      },
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-5.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 5 of 8"
-      },
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-6.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 6 of 8"
-      },
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-7.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 7 of 8"
-      },
-      {
-        "src": "/sales-photos/rog-xbox-ally-x/rog-xbox-ally-x-8.jpg",
-        "alt": "ROG Xbox Ally X handheld console, photo 8 of 8"
-      }
-    ]
-  },
-  {
-    "id": "folding-clothes-drying-rack",
-    "name": "Folding standing clothes drying rack",
-    "price": "80000",
-    "description": "Tripod clothes drying stand with fold-out arms and many hanging clips. Folds down compactly for storage.",
-    "photos": [
-      {
-        "src": "/sales-photos/folding-clothes-drying-rack/folding-clothes-drying-rack-1.jpg",
-        "alt": "Folding standing clothes drying rack, photo 1 of 4"
-      },
-      {
-        "src": "/sales-photos/folding-clothes-drying-rack/folding-clothes-drying-rack-2.jpg",
-        "alt": "Folding standing clothes drying rack, photo 2 of 4"
-      },
-      {
-        "src": "/sales-photos/folding-clothes-drying-rack/folding-clothes-drying-rack-3.jpg",
-        "alt": "Folding standing clothes drying rack, photo 3 of 4"
-      },
-      {
-        "src": "/sales-photos/folding-clothes-drying-rack/folding-clothes-drying-rack-4.jpg",
-        "alt": "Folding standing clothes drying rack, photo 4 of 4"
       }
     ]
   },
